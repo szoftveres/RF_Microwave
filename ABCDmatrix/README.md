@@ -1,15 +1,15 @@
 # Transfer matrix simulation of two loosely coupled resonant tank circuits
 
+This is the GNU Octave (MATLAB-alike) simulation of two, loosely coupled LC filters (fc around 455kHz), using the cascaded transfer matrix technique.
+
 ![image circuit](circuit.png)
 
-
-## CLI under linux:
+## CLI command under linux with GNU Octave:
 `octave ./abcdmaix.m`
 
-## S2,1
+## S2,1 results
 
-![image s11](s11.png)
-
+![image s21](s21.png)
 
 ## From Pozar book
 
