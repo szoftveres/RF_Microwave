@@ -3,6 +3,10 @@
 This is the GNU Octave (MATLAB-alike) simulation of two, loosely coupled LC tank circuits (fc around 455kHz), using the cascaded transfer matrix technique.
 
 ```
+        L1              C2              C3              C4              L5
+      parallel        series         parallel         series         parallel
+      inductor       capacitor       capacitor       capacitor       inductor
+
 M = | 1     0 |  x  | 1 Z(c2) |  x  | 1     0 |  x  | 1 Z(c4) |  x  | 1     0 |
     | Y(l1) 1 |     | 0     1 |     | Y(c3) 1 |     | 0     1 |     | Y(l5) 1 |
 ```
