@@ -18,27 +18,27 @@ for i = 1:length(f)
 
          
     % Parallel 690uH lossy inductor (0.1 ohm)     
-    P1 = [1 0;
+    L1 = [1 0;
          1/(0.1 + (omega * 690e-6)*j) 1]
 
     % Series 180pF capacitor 
-    P2 = [1 0 - (1/(omega * 180e-12))*j;
+    C2 = [1 0 - (1/(omega * 180e-12))*j;
          0 1]
          
     % Parallel 6.8nF capacitor     
-    P3 = [1 0;
+    C3 = [1 0;
          1/(0 - (1/(omega * 6.8e-9))*j) 1]
 
     % Series 180pF capacitor 
-    P4 = [1 0 - (1/(omega * 180e-12))*j;
+    C4 = [1 0 - (1/(omega * 180e-12))*j;
          0 1]
          
     % Parallel 690uH lossy inductor (0.1 ohm)     
-    P5 = [1 0;
+    L5 = [1 0;
          1/(0.1 + (omega * 690e-6)*j) 1]
 
 
-    M = P1 * P2 * P3 * P4 * P5
+    M = L1 * C2 * C3 * C4 * L5
 
 
     %Z11 = A/C
