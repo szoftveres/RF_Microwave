@@ -1,5 +1,9 @@
 # Transfer matrix simulation of two loosely coupled resonant tank circuits
 
+
+* cli:
+ * octave ./abcdmaix.m
+
 S2,1:
 
 ![image s11](s11.png)
