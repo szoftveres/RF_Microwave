@@ -14,7 +14,7 @@ M = | 1     0 |  x  | 1 Z(c2) |  x  | 1     0 |  x  | 1 Z(c4) |  x  | 1     0 |
 ![image circuit](circuit.png)
 
 ## CLI command under linux with GNU Octave:
-`octave ./abcdmaix.m`
+`octave ./abcdmatrix.m`
 
 ## S2,1 results
 
