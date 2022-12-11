@@ -11,31 +11,65 @@ S21dBplot = []
 S21Angleplot = []
 Z11Magplot = []
 
+function Y = Admittance(Z)
+    Y = 1 / Z
+end
 
-for i = 1:length(f)
+function O = Omega(F)
+    O = 2 * pi * F
+end
 
-    omega = 2 * pi * f(i)
+function M = SeriesImpedanceMatrix(Z)
+    M = zeros(2)
+    M(1,1) = 1 + 0j
+    M(1,2) = Z
+    M(2,1) = 0 + 0j
+    M(2,2) = 1 + 0j
+end
+
+function M = ParallelImpedanceMatrix(Z)
+    M = zeros(2)
+    M(1,1) = 1 + 0j
+    M(1,2) = 0 + 0j
+    M(2,1) = Admittance(Z)
+    M(2,2) = 1 + 0j
+end
+
+function Z = CapacitorImpedance(C, F)
+    Z = 0 - (1/(Omega(F) * C))*j
+end
+
+function Z = InductorImpedance(L, F)
+    Z = 0 + (Omega(F) * L)*j
+end
+
+function Z = ParallelImpedance(Z1, Z2)
+    Z = 1 / ((1 / Z1) + (1 / Z2))
+end
+
+function Z = SeriesImpedance(Z1, Z2)
+    Z = Z1 + Z2
+end
+
+for fp = 1:length(f)
+
+    omega = 2 * pi * f(fp)
 
          
     % Parallel 690uH lossy inductor (0.1 ohm)     
-    L1 = [1 0;
-         1/(0.1 + (omega * 690e-6)*j) 1]
+    L1 = ParallelImpedanceMatrix(SeriesImpedance(0.1, InductorImpedance(690e-6, f(fp))))
 
     % Series 180pF capacitor 
-    C2 = [1 0 - (1/(omega * 180e-12))*j;
-         0 1]
+    C2 = SeriesImpedanceMatrix(CapacitorImpedance(180e-12, f(fp)))
          
     % Parallel 6.8nF capacitor     
-    C3 = [1 0;
-         1/(0 - (1/(omega * 6.8e-9))*j) 1]
+    C3 = ParallelImpedanceMatrix(CapacitorImpedance(6.8e-9, f(fp)))
 
     % Series 180pF capacitor 
-    C4 = [1 0 - (1/(omega * 180e-12))*j;
-         0 1]
+    C4 = SeriesImpedanceMatrix(CapacitorImpedance(180e-12, f(fp)))
          
     % Parallel 690uH lossy inductor (0.1 ohm)     
-    L5 = [1 0;
-         1/(0.1 + (omega * 690e-6)*j) 1]
+    L5 = ParallelImpedanceMatrix(SeriesImpedance(0.1, InductorImpedance(690e-6, f(fp))))
 
 
     M = L1 * C2 * C3 * C4 * L5
