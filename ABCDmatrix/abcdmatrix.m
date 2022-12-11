@@ -60,4 +60,6 @@ for i = 1:length(f)
 end
 
 plot(f, S21dBplot)
+xlabel("f(Hz)");
+ylabel("S2,1(dB)");
 pause()
