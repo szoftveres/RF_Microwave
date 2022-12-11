@@ -55,17 +55,22 @@ for fp = 1:length(sweeppoints)
 
     f = sweeppoints(fp)
 
-
+    % 665uH lossy inductor with series 4ohms 
     M = ParallelImpedanceMatrix(SeriesImpedance(4, InductorImpedance(665e-6, f)))
 
+    % 180pF capacitor
     M = M * ParallelImpedanceMatrix(CapacitorImpedance(180e-12, f))
 
+    % Adding the remaining 4 elements in a loop
     for element = 1:4
-        
+
+        % 2pF coupling capacitor
         M = M * SeriesImpedanceMatrix(CapacitorImpedance(2e-12, f))
 
+        % 665uH lossy inductor with series 4ohms 
         M = M * ParallelImpedanceMatrix(CapacitorImpedance(180e-12, f))
          
+        % 180pF capacitor
         M = M * ParallelImpedanceMatrix(SeriesImpedance(4, InductorImpedance(665e-6, f)))
 
     end
