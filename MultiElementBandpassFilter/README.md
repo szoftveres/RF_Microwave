@@ -1,8 +1,6 @@
 # 5 element bandpass filter centered at 455kHz
 
-With realistic inductor losses and port impedances
-
-Transfer matrix modeling and simulation
+Transfer matrix modeling and simulation with realistic inductor losses and port impedances
 
 ![image circuit](circuit.png)
 
