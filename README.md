@@ -1,2 +1,6 @@
 # RF_Matlab
-RF stuff
+Mostly transfer (ABCD) matrix simulations
+
+![image 1](ABCD1.png)
+![image 2](ABCD2.png)
+

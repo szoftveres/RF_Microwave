@@ -20,7 +20,3 @@ M = | 1     0 |  x  | 1 Z(c2) |  x  | 1     0 |  x  | 1 Z(c4) |  x  | 1     0 |
 
 ![image s21](s21.png)
 
-## From Pozar book
-
-![image 1](ABCD1.png)
-![image 2](ABCD2.png)
