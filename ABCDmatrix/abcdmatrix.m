@@ -1,7 +1,7 @@
 % script matrix1
 
 % 400kHz - 500kHz
-f = 400e+3:1e+3:500e+3;
+sweeppoints = 400e+3:1e+3:500e+3;
 
 % port impedance
 Z0 = 200000 + 0j
@@ -51,25 +51,23 @@ function Z = SeriesImpedance(Z1, Z2)
     Z = Z1 + Z2
 end
 
-for fp = 1:length(f)
+for fp = 1:length(sweeppoints)
+    f = sweeppoints(fp)
 
-    omega = 2 * pi * f(fp)
-
-         
     % Parallel 690uH lossy inductor (0.1 ohm)     
-    L1 = ParallelImpedanceMatrix(SeriesImpedance(0.1, InductorImpedance(690e-6, f(fp))))
+    L1 = ParallelImpedanceMatrix(SeriesImpedance(0.1, InductorImpedance(690e-6, f)))
 
     % Series 180pF capacitor 
-    C2 = SeriesImpedanceMatrix(CapacitorImpedance(180e-12, f(fp)))
+    C2 = SeriesImpedanceMatrix(CapacitorImpedance(180e-12, f))
          
     % Parallel 6.8nF capacitor     
-    C3 = ParallelImpedanceMatrix(CapacitorImpedance(6.8e-9, f(fp)))
+    C3 = ParallelImpedanceMatrix(CapacitorImpedance(6.8e-9, f))
 
     % Series 180pF capacitor 
-    C4 = SeriesImpedanceMatrix(CapacitorImpedance(180e-12, f(fp)))
+    C4 = SeriesImpedanceMatrix(CapacitorImpedance(180e-12, f))
          
     % Parallel 690uH lossy inductor (0.1 ohm)     
-    L5 = ParallelImpedanceMatrix(SeriesImpedance(0.1, InductorImpedance(690e-6, f(fp))))
+    L5 = ParallelImpedanceMatrix(SeriesImpedance(0.1, InductorImpedance(690e-6, f)))
 
 
     M = L1 * C2 * C3 * C4 * L5
@@ -93,7 +91,7 @@ for fp = 1:length(f)
 
 end
 
-plot(f, S21dBplot)
+plot(sweeppoints, S21dBplot)
 xlabel("f(Hz)");
 ylabel("S2,1(dB)");
 pause()
