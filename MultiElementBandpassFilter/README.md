@@ -1,5 +1,7 @@
 # 5 element bandpass filter centered at 455kHz
 
+Transfer matrix modeling and simulation
+
 ![image circuit](circuit.png)
 
 ## CLI command under linux with GNU Octave:
