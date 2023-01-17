@@ -2,7 +2,7 @@
 
 
 % 60 - 90GHz 
-sweeppoints = 60e+9:.1e+9:90e+9;
+sweeppoints = 60e+9:.25e+9:90e+9;
 
 
 function Y = Admittance(Z)
@@ -59,13 +59,15 @@ function Z = Zfree()
     Z = sqrt(Mu0 / E0)
 end
 
+function B = RectangularWaveguidePhaseConstant(a, f, emode)
+    k0 = Omega(f) / LightSpeed()
+    B = sqrt((k0 ^ 2) - (((emode * pi) / a) ^ 2))
+end
 
 function Z = RectangularWaveguideWaveImpedance(a, f, emode)
-    c = LightSpeed()
-    k0 = Omega(f) / c
-    BetaZ = sqrt((k0 ^ 2) - (((emode * pi) / a) ^ 2))
+    k0 = Omega(f) / LightSpeed()
 
-    Z = (k0 * Zfree()) / BetaZ
+    Z = (k0 * Zfree()) / RectangularWaveguidePhaseConstant(a, f, emode)
 end
 
 
@@ -82,9 +84,7 @@ end
 function M = RectangularWaveguideMatrix(a, b, l, f)
     Zcharacteristic = RectangularWaveguideCharacteristicImpedance(a, b, f)
 
-    c = LightSpeed()
-    k0 = Omega(f) / c
-    BetaZ = sqrt((k0 ^ 2) - ((pi / a) ^ 2))
+    BetaZ = RectangularWaveguidePhaseConstant(a, f, 1)
 
     M = zeros(2)
     M(1,1) = cos(BetaZ * l)
@@ -130,6 +130,7 @@ S11dBplot = []
 S21dBplot = []
 Z11Smithplot = []
 Z11Realplot = []
+PhaseConstantPlot = []
 
 for fp = 1:length(sweeppoints)
 
@@ -183,6 +184,7 @@ for fp = 1:length(sweeppoints)
     S21dBplot = [S21dBplot; 10*log10(abs(S21))]
     Z11Smithplot = [Z11Smithplot; Z11]
     Z11Realplot = [Z11Realplot; abs(Z11)]
+    PhaseConstantPlot = [PhaseConstantPlot; RectangularWaveguidePhaseConstant(a1, f, 1)]
 
 end
 
@@ -192,21 +194,29 @@ fprintf(2, "Z_freespace: %.6f ohm\n", Zfree());
 
 subplot(2, 2, 1)
 plot(sweeppoints, S11dBplot)
+title('S1,1 (dB)')
 xlabel("f(Hz)");
 ylabel("S1,1(dB)");
 
 subplot(2, 2, 2)
 plot(sweeppoints, S21dBplot)
+title('S2,1 (dB)')
 xlabel("f(Hz)");
 ylabel("S2,1(dB)");
 
 
 subplot(2, 2, 3)
 plot(sweeppoints, Z11Realplot)
+title('Z11 impedance')
 xlabel("f(Hz)");
 ylabel("Z(ohm)");
 
 
+subplot(2, 2, 4)
+plot(sweeppoints, PhaseConstantPlot)
+title('Phase Constant')
+xlabel("f(Hz)");
+ylabel("Beta(m-1)");
 
 pause()
 
