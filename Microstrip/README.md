@@ -1,12 +1,12 @@
-# Building a 50ohm microstrip line on a single-sided PCB of unknown dielectric substrate
+# Building a 50ohm copper-tape microstrip on a single-sided PCB of unknown dielectric substrate
 
-First we need to determine the Er of the PCB. We have a 1/4" wide copper tape and a 1.4mm thick single-sided PCB with a ~35um copper layer on it to work with:
+First we need to determine the Er of the substrate. We have a 1/4" wide copper tape and a 1.4mm thick single-sided PCB with a ~35um copper layer on it to work with:
 
 ![image 1](TraceThickness.jpg)
 ![image 2](SubstrateThickness.jpg)
 
 After building a transmission line with this copper strip of known width on the PCB of known thickness, we need to determine its characteristic impedance; we can use the 1/4 wave impedance transformer method for this: a 1/4 wave impedance transformer terminated by 50ohm on one side looks purely resistive on its other side at the frequency where it's behaving as a 1/4 wave impedance transformer, and the impedance it's showing (measured by VNA) is based on how it's reflecting the 50ohm termination back, based on its own characteristic impedance.
-The characteristic impedance of the transmission line can then be derived from the impedances at its two sides: Zt = sqrt(Z1 * Z2), where Z1 is the termination impedance (50ohm) and Z2 is the measured impedance (16ohm) at the VNA port.
+The characteristic impedance of the transmission line can then be derived from the impedances at its two sides: Zt = sqrt(Z1 * Z2), where Z1 is the termination impedance (50ohm) and Z2 is the measured impedance (16ohm) at its other side.
 
 ![image 3](ThickWg.jpg)
 ![image 4](vna.jpg)
