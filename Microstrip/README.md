@@ -1,6 +1,6 @@
 # Building a 50ohm copper-tape microstrip on a single-sided PCB of unknown dielectric substrate
 
-First we need to determine the Er of the substrate. We have a 1/4" wide copper tape and a 1.4mm thick single-sided PCB with a ~35um copper layer on it to work with:
+First we need to determine the Er of the substrate. We have a 1/4" wide copper tape and a 1.4mm thick single-sided PCB with a ~35um thick copper layer on it to work with:
 
 ![image 1](TraceThickness.jpg)
 ![image 2](SubstrateThickness.jpg)
@@ -26,5 +26,5 @@ The resulting width is 2.72mm.
 
 ![image 7](ThinWg.jpg)
 
-We can verify the result of the new, 2.72mm wide transmission line, by again using the 1/4 wave impedance transformer method. The new, 50 ohm terminated 1/4 wave impedance transformer is showing impedances between 44ohm and 50ohm, corresponding to 47-50ohm transmission line characteristic impedance.
+We can verify the new, 2.72mm wide transmission line, by again using the 1/4 wave impedance transformer method. The new, 50 ohm terminated 1/4 wave impedance transformer is showing impedances between 44ohm and 50ohm, corresponding to 47-50ohm transmission line characteristic impedance.
 
