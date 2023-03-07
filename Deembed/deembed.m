@@ -55,9 +55,6 @@ function M = TLineMatrix(Z, Edeg)
 end
 
 
-% The frequency: 1.5GHz
-f = 1.5e+9
-
 
 % The impedance, as seen by the VNA / ADS
 Z = 24 - j * 12
@@ -65,7 +62,7 @@ Z = 24 - j * 12
 
 M = ParallelImpedanceMatrix(Z)
 
-% The TLine to deembed
+% The TLine to deembed: 50 ohms, 90 degree (1/4 wave)
 M = M / TLineMatrix(50.0, 90)
 
 
