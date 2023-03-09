@@ -4,7 +4,7 @@ This little script takes a complex impedance, and deembeds a given fixture (e.g.
 
 ![deembed](deembed.png)
 
-First, we need to reconstruct the ABCD matrix of the entire system. Since we only have a single-port impedance but want to build a 2-port network, we pretend that the other port is there but has nothing attached to it. Also, -for the sake of simplified de-embedding maths- we pretend that the network we've measured is on port 2, and hence the network we're working with is the mirrored, i.e. the inner network is followed by the fixture, which then connects to the outside world (port 2).
+First, we need to reconstruct the ABCD matrix of the entire system. Since we only have a single-port impedance but want to build a 2-port network, we pretend that the other port is there but has nothing attached to it. Also, -for the sake of simplified de-embedding maths- we pretend that the network we've measured is on port 2, and hence the network we're working with is the mirrored, i.e. the inner network is followed by the fixture, which then connects to the outside world (port 2). Consequently, we pretend that port 1 has nothing attached to it and never interacts with port 2.
 
 ![deembedmirror](deembedmirror.png)
 
