@@ -46,29 +46,37 @@ function Z = SeriesImpedance(Z1, Z2)
 end
 
 
-function M = TLineMatrix(Z, Edeg)
+function M = TLineMatrix(Z, Erad)
     M = zeros(2)
-    M(1,1) = cos(Edeg)
-    M(1,2) = sin(Edeg) * Z * j
-    M(2,1) = sin(Edeg) * Admittance(Z) * j
-    M(2,2) = cos(Edeg)
+    M(1,1) = cos(Erad)
+    M(1,2) = sin(Erad) * Z * j
+    M(2,1) = sin(Erad) * Admittance(Z) * j
+    M(2,2) = cos(Erad)
 end
 
+% Port impedance
+Z0 = 50 + j * 0
+
+% The impedance, as seen by the VNA
+% Pretending that we've measured this on port 2
+Z22 = 24 - j * 12
+
+% S-parameters for port 2 (S11, S21 and S12 are zero)
+S22 = (Z22 - Z0) / (Z22 + Z0)
+
+% ABCD matrix (totally ignoring port 1)
+M = zeros(2)
+M(2,1) = (1 - S22) * Admittance(Z0)
+M(2,2) = (1 + S22)
 
 
-% The impedance, as seen by the VNA / ADS
-Z = 24 - j * 12
+% The TLine to deembed: 50 ohms, 90 degrees
+MT = TLineMatrix(50.0, deg2rad(90))
 
+% De-embedding
+M = M / MT
 
-M = ParallelImpedanceMatrix(Z)
-
-% The TLine to deembed: 50 ohms, 90 degree (1/4 wave)
-M = M / TLineMatrix(50.0, 90)
-
-
-% By definition, Z1,1 = A/C
-M(1,1) / M(2,1)
-
-
+% By definition, Z22 = D/C
+M(2,2) / M(2,1)
 
 
