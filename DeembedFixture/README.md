@@ -12,6 +12,5 @@ As a first step, we establish S22, from the measured impedance (Z22). Then we bu
 
 As a next step, we build up the ABCD matrix of the *fixture* - which in this case is modeled ideal transmission line.
 
-Finally, we de-embed the fixture from the system by the virtue of a simple matrix division - which is possible due to the fact that we used the *"mirrored"* image of the network (pretending that the ABCD matrix of the fixture was cascaded with the inner network, resulting in the measured impedance by the VNA) 
-
+Finally, we de-embed the fixture from the system by the virtue of a simple matrix division - which is possible due to the fact that we used the *"mirrored"* image of the network, i.e. pretending that the ABCD matrix of the fixture was cascaded together with the inner network, resulting in the impedance we measured with the VNA.
 
