@@ -14,11 +14,11 @@ M = | 1     0 |  x  | 1 Z(c2) |  x  | 1     0 |  x  | 1 Z(c4) |  x  | 1     0 |
 ![image circuit2](circuit2.png)
 
 ## CLI command under linux with GNU Octave:
-`octave ./abcdmatrix.m`
+`octave ./bandpass2element455kHz.m`
 
 ## S2,1 results
 
-![image s21](s21.png)
+![image s212](s212.png)
 
 
 

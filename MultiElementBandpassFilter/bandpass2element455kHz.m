@@ -11,6 +11,7 @@ S21dBplot = []
 S21Angleplot = []
 Z11Magplot = []
 
+% common functions
 addpath("../ABCDmatrix")
 
 for fp = 1:length(sweeppoints)
