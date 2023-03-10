@@ -4,126 +4,7 @@
 % 60 - 90GHz 
 sweeppoints = 60e+9:.25e+9:90e+9;
 
-
-function Y = Admittance(Z)
-    Y = 1 / Z
-end
-
-function O = Omega(F)
-    O = 2 * pi * F
-end
-
-function M = SeriesImpedanceMatrix(Z)
-    M = zeros(2)
-    M(1,1) = 1 + 0j
-    M(1,2) = Z
-    M(2,1) = 0 + 0j
-    M(2,2) = 1 + 0j
-end
-
-function M = ParallelImpedanceMatrix(Z)
-    M = zeros(2)
-    M(1,1) = 1 + 0j
-    M(1,2) = 0 + 0j
-    M(2,1) = Admittance(Z)
-    M(2,2) = 1 + 0j
-end
-
-function Z = CapacitorImpedance(C, F)
-    Z = 0 - (1/(Omega(F) * C))*j
-end
-
-function Z = InductorImpedance(L, F)
-    Z = 0 + (Omega(F) * L)*j
-end
-
-function Z = ParallelImpedance(Z1, Z2)
-    Z = 1 / ((1 / Z1) + (1 / Z2))
-end
-
-function Z = SeriesImpedance(Z1, Z2)
-    Z = Z1 + Z2
-end
-
-
-function M = RectangularWaveguideWidthObstacleMatrix(a1, a2, b, f)
-end
-
-function c = LightSpeed()
-    c = 299792458
-end
-
-function Z = Zfree()
-    Mu0 = 4 * pi * 1e-7
-    E0 = 1 / (Mu0 * LightSpeed() ^ 2)
-    Z = sqrt(Mu0 / E0)
-end
-
-function B = RectangularWaveguidePhaseConstant(a, f, emode)
-    k0 = Omega(f) / LightSpeed()
-    B = sqrt((k0 ^ 2) - (((emode * pi) / a) ^ 2))
-end
-
-function Z = RectangularWaveguideWaveImpedance(a, f, emode)
-    k0 = Omega(f) / LightSpeed()
-
-    Z = (k0 * Zfree()) / RectangularWaveguidePhaseConstant(a, f, emode)
-end
-
-
-function Z = RectangularWaveguideCharacteristicImpedance(a, b, f)
-    Z = RectangularWaveguideWaveImpedance(a, f, 1) * (b / a) * 4
-end
-
-
-function M = RectangularWaveguideTerminationMatrix(a, b, f)
-    M = ParallelImpedanceMatrix(RectangularWaveguideCharacteristicImpedance(a, b, f))
-end
-
-
-function M = RectangularWaveguideMatrix(a, b, l, f)
-    Zcharacteristic = RectangularWaveguideCharacteristicImpedance(a, b, f)
-
-    BetaZ = RectangularWaveguidePhaseConstant(a, f, 1)
-
-    M = zeros(2)
-    M(1,1) = cos(BetaZ * l)
-    M(1,2) = sin(BetaZ * l) * Zcharacteristic * j
-    M(2,1) = sin(BetaZ * l) * Admittance(Zcharacteristic) * j
-    M(2,2) = cos(BetaZ * l)
-end
-
-
-function X = StepReactanceHPlane(a, c, f)
-    modes = 1:1:25;
-    X = 0
-
-    if (a > c)
-        along = a
-        ashort = c
-    else
-        along = c
-        ashort = a
-    endif
-
-    I = quad(@(x) sin((pi * x)/ashort) * sin((pi * x)/along), 0, ashort, [0.5e-20, 0.5e-20])
-
-    for mode = 1:length(modes)
-        ZwaveLong = RectangularWaveguideWaveImpedance(along, f, mode)
-        ZwaveShort = RectangularWaveguideWaveImpedance(ashort, f, mode)
-
-        Zloadeff = (4 * ZwaveShort * (I ^ 2)) / (along * ashort)
-
-        A = (Zloadeff - ZwaveLong) / (Zloadeff + ZwaveLong)
-
-        X += ZwaveLong * ((1 + A)/(1 - A)) * j
-    end
-
-    if (a > c)
-        X *= -1
-    endif
-
-end
+addpath("../ABCDmatrix")
 
 
 S11dBplot = []
@@ -173,15 +54,10 @@ for fp = 1:length(sweeppoints)
     %Z11 = A/C
     Z11 = (M(1,1)/M(2,1))
 
-    %S11 = (A + B/Z0 - C*Z0 - D) / (A + B/Z0 + C*Z0 + D)
-    S11 = (M(1,1) + (M(1,2)/Z0) - (M(2,1)*Z0) - M(2,2)) / (M(1,1) + (M(1,2)/Z0) + (M(2,1)*Z0) + M(2,2))
-
-
-    %S21 = 2 / (A + B/Z0 + C*Z0 + D)
-    S21 = 2 / (M(1,1) + (M(1,2)/Z0) + (M(2,1)*Z0) + M(2,2))
-    
-    S11dBplot = [S11dBplot; 10*log10(abs(S11))]
-    S21dBplot = [S21dBplot; 10*log10(abs(S21))]
+    S = abcd2s(M, Z0)
+ 
+    S11dBplot = [S11dBplot; 10*log10(abs(S(1,1)))]
+    S21dBplot = [S21dBplot; 10*log10(abs(S(2,1)))]
     Z11Smithplot = [Z11Smithplot; Z11]
     Z11Realplot = [Z11Realplot; abs(Z11)]
     PhaseConstantPlot = [PhaseConstantPlot; RectangularWaveguidePhaseConstant(a1, f, 1)]

@@ -5,54 +5,7 @@
 f = 1.5e+9
 
 
-function Y = Admittance(Z)
-    Y = 1 / Z
-end
-
-function O = Omega(F)
-    O = 2 * pi * F
-end
-
-function M = SeriesImpedanceMatrix(Z)
-    M = zeros(2)
-    M(1,1) = 1 + 0j
-    M(1,2) = Z
-    M(2,1) = 0 + 0j
-    M(2,2) = 1 + 0j
-end
-
-function M = ParallelImpedanceMatrix(Z)
-    M = zeros(2)
-    M(1,1) = 1 + 0j
-    M(1,2) = 0 + 0j
-    M(2,1) = Admittance(Z)
-    M(2,2) = 1 + 0j
-end
-
-function Z = CapacitorImpedance(C, F)
-    Z = 0 - (1/(Omega(F) * C))*j
-end
-
-function Z = InductorImpedance(L, F)
-    Z = 0 + (Omega(F) * L)*j
-end
-
-function Z = ParallelImpedance(Z1, Z2)
-    Z = 1 / ((1 / Z1) + (1 / Z2))
-end
-
-function Z = SeriesImpedance(Z1, Z2)
-    Z = Z1 + Z2
-end
-
-
-function M = TLineMatrix(Z, Erad)
-    M = zeros(2)
-    M(1,1) = cos(Erad)
-    M(1,2) = sin(Erad) * Z * j
-    M(2,1) = sin(Erad) * Admittance(Z) * j
-    M(2,2) = cos(Erad)
-end
+addpath("../ABCDmatrix")
 
 % Port impedance
 Z0 = 50 + j * 0
