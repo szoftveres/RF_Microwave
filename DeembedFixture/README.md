@@ -16,7 +16,7 @@ Finally, we de-embed the fixture from the system by the virtue of a simple matri
 
 ## Example
 
-We have a series RC network of 25ohms and 22pf behind a 50ohm transmission line that has a length of 1/4 wave at 376MHz (details on how to construct and characterize this microstrip line is [here](https://github.com/szoftveres/RF_Microwave_Matlab/tree/main/Microstrip))
+We have a series RC network of 25ohms and 22pf behind a [50ohm copper tape microstrip line that has a length of 1/4 wave at 376MHz](https://github.com/szoftveres/RF_Microwave_Matlab/tree/main/Microstrip)
 
 ![exnetwork](exnetwork.png)
 ![exline](exline.jpg)
@@ -27,5 +27,5 @@ When we measure this network, we get a Z1,1 impedance of *48.4 + 39.5j* ohms.
 ![exreal](exreal.jpg)
 ![eximag](eximag.jpg)
 
-After de-embedding the 1/4 wave transmission line, we get an impedance of *26.675 - 17.813j* ohms, which corresponds to 26.7 ohms resistance and 23.7pf capacitance at 376MHz.
+After de-embedding the 1/4 wave transmission line, we get an impedance of *26.675 - 17.813j* ohms, which is an impedance of a series RC network of 26.7 ohms resistance and 23.7pf capacitance at 376MHz.
 
