@@ -16,7 +16,7 @@ Finally, we de-embed the fixture from the system by the virtue of a simple matri
 
 ### 2x-thru de-embedding
 
-In case the 2x-thru s-parameters are available (which is the case when a special coupon board is constructed for 2-port network measurement, containing both the embedded circuit as well as the symmetrical, thru-cunnected in- and out fixtures), the network parameters of the individual fixtures can be easily obtained by first converting the 2x-thru line s-parameters (obtained by a simple VNA measurement) to ABCD matrix, then simply applying a matrix square root (by definition, the 2x thru network is the product of the cascaded ABCD matrices of the two individual fixtures). Matrix square root operation is readily available in Matlab and Octave; the prerequisite though is that the two fixtures have to be fully symmetrical, and as homogenous as possible.
+In case the 2x-thru s-parameters are available (which is the case when a special coupon board is constructed for 2-port network measurement, containing both the embedded circuit as well as the symmetrical, thru-cunnected in- and out fixtures), the network parameters of the individual fixtures can easily be calculated by first converting the 2x-thru line s-parameters (obtained by a simple VNA measurement) to ABCD matrix, then simply applying a matrix square root operation (by definition, the 2x thru network is the product of the cascaded ABCD matrices of the two individual fixtures). Matrix square root operation is readily available in Matlab and Octave; the prerequisite though is that the two fixtures have to be fully symmetrical, and as homogenous as possible.
 
 ## Example
 

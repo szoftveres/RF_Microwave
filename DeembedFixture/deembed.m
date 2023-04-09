@@ -26,6 +26,10 @@ M(2,2) = (1 + S22)
 % The TLine to deembed: 50 ohms, 90 degrees
 MT = TLineMatrix(50.0, deg2rad(80))
 
+% If the 2x-thru parameters are available, we can just apply
+% sqrt operation on them to get one of the fixtures
+% M = sqrtm(M)
+
 % De-embedding
 M = M / MT
 

@@ -30,6 +30,9 @@ We can verify the new, 2.72mm wide transmission line, by again using the 1/4 wav
 
 ## Coupled-line bandpass filter
 
+Microstrip band-pass filter centered around 961MHz, built on a PCB with copper-tape.
+
 ![filt1](filter1.jpg)
+S1,1 (yellow) and S2,1
 ![filt2](filter2.jpg)
 
