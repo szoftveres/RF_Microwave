@@ -7,10 +7,13 @@ Frequency-domain reflection is readily available, as it is the direct result of 
 This scripts simulates the S-parameters of a series of transmission lines, each having slightly different characteristic impedance and length, then applies inverse Fourier-transform to get the time-domain reflection. Finally, it calculates the time-domain impedance plot from the time-domain reflection plot, by integrating the former, as a function of time. 
 
 Simulated network:
+
 ![tdrschem](tdrschem.jpg)
 
 Time-domain reflection plot:
+
 ![tdrplot1](tdrplot1.png)
 
 Time-domain impedance plot:
-![tdrplot2](tdrplot2.png)
+
+![tdrplot3](tdrplot3.png)
