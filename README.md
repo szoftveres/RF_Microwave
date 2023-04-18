@@ -4,7 +4,7 @@
 * [Complex impedance matching with 1/4 wave impedance transformer](https://github.com/szoftveres/RF_Microwave_Matlab/tree/main/ComplexMatching)
 * [Fixture de-embedding](https://github.com/szoftveres/RF_Microwave_Matlab/tree/main/DeembedFixture)
 * [Transfer (ABCD) matrix simulation of loosely coupled resonant tank band-pass filters](https://github.com/szoftveres/RF_Microwave_Matlab/tree/main/MultiElementBandpassFilter)
-* [Simulating Time-domain Reflection (TDR)](https://github.com/szoftveres/RF_Microwave_Matlab/tree/main/tdr)
+* [Time-domain Reflection (TDR) simulation](https://github.com/szoftveres/RF_Microwave_Matlab/tree/main/tdr)
 
 
 ![image 1](ABCD1.png)
