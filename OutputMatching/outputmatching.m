@@ -1,6 +1,6 @@
 % script matrix1
 
-% 900MHz - 1.1GHz
+% 800MHz - 1.2GHz
 sweeppoints = 800e+6:5e+6:1200e+6;
 
 % port impedance
