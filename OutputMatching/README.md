@@ -13,4 +13,16 @@ In the below example, a transmission line with a characteristic impedance of 100
 ![image plot](plot.png)
 
 
+Measurement with real (lossy) components show degraded Q and lower input impedance
+
+![image real](realmeas.jpg)
+
+![image imag](imagmeas.jpg)
+
+![image photo](photo.jpg)
+
+Re-simulated with lossy T-line and caps with ESR
+
+![image loq](loq.png)
+
 
