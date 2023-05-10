@@ -57,8 +57,8 @@ for fp = 1:length(sweeppoints)
 
     S = abcd2s(M, Z0)
  
-    S11dBplot = [S11dBplot; 10*log10(abs(S(1,1)))]
-    S21dBplot = [S21dBplot; 10*log10(abs(S(2,1)))]
+    S11dBplot = [S11dBplot; 20*log10(abs(S(1,1)))]
+    S21dBplot = [S21dBplot; 20*log10(abs(S(2,1)))]
     Z11Smithplot = [Z11Smithplot; Z11]
     Z11Realplot = [Z11Realplot; abs(Z11)]
     PhaseConstantPlot = [PhaseConstantPlot; RectangularWaveguidePhaseConstant(a1, f, 1)]

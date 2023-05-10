@@ -1,0 +1,49 @@
+% script matrix1
+
+% 100MHz - 5GHz
+sweeppoints = 300e+6:5e+6:1.5e+9;
+
+% port impedance
+Z0 = 50 + 0j
+
+
+S11dBplot = []
+S21dBplot = []
+
+% common functions
+addpath("../ABCDmatrix")
+
+L1 = 11e-9
+L2 = 5e-9
+C = 3.3e-12
+
+for fp = 1:length(sweeppoints)
+    f = sweeppoints(fp)
+
+
+    M = ParallelImpedanceMatrix(InductorImpedance(L1, f) + 0.2)
+    M = M * SeriesImpedanceMatrix(CapacitorImpedance(C, f) + 0.2)
+    M = M * ParallelImpedanceMatrix(InductorImpedance(L1 / 2, f) + 0.2)
+    M = M * SeriesImpedanceMatrix(CapacitorImpedance(C, f) + 0.2)
+    M = M * ParallelImpedanceMatrix(InductorImpedance(L1, f) + 0.2)
+
+    S = abcd2s(M, Z0)
+
+    S11dBplot = [S11dBplot; 20*log10(abs(S(1,1)))]
+    S21dBplot = [S21dBplot; 20*log10(abs(S(2,1)))]
+
+end
+
+subplot(2, 2, 1)
+plot(sweeppoints, S11dBplot)
+xlabel("f(Hz)");
+ylabel("S1,1(dB)");
+
+subplot(2, 2, 2)
+plot(sweeppoints, S21dBplot)
+xlabel("f(Hz)");
+ylabel("S2,1(dB)");
+
+pause()
+
+

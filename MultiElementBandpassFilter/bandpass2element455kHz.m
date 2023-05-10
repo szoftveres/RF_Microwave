@@ -43,7 +43,7 @@ for fp = 1:length(sweeppoints)
 
 
     % S2,1 magnitude in dB
-    S21dBplot = [S21dBplot; 10*log10(abs(S(2,1)))]
+    S21dBplot = [S21dBplot; 20*log10(abs(S(2,1)))]
     
     % S2,1 angle in degrees
     S21Angleplot = [S21Angleplot; arg(S(2,1))/pi*180]
