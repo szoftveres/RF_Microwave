@@ -1,7 +1,7 @@
 % script matrix1
 
 % 900MHz - 1.1GHz
-sweeppoints = 999e+6:10e+3:1001e+6;
+sweeppoints = 950e+6:1e+6:1050e+6;
 
 % port impedance
 Z0 = 50 + 0j
@@ -29,18 +29,21 @@ for fp = 1:length(sweeppoints)
     len = f2rad(f, 1.0e+9) / 2
 
     % Shorter section
-    Mo1 = TLineMatrix(Zt, (len * 0.34))
+    Mo1 = TLineMatrix(Zt, (len * 0.51))
     Mo1 = Mo1 * ParallelImpedanceMatrix(3e4)
 
 
     % Shorter section
-    Mo2 = TLineMatrix(Zt, (len * 0.66))
+    Mo2 = TLineMatrix(Zt, (len * 0.49))
     Mo2 = Mo2 * ParallelImpedanceMatrix(3e4)
 
 
     % Main line
     M = OrthogonalMatrix(Mo1)
     M = M * OrthogonalMatrix(Mo2)
+
+    % isolation from port2
+    M = M * SeriesImpedanceMatrix(3e12)
 
     S = abcd2s(M, Z0)
     Z = abcd2z(M)

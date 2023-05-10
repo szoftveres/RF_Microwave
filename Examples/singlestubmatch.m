@@ -1,7 +1,7 @@
 % script matrix1
 
 % 500MHz - 1.5GHz
-sweeppoints = 900e+6:10e+6:1100e+6;
+sweeppoints = 900e+6:2e+6:1100e+6;
 
 % port impedance
 Z0 = 50 + 0j
@@ -22,16 +22,21 @@ addpath("../ABCDmatrix")
 for fp = 1:length(sweeppoints)
     f = sweeppoints(fp)
 
+    % First, we need to find a series transmission line length that
+    % brings Y1,1(real) to 0.02 (1/50ohm); then find a parallel
+    % stub that resonates out the remaining reactance
     
+    % The parallel stub
     Mo = TLineMatrix(Z0, (f2rad(f, 1.0e+9)) * 0.58)
     Mo = Mo * ParallelImpedanceMatrix(3e12)
 
+    % The full network
     M = OrthogonalMatrix(Mo)
     M = M * TLineMatrix(Z0, (f2rad(f, 1.0e+9)) * 0.14)
     M = M * SeriesImpedanceMatrix(29.76)
     M = M * ParallelImpedanceMatrix(CapacitorImpedance(20.793e-12, f))
 
-    %% Isolation from Port2
+    % Isolation from Port2
     M = M * SeriesImpedanceMatrix(3e12)
 
     S = abcd2s(M, Z0)
