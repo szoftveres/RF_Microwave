@@ -11,9 +11,9 @@
 ![pcb1](pcb1.jpg)
 ![pcb2](pcb2.jpg)
 
-### Result after tuning:
+### Results after tuning:
 
-Expected:
+Simulated:
 
 ![expected](expected.png)
 
