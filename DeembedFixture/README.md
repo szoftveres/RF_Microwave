@@ -20,7 +20,7 @@ In case the 2x-thru s-parameters are available (which is the case when a special
 
 ## Example
 
-We have a series RC network of 25ohms and 22pf behind a [50ohm copper tape microstrip line that has a length of 1/4 wave at 376MHz](https://github.com/szoftveres/RF_Microwave_Matlab/tree/main/Microstrip)
+We have a series RC network of 25ohms and 22pf behind a [50ohm copper tape microstrip line that has a length of 1/4 wave at 376MHz](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip)
 
 ![exnetwork](exnetwork.png)
 ![exline](exline.jpg)

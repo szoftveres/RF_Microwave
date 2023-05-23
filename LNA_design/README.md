@@ -4,6 +4,8 @@
 
 ### The design:
 
+The transistor is biased to ~4.5mA (minimum noise figure, according to the datasheet) and both ports are simulateneously matched with parallel open stubs. Gain is on the order of ~10dB with good (but narrow-band) input match at 915MHz (ISM mid-band).
+
 ![screen](screen.png)
 
 ### The build:
