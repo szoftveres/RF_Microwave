@@ -18,19 +18,19 @@ for fp = 1:length(sweeppoints)
     f = sweeppoints(fp)
 
     % Parallel 690uH lossy inductor (0.1 ohm)     
-    L1 = ParallelImpedanceMatrix(SeriesImpedance(0.1, InductorImpedance(690e-6, f)))
+    L1 = ShuntImpedanceMatrix(SeriesImpedance(0.1, InductorImpedance(690e-6, f)))
 
     % Series 180pF capacitor 
     C2 = SeriesImpedanceMatrix(CapacitorImpedance(180e-12, f))
          
     % Parallel 6.8nF capacitor     
-    C3 = ParallelImpedanceMatrix(CapacitorImpedance(6.8e-9, f))
+    C3 = ShuntImpedanceMatrix(CapacitorImpedance(6.8e-9, f))
 
     % Series 180pF capacitor 
     C4 = SeriesImpedanceMatrix(CapacitorImpedance(180e-12, f))
          
     % Parallel 690uH lossy inductor (0.1 ohm)     
-    L5 = ParallelImpedanceMatrix(SeriesImpedance(0.1, InductorImpedance(690e-6, f)))
+    L5 = ShuntImpedanceMatrix(SeriesImpedance(0.1, InductorImpedance(690e-6, f)))
 
 
     M = L1 * C2 * C3 * C4 * L5

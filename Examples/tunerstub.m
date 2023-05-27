@@ -29,19 +29,19 @@ for fp = 1:length(sweeppoints)
     % Grounded section
     % terminated with 0.3 ohm (short)
     Mo1 = TLineMatrix(Z0, (len / 2))
-    Mo1 = Mo1 * ParallelImpedanceMatrix(0.3)
+    Mo1 = Mo1 * ShuntImpedanceMatrix(0.3)
 
 
     % Open-ended section
     % terminated with a tuning cap
     Mo2 = TLineMatrix(Z0, ((len / 2) * 1))
-    Mo2 = Mo2 * ParallelImpedanceMatrix(CapacitorImpedance(cap, f) + 0.3)
+    Mo2 = Mo2 * ShuntImpedanceMatrix(CapacitorImpedance(cap, f) + 0.3)
 
 
     % Main line
     M = TLineMatrix(Z0, f2rad(f, 1e+9))
-    M = M * OrthogonalMatrix(Mo1)
-    M = M * OrthogonalMatrix(Mo2)
+    M = M * OrthogonalNetworkMatrix(Mo1)
+    M = M * OrthogonalNetworkMatrix(Mo2)
     M = M * TLineMatrix(Z0, f2rad(f, 1e+9))
 
     S = abcd2s(M, Z0)

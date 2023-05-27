@@ -30,17 +30,17 @@ for fp = 1:length(sweeppoints)
 
     % Shorter section
     Mo1 = TLineMatrix(Zt, (len * 0.51))
-    Mo1 = Mo1 * ParallelImpedanceMatrix(3e4)
+    Mo1 = Mo1 * ShuntImpedanceMatrix(3e4)
 
 
     % Shorter section
     Mo2 = TLineMatrix(Zt, (len * 0.49))
-    Mo2 = Mo2 * ParallelImpedanceMatrix(3e4)
+    Mo2 = Mo2 * ShuntImpedanceMatrix(3e4)
 
 
     % Main line
-    M = OrthogonalMatrix(Mo1)
-    M = M * OrthogonalMatrix(Mo2)
+    M = OrthogonalNetworkMatrix(Mo1)
+    M = M * OrthogonalNetworkMatrix(Mo2)
 
     % isolation from port2
     M = M * SeriesImpedanceMatrix(3e12)

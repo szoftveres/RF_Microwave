@@ -28,13 +28,13 @@ for fp = 1:length(sweeppoints)
     
     % The parallel stub
     Mo = TLineMatrix(Z0, (f2rad(f, 1.0e+9)) * 0.58)
-    Mo = Mo * ParallelImpedanceMatrix(3e12)
+    Mo = Mo * ShuntImpedanceMatrix(3e12)
 
     % The full network
-    M = OrthogonalMatrix(Mo)
+    M = OrthogonalNetworkMatrix(Mo)
     M = M * TLineMatrix(Z0, (f2rad(f, 1.0e+9)) * 0.14)
     M = M * SeriesImpedanceMatrix(29.76)
-    M = M * ParallelImpedanceMatrix(CapacitorImpedance(20.793e-12, f))
+    M = M * ShuntImpedanceMatrix(CapacitorImpedance(20.793e-12, f))
 
     % Isolation from Port2
     M = M * SeriesImpedanceMatrix(3e12)

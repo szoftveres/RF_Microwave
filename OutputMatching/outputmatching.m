@@ -17,16 +17,16 @@ for fp = 1:length(sweeppoints)
     f = sweeppoints(fp)
 
     % Parallel cap     
-    C1 = ParallelImpedanceMatrix(CapacitorImpedance(1.5e-12, f))
+    C1 = ShuntImpedanceMatrix(CapacitorImpedance(1.5e-12, f))
 
     % TLine
     T2 = TLineMatrix(100.0, f2rad(f, 1500e+6)/4)
          
     % Parallel cap
-    C3 = ParallelImpedanceMatrix(CapacitorImpedance(5e-12, f))
+    C3 = ShuntImpedanceMatrix(CapacitorImpedance(5e-12, f))
 
     % Termination
-    R4 = ParallelImpedanceMatrix(Z0)
+    R4 = ShuntImpedanceMatrix(Z0)
 
     M = C1 * T2 * C3 * R4
 

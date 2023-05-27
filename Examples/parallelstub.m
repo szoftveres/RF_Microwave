@@ -20,11 +20,11 @@ for fp = 1:length(sweeppoints)
     % 70 ohm 1GHz 1/4 wave orthogonal stub, terminated with 0.3 ohm (short)
     Mo = SeriesImpedanceMatrix(3) % Some simulated loss (3 ohms in series)
     Mo = Mo * TLineMatrix(70, f2rad(f, 1e+9)/4)
-    Mo = Mo * ParallelImpedanceMatrix(0.3)
+    Mo = Mo * ShuntImpedanceMatrix(0.3)
 
     % Main line
     M = TLineMatrix(Z0, f2rad(f, 1e+9))
-    M = M * OrthogonalMatrix(Mo)
+    M = M * OrthogonalNetworkMatrix(Mo)
     M = M * TLineMatrix(Z0, f2rad(f, 1e+9))
 
     S = abcd2s(M, Z0)

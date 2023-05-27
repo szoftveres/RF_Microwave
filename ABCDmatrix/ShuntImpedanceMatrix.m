@@ -1,4 +1,4 @@
-function M = ParallelImpedanceMatrix(Z)
+function M = ShuntImpedanceMatrix(Z)
     M = zeros(2)
     M(1,1) = 1 + 0j
     M(1,2) = 0 + 0j
