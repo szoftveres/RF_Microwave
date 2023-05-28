@@ -20,9 +20,11 @@ Biasing of the collector is implemented by using a 1/4 wave (RF) shorted transmi
 
 The amplifier becomes unconditionally stable after adding a resistor (R3, 500 ohms, Q degeneration) to the collector, at the expense of ~1dB gain loss. Since the resistive component is added after amplification, its contribution to the overall noise figure is negligible.
 
-![stabdegen](stabdegen.png)
+![stabdegen1](stabdegen1.png)
 
-![stabplot](stabplot.png)
+Stability plots after adding the resistor:
+
+![stabplot1](stabplot1.png)
 
 ### The build:
 
