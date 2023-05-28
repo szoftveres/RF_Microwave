@@ -10,7 +10,7 @@ The transistor is biased to ~4.5mA (minimum noise figure, according to the datas
 
 Biasing of the collector is implemented by using a 1/4 wave (RF) shorted transmission line, which (as opposed to using an inductor) has the extra benefit of suppressing 2nd order harmonics, due to presenting an RF short at 2f at the collector of the transistor.
 
-![screen](screen.png)
+![schem](schem.png)
 
 ### Stability analysis
 
