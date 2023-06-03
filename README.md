@@ -1,4 +1,4 @@
-# RF, Microwave
+#  RF/microwave simulations and experiments 
 
 * [Building a 50ohm copper-tape microstrip on a single-sided PCB of unknown dielectric substrate](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip)
 * [LNA design and build](https://github.com/szoftveres/RF_Microwave/tree/main/LNA_design)
