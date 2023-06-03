@@ -2,13 +2,17 @@
 
 This [little script](deembed.m) takes a complex impedance, and de-embeds a given fixture (e.g. a transmission line, characterized by its characteristic impedance and the phase angle) from it. Useful for determining the impedance of a network behind a known fixture.
 
+The DUT network:
+
 ![deembed](deembed.png)
 
-First, we need to reconstruct the ABCD matrix of the entire system. Since we only have a single-port measurement but want to build the ABCD matrix of a 2-port network, we pretend that the other port is there, but it's terminated and the two ports don't interact. Also, -for the sake of simplified de-embedding maths- we assume that the network we're working with is on port 2 (mirrored).
+First, we need to construct a 2-port ABCD matrix, of which our DUT (embedded) system is part of. Since we only have a single-port measurement but want to build the ABCD matrix of a 2-port network, we pretend that the other port is there, but it's terminated and the two ports don't interact.
 
-![deembedmirror2](deembedmirror2.png)
+For the sake of simplified de-embedding maths- we assume that the DUT is on port 2 (the ABCD matrix network is hence mirrored).
 
 As a first step, we establish S22 from the measured impedance (Z22). Then we build up our ABCD matrix of the *entire system* with S22, assuming that all the other S-parameters (the ones involving port 1) are zero.
+
+![deembedmirror2](deembedmirror2.png)
 
 As a next step, we build up the ABCD matrix of the *fixture* - which in this case is a modeled ideal transmission line.
 
