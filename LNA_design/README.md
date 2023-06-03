@@ -14,11 +14,9 @@ Biasing of the collector is implemented by using a 1/4 wave (RF) shorted transmi
 
 ### Stability analysis
 
-This amplifier becomes unconditionally stable with some degeneration of gain, and/or isolation of reactive load from its terminals. This can be achieved by i.e. a series or parallel resistor on its input or output. Attaching the resistor to the output is preferred however, due to the resistor having a contribution to the noise figure.
-
 ![stabeq2](stabeq2.jpg)
 
-![stabeq1](stabeq1.png)
+This amplifier is potentially unstable when its ports are matched, but can be made unconditionally stable, by some degeneration of gain, and/or isolation of reactive load from its terminals. This can be achieved by i.e. a series or parallel resistor on its input or output. Attaching the resistor to the output is preferred however, due to the resistor having a contribution to the noise figure.
 
 One approach is a parallel resistor (R3, 500 ohms, Q degeneration) attached to the collector, at the expense of ~1dB gain loss. Since the resistive component is added after amplification, its contribution to the overall noise figure is negligible.
 
@@ -28,9 +26,11 @@ Stability plots after adding the resistor:
 
 ![stabplot1](stabplot1.png)
 
+![stabeq1](stabeq1.png)
+
 ### The build:
 
-The LNA was built on [FR4 with copper tapes](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip) - the stability ensuring resistor was not used since the LNA seemed oscillation free, even after tuning.
+The LNA was built on [FR4 with copper tapes](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip) - the stability ensuring resistor was omitted since the LNA seemed oscillation free, even after tuning.
 
 ![pcb1](pcb1.jpg)
 ![pcb2](pcb2.jpg)
