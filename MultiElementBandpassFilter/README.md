@@ -1,5 +1,7 @@
 # Transfer matrix simulation of two loosely coupled resonant tank circuits
 
+[Simulation code](bandpass2element455kHz.m)
+
 GNU Octave (MATLAB-alike) simulation of two, loosely coupled LC tank circuits (fc around 455kHz), using the cascaded transfer (ABCD) matrix technique.
 
 ```
@@ -17,6 +19,8 @@ M = | 1     0 |  x  | 1 Z(c2) |  x  | 1     0 |  x  | 1 Z(c4) |  x  | 1     0 |
 
 
 # 5 element bandpass filter centered at 455kHz
+
+[Simulation code](bandpass5element455kHz.m)
 
 Transfer (ABCD) matrix modeling and simulation with realistic inductor losses and port impedances
 

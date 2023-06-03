@@ -1,6 +1,6 @@
 # One-port fixture de-embedding
 
-This little script takes a complex impedance, and de-embeds a given fixture (e.g. a transmission line, characterized by its characteristic impedance and the phase angle) from it. Useful for determining the impedance of a network behind a known fixture.
+This [little script](deembed.m) takes a complex impedance, and de-embeds a given fixture (e.g. a transmission line, characterized by its characteristic impedance and the phase angle) from it. Useful for determining the impedance of a network behind a known fixture.
 
 ![deembed](deembed.png)
 

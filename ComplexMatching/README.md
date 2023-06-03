@@ -1,6 +1,6 @@
 # Complex impedance matching with 1/4 wave impedance transformer
 
-This script does multiple things:
+This [script](complexmatching.py) does multiple things:
 * For a given complex impedance (given in a conventional, * *series* * *a + jb* form) it calculates the equivalent *parallel* components.
 * It calculates the characteristic impedance of a 1/4 wave impedance transformer, that would convert the complex impedance in such a way, so that the equivalent *parallel* impedance would have a real part of 50 ohms. The benefit of this is that the remaining reactance can easily be resonated out with its complex conjugate reactance, resulting in purely ohmic 50 ohm impedance.
 
