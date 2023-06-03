@@ -1,7 +1,5 @@
 # LNA design
 
-### Goal
-
 Narrow-band LNA for 915MHz, using BJT transistor (BFR91A), with good input- and output match, achieved by two-port bilateral single stub matching.
 
 ### The design:
