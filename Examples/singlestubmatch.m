@@ -10,6 +10,7 @@ Z0 = 50 + 0j
 S11dBplot = []
 S11realplot = []
 S11imagplot = []
+S11complexplot = []
 Z11realplot = []
 Z11imagplot = []
 Y11realplot = []
@@ -46,6 +47,7 @@ for fp = 1:length(sweeppoints)
     S11dBplot = [S11dBplot; 20*log10(abs(S(1,1)))]
     S11realplot = [S11realplot; real(S(1,1))]
     S11imagplot = [S11imagplot; imag(S(1,1))]
+    S11complexplot = [S11complexplot; S(1,1)]
     Z11realplot = [Z11realplot; real(Z(1,1))]
     Z11imagplot = [Z11imagplot; imag(Z(1,1))]
     Y11realplot = [Y11realplot; real(Y(1,1))]
@@ -67,6 +69,11 @@ subplot(3, 3, 3)
 plot(sweeppoints, S11imagplot)
 xlabel("f(Hz)");
 ylabel("S1,1 imag");
+
+subplot(3, 3, 4)
+smithplot(S11complexplot)
+ylabel("S1,1");
+
 
 subplot(3, 3, 5)
 plot(sweeppoints, Z11realplot)
