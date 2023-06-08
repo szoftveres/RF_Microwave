@@ -11,7 +11,7 @@ S11dBplot = []
 S21dBplot = []
 
 % common functions
-addpath("../ABCDmatrix")
+addpath("../RFlib")
 
 L1 = 11e-9
 L2 = 5e-9

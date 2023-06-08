@@ -15,7 +15,7 @@ ifftplot = []
 h = hanning(points)
 
 % common functions
-addpath("../ABCDmatrix")
+addpath("../RFlib")
 
 
 

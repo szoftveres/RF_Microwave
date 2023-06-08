@@ -5,7 +5,7 @@
 f = 377e+6
 
 % common functions
-addpath("../ABCDmatrix")
+addpath("../RFlib")
 
 % Port impedance
 Z0 = 50 + j * 0

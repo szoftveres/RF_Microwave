@@ -11,7 +11,7 @@ Z11realplot = []
 Z11imagplot = []
 
 % common functions
-addpath("../ABCDmatrix")
+addpath("../RFlib")
 
 for fp = 1:length(sweeppoints)
     f = sweeppoints(fp)

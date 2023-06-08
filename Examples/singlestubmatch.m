@@ -17,7 +17,7 @@ Y11realplot = []
 Y11imagplot = []
 
 % common functions
-addpath("../ABCDmatrix")
+addpath("../RFlib")
 
 
 for fp = 1:length(sweeppoints)
@@ -71,7 +71,7 @@ xlabel("f(Hz)");
 ylabel("S1,1 imag");
 
 subplot(3, 3, 4)
-smithplot(S11complexplot)
+smithplot(S11complexplot, 'S')
 ylabel("S1,1");
 
 

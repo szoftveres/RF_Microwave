@@ -11,7 +11,7 @@ S11dBplot = []
 S21dBplot = []
 
 % common functions
-addpath("../ABCDmatrix")
+addpath("../RFlib")
 
 for fp = 1:length(sweeppoints)
     f = sweeppoints(fp)

@@ -11,7 +11,7 @@ S11dBplot = []
 S21dBplot = []
 
 % common functions
-addpath("../ABCDmatrix")
+addpath("../RFlib")
 
 % tuning cap
 cap = 2e-12

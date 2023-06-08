@@ -11,7 +11,7 @@ S11dBplot = []
 Z11plot = []
 
 % common functions
-addpath("../ABCDmatrix")
+addpath("../RFlib")
 
 % Charactarestic impedance of the patch
 Zt = 6
