@@ -8,7 +8,7 @@ function smithplot(cp, format)
 
     hold on
     % constant circles
-    constcircles(0.3333, "k:")
+    constcircles(1/3, "k:")
     constcircles(1, "k:")
     constcircles(3, "k:")
 
