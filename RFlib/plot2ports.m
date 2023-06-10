@@ -20,7 +20,7 @@ function plot2ports(ts, mkr)
     subplot(2, 3, 1)
     if nargin > 1
         smithgplot(S11, mkr)
-        smithtitle(S11(mkr), f(mkr))
+        smithtitle(S11(mkr), f(mkr), ts.points(mkr).Z)
     else
         smithgplot(S11)
     end
@@ -65,7 +65,7 @@ function plot2ports(ts, mkr)
     subplot(2, 3, 6)
     if nargin > 1
         smithgplot(S22, mkr)
-        smithtitle(S22(mkr), f(mkr))
+        smithtitle(S22(mkr), f(mkr), ts.points(mkr).Z)
     else
         smithgplot(S22)
     end
@@ -82,11 +82,11 @@ function dbtitle(S, f)
 end
 
 
-function smithtitle(S, f)
+function smithtitle(S, f, Z0)
     Z = ((1 + S) / (1 - S))
     fs = freq2str(f)
-    cps = cplx2str(Z)
-    str = sprintf("%s, %s", fs, cps)
+    cps = cplx2str(Z * Z0)
+    str = sprintf("%s, %sΩ", fs, cps)
     title(str)
 end
 
@@ -94,9 +94,9 @@ end
 function str = cplx2str(cp)
     cpi = imag(cp)
     if cpi < 0
-        str = sprintf("%.2f - i%.2f", real(cp), abs(cpi))
+        str = sprintf("%.2f-j%.2f", real(cp), abs(cpi))
     else
-        str = sprintf("%.2f + i%.2f", real(cp), cpi)
+        str = sprintf("%.2f+j%.2f", real(cp), cpi)
     end
 end
 
