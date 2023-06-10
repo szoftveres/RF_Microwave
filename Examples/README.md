@@ -3,8 +3,7 @@
 ## Touchstone reader and Smith plot
 
 
-![touchstonereadvna](touchstonereadvna.jpg)
-![generated](touchstonesmithgenerated.png)
+![touchstonereadvna](touchstonereadvna2.jpg) ![generated](touchstonesmithgenerated2.png)
 
 ## Single stub matching
 
