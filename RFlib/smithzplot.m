@@ -1,7 +1,9 @@
-% smithplot
+% smithzplot
 
+% [cp]
+% optional: marker
 
-function smithplot(cp, format)
+function smithzplot(cp, mkr)
     % main circle
     t = linspace(0, 2 * pi, 91);
     plot(cos(t), sin(t), "k-")
@@ -15,26 +17,15 @@ function smithplot(cp, format)
     % horizontal line
     t = linspace(-1, 1, 15);
     plot(t, zeros(15), "k-.")
-    switch (format)
-      case {'S', 's'}
-        plotfunc(gplot(cp), "r-", 2)
-      case {'Z', 'z'}
-        plotfunc(cp, "r-", 2)
-      otherwise
-        printf("Smith plot format needed\n");
-        exit
-    end
+
+    % the actual data plot
+    plotfunc(cp, "r-", 2)
     xlim([-1, 1])
     ylim([-1, 1])
-    hold off
-end
-
-
-function Z = gplot(G)
-    Z = []
-    for spn = 1:length(G)
-        Z = [Z; ((1 + G(spn)) / (1 - G(spn)))]
+    if nargin > 1
+        markerfunc(cp(mkr))
     end
+    hold off
 end
 
 
@@ -66,6 +57,12 @@ function plotfunc(cp, style, width)
         spi = [spi; imag(sp)]
     end
     plot(spr, spi, style, "LineWidth", width)
+end
+
+
+function markerfunc(cp)
+    sp = cplxtosmith(cp)
+    plot(real(sp), imag(sp), "bo", "LineWidth", 2)
 end
 
 

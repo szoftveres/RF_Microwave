@@ -71,7 +71,7 @@ xlabel("f(Hz)");
 ylabel("S1,1 imag");
 
 subplot(3, 3, 4)
-smithplot(S11complexplot, 'S')
+smithgplot(S11complexplot, 'S')
 ylabel("S1,1");
 
 

@@ -1,23 +1,14 @@
-% script matrix1
+% script display touchstone
 
 % port impedance
 Z0 = 50
 
-
-
 % common functions
 addpath("../RFlib")
 
-ts = touchstoneread('nanovna1.s1p')
+ts = touchstoneread('nanovna2.s2p')
 
-S11 = []
-
-for a = 1:length(ts.points)
-    S11 = [S11; abcd2s(ts.points(a).ABCD, ts.points(a).Z)(1,1)]
-end
-
-smithplot(S11, 'S')
-ylabel("S1,1");
+plot2ports(ts, 37)
 
 pause()
 
