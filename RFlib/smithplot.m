@@ -24,6 +24,7 @@ function smithplot(cp, format)
         printf("Smith plot format needed\n");
         exit
     end
+    xlim([-1, 1])
     ylim([-1, 1])
     hold off
 end
