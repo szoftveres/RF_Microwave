@@ -1,5 +1,3 @@
-# Output Matching Network
-
 Simulation of a loaded transmission line impedance transformer, tuned to 1GHz.
 
 [Simulation code](outputmatching.m)
