@@ -93,11 +93,12 @@ end
 
 function str = cplx2str(cp)
     cpi = imag(cp)
+    signs = "+"
     if cpi < 0
-        str = sprintf("%.2f-j%.2f", real(cp), abs(cpi))
-    else
-        str = sprintf("%.2f+j%.2f", real(cp), cpi)
+        cpi = abs(cpi)
+        signs = "-"
     end
+    str = sprintf("%.2f%sj%.2f", real(cp), signs, cpi)
 end
 
 

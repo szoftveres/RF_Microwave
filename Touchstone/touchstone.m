@@ -6,9 +6,9 @@ Z0 = 50
 % common functions
 addpath("../RFlib")
 
-ts = touchstoneread('nanovna1.s1p')
+ts = touchstoneread('nanovna2.s2p')
 
-plot2ports(ts, 37)
+plot2ports(ts, 69)
 
 pause()
 
