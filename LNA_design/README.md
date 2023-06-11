@@ -1,7 +1,3 @@
-# LNA design
-
-Narrow-band LNA for 915MHz, using BJT transistor (BFR91A), with good input- and output match, achieved by two-port bilateral single stub matching.
-
 ### The design:
 
 This is a bilateral case, meaning that any change in the matching conditions on one port of the transistor affects the other one, due to the transistor internal (Miller) capacitance. Therefore matching has to be carried out simultaneously on both ports. (Cascode circuits largely overcome this problem by superior isolation between the ports)
