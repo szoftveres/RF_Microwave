@@ -44,7 +44,7 @@ for fp = 1:length(sweeppoints)
     Z = abcd2z(M)
     Y = abcd2y(M)
 
-    S11dBplot = [S11dBplot; 20*log10(abs(S(1,1)))]
+    S11dBplot = [S11dBplot; gamma2db(S(1,1))]
     S11realplot = [S11realplot; real(S(1,1))]
     S11imagplot = [S11imagplot; imag(S(1,1))]
     S11complexplot = [S11complexplot; S(1,1)]

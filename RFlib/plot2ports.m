@@ -75,7 +75,7 @@ end
 
 
 function dbtitle(S, f)
-    db = 20*log10(abs(S))
+    db = gamma2db(S)
     fs = freq2str(f)
     str = sprintf("%s, %.2f dB", fs, db)
     title(str)

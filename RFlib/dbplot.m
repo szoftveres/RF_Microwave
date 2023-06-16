@@ -4,7 +4,7 @@
 function dbplot(S, f, mkr)
     cp = []
     for lp = 1:length(S)
-        cp = [cp; 20*log10(abs(S(lp)))]
+        cp = [cp; gamma2db(S(lp))]
     end
     plot(f, cp, "r-", "LineWidth", 2)
     grid on

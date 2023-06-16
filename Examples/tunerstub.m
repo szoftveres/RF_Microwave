@@ -46,8 +46,8 @@ for fp = 1:length(sweeppoints)
 
     S = abcd2s(M, Z0)
 
-    S11dBplot = [S11dBplot; 20*log10(abs(S(1,1)))]
-    S21dBplot = [S21dBplot; 20*log10(abs(S(2,1)))]
+    S11dBplot = [S11dBplot; gamma2db(S(1,1))]
+    S21dBplot = [S21dBplot; gamma2db(S(2,1))]
 
 end
 
