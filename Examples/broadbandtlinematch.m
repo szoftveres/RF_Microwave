@@ -21,8 +21,7 @@ function M = SteppedLines(M, level, Zl, Zr, f)
 end
 
 
-S11complexplot = []
-S11dBplot = []
+S11plot = []
 
 
 for fp = 1:length(sweeppoints)
@@ -41,18 +40,17 @@ for fp = 1:length(sweeppoints)
     S = abcd2s(M, Z0)
 
 
-    S11dBplot = [S11dBplot; gamma2db(S(1,1))]
-    S11complexplot = [S11complexplot; S(1,1)]
+    S11plot = [S11plot; S(1,1)]
 
 end
 
 subplot(1, 2, 1)
-plot(sweeppoints, S11dBplot)
+dbplot(S11plot, sweeppoints)
 xlabel("f(Hz)");
 ylabel("S1,1(dB)");
 
 subplot(1, 2, 2)
-smithgplot(S11complexplot)
+smithgplot(S11plot)
 ylabel("S1,1");
 
 pause()

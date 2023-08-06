@@ -8,9 +8,8 @@ sweeppoints = 60e+9:.25e+9:90e+9;
 addpath("../RFlib")
 
 
-S11dBplot = []
-S21dBplot = []
-Z11Smithplot = []
+S11plot = []
+S21plot = []
 Z11Realplot = []
 PhaseConstantPlot = []
 
@@ -57,9 +56,8 @@ for fp = 1:length(sweeppoints)
 
     S = abcd2s(M, Z0)
  
-    S11dBplot = [S11dBplot; gamma2db(S(1,1))]
-    S21dBplot = [S21dBplot; gamma2db(S(2,1))]
-    Z11Smithplot = [Z11Smithplot; Z11]
+    S11plot = [S11plot; S(1,1)]
+    S21plot = [S21plot; S(2,1)]
     Z11Realplot = [Z11Realplot; abs(Z11)]
     PhaseConstantPlot = [PhaseConstantPlot; RectangularWaveguidePhaseConstant(a1, f, 1)]
 
@@ -70,13 +68,13 @@ fprintf(2, "Lightspeed: %.2f m/s\n", LightSpeed());
 fprintf(2, "Z_freespace: %.6f ohm\n", Zfree());
 
 subplot(2, 2, 1)
-plot(sweeppoints, S11dBplot)
+dbplot(S11plot, sweeppoints)
 title('S1,1 (dB)')
 xlabel("f(Hz)");
 ylabel("S1,1(dB)");
 
 subplot(2, 2, 2)
-plot(sweeppoints, S21dBplot)
+dbplot(S21plot, sweeppoints)
 title('S2,1 (dB)')
 xlabel("f(Hz)");
 ylabel("S2,1(dB)");

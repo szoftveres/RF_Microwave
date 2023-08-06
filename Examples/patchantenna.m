@@ -7,7 +7,7 @@ sweeppoints = 950e+6:1e+6:1050e+6;
 Z0 = 50 + 0j
 
 
-S11dBplot = []
+S11plot = []
 Z11plot = []
 
 % common functions
@@ -48,13 +48,13 @@ for fp = 1:length(sweeppoints)
     S = abcd2s(M, Z0)
     Z = abcd2z(M)
 
-    S11dBplot = [S11dBplot; gamma2db(S(1,1))]
+    S11plot = [S11plot; S(1,1)]
     Z11plot = [Z11plot; abs(Z(1,1))]
 
 end
 
 subplot(2, 2, 1)
-plot(sweeppoints, S11dBplot)
+dbplot(S11plot, sweeppoints)
 xlabel("f(Hz)");
 ylabel("S1,1(dB)");
 

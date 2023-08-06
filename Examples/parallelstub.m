@@ -7,8 +7,8 @@ sweeppoints = 500e+6:10e+6:5e+9;
 Z0 = 50 + 0j
 
 
-S11dBplot = []
-S21dBplot = []
+S11plot = []
+S21plot = []
 
 % common functions
 addpath("../RFlib")
@@ -29,18 +29,18 @@ for fp = 1:length(sweeppoints)
 
     S = abcd2s(M, Z0)
 
-    S11dBplot = [S11dBplot; gamma2db(S(1,1))]
-    S21dBplot = [S21dBplot; gamma2db(S(2,1))]
+    S11plot = [S11plot; S(1,1)]
+    S21plot = [S21plot; S(2,1)]
 
 end
 
 subplot(2, 2, 1)
-plot(sweeppoints, S11dBplot)
+dbplot(S11plot, sweeppoints)
 xlabel("f(Hz)");
 ylabel("S1,1(dB)");
 
 subplot(2, 2, 2)
-plot(sweeppoints, S21dBplot)
+dbplot(S21plot, sweeppoints)
 xlabel("f(Hz)");
 ylabel("S2,1(dB)");
 

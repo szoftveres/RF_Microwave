@@ -7,9 +7,7 @@ sweeppoints = 400e+3:1e+3:500e+3;
 Z0 = 200000 + 0j
 
 
-S21dBplot = []
-S21Angleplot = []
-Z11Magplot = []
+S21plot = []
 
 % common functions
 addpath("../RFlib")
@@ -42,18 +40,11 @@ for fp = 1:length(sweeppoints)
     S = abcd2s(M, Z0)
 
 
-    % S2,1 magnitude in dB
-    S21dBplot = [S21dBplot; gamma2db(S(2,1))]
+    S21plot = [S21plot; S(2,1)]
     
-    % S2,1 angle in degrees
-    S21Angleplot = [S21Angleplot; arg(S(2,1))/pi*180]
-    
-    % Z1,1 in ohms
-    Z11Magplot = [Z11Magplot; abs(Z11)]
-
 end
 
-plot(sweeppoints, S21dBplot)
+dbplot(S21plot, sweeppoints)
 xlabel("f(Hz)");
 ylabel("S2,1(dB)");
 pause()
