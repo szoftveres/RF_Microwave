@@ -12,9 +12,16 @@ function dbplot(S, f, mkr)
         hold on
         plot(f(mkr), cp(mkr), "bx", "LineWidth", 2)
         hold off
+        dbtitle(S(mkr), f(mkr))
     end
     xlabel("f(Hz)");
 end
 
 
+function dbtitle(S, f)
+    db = gamma2db(S)
+    fs = freq2str(f)
+    str = sprintf("%s, %.2f dB", fs, db)
+    title(str)
+end 
 

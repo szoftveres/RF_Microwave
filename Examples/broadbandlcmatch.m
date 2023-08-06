@@ -12,7 +12,7 @@ addpath("../RFlib")
 % source
 Z0 = 50
 % load
-ZL = 500
+ZL = 1000
 % the frequency
 Fm = 1e+9
 
@@ -25,7 +25,8 @@ ZM = sqrt(Z0 * ZL)
 Q1 = sqrt((ZM/Z0)-1)
 Q2 = sqrt((ZL/ZM)-1)
 
-Kf = sqrt(Z0*Q1*Admittance(ZM/Q1))
+%Kf = sqrt((Z0/ZM) * Q1^2)
+Kf = sqrt((Z0/ZM) * (ZM/Z0 - 1))
 % Correcting the frequency for the second peak
 Fm = Fm * Kf
 
