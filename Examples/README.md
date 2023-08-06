@@ -6,3 +6,8 @@ The distance of the stub from the load impedance is chosen so that Y1,1 is 1/50o
 
 ![singlestubmatch](singlestubmatch2.png)
 
+## Broadband matching with cascaded L-match networks
+
+Cascading two L-matches together assuming that the intermediate imaginary impedance is sqrt(Zs * Zl), and also applying frequency correction for centering the peaks around the desired center frequency.
+
+![broadband](img_broadbandlcmatch.png)

@@ -1,7 +1,7 @@
 % script matrix1
 
 % 100MHz - 2000MHz
-sweeppoints = 500e+6:10e+6:2000e+6;
+sweeppoints = 500e+6:10e+6:1500e+6;
 
 
 % common functions
