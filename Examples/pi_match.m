@@ -29,8 +29,7 @@ Lr = (Zm*Qr) / Omega(Fm)
 % capacitor
 Cr = Admittance(ZL/Qr) / Omega(Fm)
 
-S11plot = []
-
+ts = sweep2ts(sweeppoints, Z0)
 
 for fp = 1:length(sweeppoints)
     f = sweeppoints(fp)
@@ -44,32 +43,16 @@ for fp = 1:length(sweeppoints)
     M = M * ShuntImpedanceMatrix(CapacitorImpedance(Cr, f));
 
     % termination
-    M = M * ShuntImpedanceMatrix(ZL)
-    % isolation from port 2
-    M = M * SeriesImpedanceMatrix(9e+9)
+    M = M * ImpedanceTransformerMatrix(ZL, Z0)
 
-
-
-    S = abcd2s(M, Z0)
-
-
-    S11plot = [S11plot; S(1,1)]
-
+    ts.points(fp).ABCD = M
 end
 
-subplot(1, 2, 1)
-dbplot(S11plot, sweeppoints, 51)
-xlabel("f(Hz)");
-ylabel("S1,1(dB)");
-
-subplot(1, 2, 2)
-smithgplot(S11plot, 51)
-ylabel("S1,1");
+plot2ports(ts, 51)
+pause()
 
 Cl
 Ll + Lr
 Cr
-
-pause()
 
 

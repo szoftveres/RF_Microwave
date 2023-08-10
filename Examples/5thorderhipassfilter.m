@@ -6,16 +6,14 @@ sweeppoints = 300e+6:5e+6:1.5e+9;
 % port impedance
 Z0 = 50 + 0j
 
-
-S11plot = []
-S21plot = []
-
 % common functions
 addpath("../RFlib")
 
 L1 = 11e-9
 L2 = 5e-9
 C = 3.3e-12
+
+ts = sweep2ts(sweeppoints, Z0)
 
 for fp = 1:length(sweeppoints)
     f = sweeppoints(fp)
@@ -30,22 +28,11 @@ for fp = 1:length(sweeppoints)
     M = M * SeriesImpedanceMatrix(CapacitorImpedance(C, f) + 0.2)
     M = M * ShuntImpedanceMatrix(InductorImpedance(L1, f) + 0.2)
 
-    S = abcd2s(M, Z0)
-
-    S11plot = [S11plot; S(1,1)]
-    S21plot = [S21plot; S(2,1)]
+    ts.points(fp).ABCD = M
 
 end
 
-subplot(2, 2, 1)
-dbplot(S11plot, sweeppoints)
-xlabel("f(Hz)");
-ylabel("S1,1(dB)");
-
-subplot(2, 2, 2)
-dbplot(S11plot, sweeppoints)
-xlabel("f(Hz)");
-ylabel("S2,1(dB)");
+plot2ports(ts)
 
 pause()
 

@@ -5,6 +5,8 @@ sweeppoints = 100e+6:10e+6:2000e+6;
 
 % port impedance
 Z0 = 50 + 0j
+ZL = 10
+
 
 % common functions
 addpath("../RFlib")
@@ -20,9 +22,7 @@ function M = SteppedLines(M, level, Zl, Zr, f)
     return
 end
 
-
-S11plot = []
-
+ts = sweep2ts(sweeppoints, Z0)
 
 for fp = 1:length(sweeppoints)
     f = sweeppoints(fp)
@@ -30,28 +30,15 @@ for fp = 1:length(sweeppoints)
     % 1/4 wave tline
     
     M = TLineMatrix(Z0, f2rad(f, 1e+9)/4)
-    M = SteppedLines(M, 0, Z0, 10.0, f)
+    M = SteppedLines(M, 0, Z0, ZL, f)
 
     % 10 ohms
-    M = M * ShuntImpedanceMatrix(10.0)
+    M = M * ImpedanceTransformerMatrix(ZL, Z0)
 
-
-
-    S = abcd2s(M, Z0)
-
-
-    S11plot = [S11plot; S(1,1)]
-
+    ts.points(fp).ABCD = M
 end
 
-subplot(1, 2, 1)
-dbplot(S11plot, sweeppoints)
-xlabel("f(Hz)");
-ylabel("S1,1(dB)");
-
-subplot(1, 2, 2)
-smithgplot(S11plot)
-ylabel("S1,1");
+plot2ports(ts)
 
 pause()
 
