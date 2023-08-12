@@ -32,7 +32,7 @@ function plot2ports(ts, mkr)
     else
         dbplot(S11, f)
     end
-    ylabel("S1,1");
+    ylabel("S1,1 (dB)");
 
     subplot(2, 3, 3)
     if nargin > 1
@@ -40,7 +40,7 @@ function plot2ports(ts, mkr)
     else
         dbplot(S21, f)
     end
-    ylabel("S2,1");
+    ylabel("S2,1 (dB)");
 
     subplot(2, 3, 4)
     if nargin > 1
@@ -48,7 +48,7 @@ function plot2ports(ts, mkr)
     else
         dbplot(S12, f)
     end
-    ylabel("S1,2");
+    ylabel("S1,2 (dB)");
 
     subplot(2, 3, 5)
     if nargin > 1
@@ -56,7 +56,7 @@ function plot2ports(ts, mkr)
     else
         dbplot(S22, f)
     end
-    ylabel("S2,2");
+    ylabel("S2,2 (dB)");
 
     subplot(2, 3, 6)
     if nargin > 1
@@ -74,7 +74,7 @@ function smithtitle(S, f, Z0)
     Z = ((1 + S) / (1 - S))
     fs = freq2str(f)
     cps = cplx2str(Z * Z0)
-    str = sprintf("%s, %sΩ", fs, cps)
+    str = sprintf("%s, %sΩ, %s", fs, cps, z2reactstr(Z * Z0, f))
     title(str)
 end
 
