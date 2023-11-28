@@ -3,26 +3,31 @@
 % 100MHz - 2000MHz
 sweeppoints = 500e+6:10e+6:2000e+6;
 
-
 % common functions
 addpath("../RFlib")
 
-
-% source
+% source 
 Z0 = 50
-% load
-ZL = 100
-
-Q = sqrt((ZL/Z0)-1)
+% intermediate Z
+Zm = 500
+% load 
+ZL = 20
 
 % the frequency
 Fm = 1e+9
 
-% inductor
-L = (Z0*Q) / Omega(Fm)
+Ql = sqrt((Zm/Z0)-1)
+Qr = sqrt((Zm/ZL)-1)
+
+% left inductor
+Ll = (Z0*Ql) / Omega(Fm)
 
 % capacitor
-C = Admittance(ZL/Q) / Omega(Fm)
+Cl = Admittance(Zm/Ql) / Omega(Fm)
+Cr = Admittance(Zm/Qr) / Omega(Fm)
+
+% right inductor
+Lr = (ZL*Qr) / Omega(Fm)
 
 ts = sweep2ts(sweeppoints, Z0)
 
@@ -33,21 +38,21 @@ for fp = 1:length(sweeppoints)
     
     M = TLineMatrix(Z0, f2rad(f, 1e+9)/4)
 
-    M = M * SeriesImpedanceMatrix(InductorImpedance(L, f));
-    M = M * ShuntImpedanceMatrix(CapacitorImpedance(C, f));
+    M = M * SeriesImpedanceMatrix(InductorImpedance(Ll, f));
+    M = M * ShuntImpedanceMatrix(CapacitorImpedance(Cl + Cr, f));
+    M = M * SeriesImpedanceMatrix(InductorImpedance(Lr, f));
 
     % termination
     M = M * ImpedanceTransformerMatrix(ZL, Z0)
 
     ts.points(fp).ABCD = M
-
 end
 
 plot2ports(ts, 51)
 
-L
-C
+Ll
+Cl + Cr
+Lr
 
 pause()
-
 

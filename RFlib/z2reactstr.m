@@ -19,6 +19,10 @@ function str = z2reactstr(Z, f)
         part = part * 1000.0
         fmsp = fmsp + 1
     end
-    str = sprintf("%.2f%s%s", part, fms(fmsp), unit)
+    if fmsp > 7
+        str = ""
+    else
+        str = sprintf("%.2f%s%s", part, fms(fmsp), unit)
+    end
 end
 

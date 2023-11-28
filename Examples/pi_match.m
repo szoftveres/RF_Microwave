@@ -8,7 +8,7 @@ addpath("../RFlib")
 
 % source 
 Z0 = 50
-% imaginary Z
+% intermediate Z
 Zm = 5
 % load 
 ZL = 500
@@ -49,10 +49,10 @@ for fp = 1:length(sweeppoints)
 end
 
 plot2ports(ts, 51)
-pause()
 
 Cl
 Ll + Lr
 Cr
 
+pause()
 
