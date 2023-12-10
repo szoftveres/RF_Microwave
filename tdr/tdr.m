@@ -6,19 +6,10 @@ points = length(sweeppoints)
 
 Z0 = 50.0 + 0j
 
-
 S11complexplot = []
-Z11complexplot = []
-ifftplot = []
-
-
-% Creating the window
-h = hanning(points)
 
 % common functions
 addpath("../RFlib")
-
-
 
 for fp = 1:points
     f = sweeppoints(fp)
@@ -32,15 +23,9 @@ for fp = 1:points
 
     S = abcd2s(M, Z0)
 
-    S11 = S(1,1)
-    % Applying (artificial Kaiser) windowing
-    %S11 = (S(1,1) *  ((h(fp)/3) + 0.66))
-
-    S11complexplot = [S11complexplot; S11]
-    Z11complexplot = [Z11complexplot; gamma2z(S11, Z0)]
+    S11complexplot = [S11complexplot; S(1,1)]
 
 end
-
 
 ifftplot = ifft(S11complexplot)
 
@@ -48,7 +33,6 @@ plot(sweeppoints(1:(points/12)), ifftplot(1:(points/12)))
 xlabel("time");
 ylabel("reflection");
 pause()
-
 
 ifftplot2 = []
 for fp = 1:(points/12)
