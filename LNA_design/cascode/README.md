@@ -15,7 +15,8 @@ With the transistors used in this circuit (Philips/NXP BFR92A) stability starts 
 ### Noise sources
 
 Besides non-ideal (lossy) inductors in the input matching network, the use of electrically short microstrip stub in place of a shunt capacitor has a slight degradatory effect on the noise figure (around 0.6dB, vs. an ideal 1.5pF capacitor) due to being built on lossy PCB material and being at the highest impedance point of the matching network.
-NF can be improved by around 0.3dB without compromising tunability, by implementing a PI-match and moving the tunable microstrip stub to the lowest impedance point of the LNA (base of the BJT), at the expense of lower inductor and capacitor values (more uncertainty when using discrete parts) as well as the need of a good via for the discrete shunt capacitor.
+
+NF can be improved by around 0.3dB without compromising tunability, by implementing a PI-match and moving the tunable microstrip stub to the lowest impedance point of the LNA (base of the BJT), at the expense of lower inductor and capacitor values (more uncertainty when using discrete parts) as well as the need of a good via for the discrete shunt capacitor:
 
 ![pi-match](pi-match.png)  
 
