@@ -22,13 +22,13 @@ With input PI-match:
 The bias point for best NF of this transistor is at around 5mA, running the device at higher currents (e.g. for better P1DB) will start degrading the best obtainable NF. 
 Also, the input matching is a tradeoff between best match vs. best obtainable NF.
 
-## Adopting for 2.4GHz
+## Adapting for 2.4GHz
 
 The BJTs used in this circuit begin showing their limitations at higher frequencies, in the form of reduced gain and increased noise figure
 
 ![lna2g4](lna2g4.png)
 
-The gain near the ft of the transistors can theoretically be improved by boosted (regulated) cascode topology:
+With boosted (regulated) cascode topology, slight gain increase can be achieved:
 
 ![boosted](boosted.png)
 
