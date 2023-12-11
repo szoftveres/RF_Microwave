@@ -29,7 +29,7 @@ Also, the input matching is a tradeoff between best match vs. best obtainable NF
 ![lnapcb](lnapcb.jpg)
 ![lnacloseup](lnacloseup.jpg)
 
-The measured gain (19.68dB) is very close to simulated (note the 10dB attenuator on the output of the LNA, which was not involved in the calibration):
+The measured gain (19.68dB, the 10dB attenuator on the output of the LNA was not involved in the calibration) as well as the final tuned stub lengths are very close to simulated:
 
 ![vnameas](vnameas.jpg)
 
