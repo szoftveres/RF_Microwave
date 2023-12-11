@@ -26,6 +26,15 @@ The bias point for best NF of this transistor is at around 5mA, higher bias curr
 
 Also, the input matching is a tradeoff between best match vs. best obtainable NF.
 
+### Build and measurements
+
+![lnapcb](lnapcb.jpg)
+![lnacloseup](lnacloseup.jpg)
+
+The measured gain (19.6dB) is very close to simulated (note the 10dB attenuator on the output of the LNA, which was not involved in the calibration):
+
+![vnameas](vnameas.jpg)
+
 ## Adapting for 2.4GHz
 
 At 2.4GHz these transistors begin showing their limitations in the form of reduced gain and increased noise figure.
