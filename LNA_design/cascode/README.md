@@ -35,11 +35,11 @@ The measured gain (19.68dB) is very close to simulated (note the 10dB attenuator
 
 ## Adapting for 2.4GHz
 
-At 2.4GHz these transistors begin showing their limitations in the form of reduced gain and increased noise figure.
+At 2.4GHz these transistors begin showing their limitations in the form of reduced gain and increased noise figure:
 
 ![lna2g4](lna2g4.png)
 
-With boosted (regulated) cascode topology, slight gain increase can be achieved, however stability starts becoming an issue:
+With boosted (regulated) cascode topology, around 6dB more gain can be achieved, however stability starts becoming an issue:
 
 ![boosted](boosted.png)
 
