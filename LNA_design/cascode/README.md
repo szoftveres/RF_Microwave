@@ -1,16 +1,14 @@
 ## The 915MHz design
 
-Cascode architecture has several benefits over a single transistor; optimizing (tuning) the matching network on either side becomes a much easier task due to improved isolation of the two ports. Stability improves significantly and also more gain is achievable due to higher output impedance.
-
 This design is optimized around inductor values that are available to purchase as discrete parts; the matching networks use electrically short microstrip lines as trimmable shunt capacitors.
 
-Input matching is implemented with a high-Q narrow-band T-match, taking advantage of its natural filtering and band-passing effect before the first LNA stage. Output matching is implemented with an L-match; in order to improve stability, artificial resistive loss (R22, 10ohm) was added in series with the shunt capacitance (electrically short microstrip); this degenerates the Q of the matching network at the expense of slight loss of gain, without having significant effect on the noise figure.
+Input matching is implemented with a high-Q narrow-band T-match, taking advantage of its natural filtering and band-passing effect before the first LNA stage. Output matching is implemented with an L-match; in order to improve stability, artificial resistive loss (R22, 10ohm) was added in series with the shunt capacitance (electrically short microstrip); this degenerates the Q of the matching network at the expense of slight loss of gain, without having significant effect on the noise figure. Reducing the value of this resistance to the point of losing unconditional stability buys another 4dB of gain.
 
 The LNA circuit, with the input T-match tuned for best NF:
 
 ![cascode_schem](cascode_schem.png)
 
-With the transistors used in this circuit (Philips/NXP BFR92A, ft = 5GHz), stability is not an issue at these frequencies.
+With the transistors used in this circuit (Philips/NXP BFR92A, ft = 5GHz) and the degeneration in the output matching, stability is not an issue at these frequencies.
 
 ### Noise sources
 
@@ -31,7 +29,7 @@ Also, the input matching is a tradeoff between best match vs. best obtainable NF
 ![lnapcb](lnapcb.jpg)
 ![lnacloseup](lnacloseup.jpg)
 
-The measured gain (19.6dB) is very close to simulated (note the 10dB attenuator on the output of the LNA, which was not involved in the calibration):
+The measured gain (19.68dB) is very close to simulated (note the 10dB attenuator on the output of the LNA, which was not involved in the calibration):
 
 ![vnameas](vnameas.jpg)
 
