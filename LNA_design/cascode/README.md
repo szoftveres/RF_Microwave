@@ -30,7 +30,7 @@ Also, the input matching is a tradeoff between best match vs. best obtainable NF
 
 Simulated P1DBout is around +6dBm; the 2nd and 3rd harmonics are observable but are heavily suppressed, due to the output matching network being tuned to the fundamental.
 
-![linearity](hbalance.png)  
+![linearity](hb2.png)  
 
 ### Build and measurements
 
