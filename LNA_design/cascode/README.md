@@ -45,7 +45,7 @@ The measured gain (19.68dB, note the added 10dB attenuator on the output) is ver
 
 ## Adapting for 2.4GHz
 
-At 2.4GHz these transistors begin showing their limitations in the form of reduced gain and increased noise figure:
+At 2.4GHz these transistors begin to show their limitations in the form of reduced gain and increased noise figure:
 
 ![lna2g4](lna2g4.png)
 
