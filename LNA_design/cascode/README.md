@@ -8,7 +8,9 @@ The LNA circuit, with the input T-match tuned for best NF:
 
 ![cascode_schem](cascode_schem.png)
 
-With the transistors used in this circuit (Philips/NXP BFR92A, ft = 5GHz) and the degeneration in the output matching, stability is not an issue at these frequencies.
+With the amplifying devices used in this circuit (Philips/NXP BFR92A, ft = 5GHz) and the degeneration in the output matching, stability is not an issue, the circuit is unconditionally stable throughout the entire operating range of the transistors:
+
+![rollet](rollet.png)
 
 ### Noise sources
 
@@ -16,13 +18,19 @@ Besides non-ideal (lossy) inductors in the input T-matching network, the use of 
 
 Without compromising tunability, NF can be improved by around 0.4dB by re-arranging the input to a PI-match and moving the tunable microstrip stub to the lowest impedance point of the input matching network (base of the BJT), at the expense of lower inductor and capacitor values (more uncertainty when using discrete parts) as well as the need for a good ground via for the discrete shunt capacitor.
 
-The same circuit with input PI-match, showing 0.4dB NF improvement:
+The same circuit re-arranged for PI-match input, showing 0.4dB NF improvement:
 
 ![pi-match](pi-match.png)  
 
 The bias point for best NF of this transistor is at around 5mA, higher bias current (e.g. for better P1DB) will start degrading the best obtainable NF. 
 
 Also, the input matching is a tradeoff between best match vs. best obtainable NF.
+
+### Non-linearity analysis
+
+The simulated P1DBout is +6dBm; the output mostly contains the fundamental frequency, largely due to the tuned output matching network.
+
+![linearity](linearity.png)  
 
 ### Build and measurements
 
@@ -31,7 +39,7 @@ T-match input version; the final tuned stub lengths are exactly as simulated:
 ![lnapcb](lnapcb.jpg)
 ![lnacloseup](lnacloseup.jpg)
 
-The measured gain (19.68dB, the 10dB attenuator on the output of the LNA was not involved in the calibration) is very close to simulated:
+The measured gain (19.68dB, note the added 10dB attenuator on the output) is very close to simulated:
 
 ![vnameas](vnameas.jpg)
 
