@@ -1,12 +1,12 @@
-# Microstrip Filters
+## 915 MHz Bandpass Filter
 
-## 915 MHz Hairpin Filter
+Microstrip "hairpin" filter optimized for the ISM band (902MHz - 928MHz).
 
-Microstrip filter optimized for the ISM band (902MHz - 928MHz).
+Due to the stub nature of the filter, resonances appear at every odd harminics, however the appropriate placement of the input- and output ports along the length of the shorted stubs ensure that the ports are only matched at the fundamental frequency and therefore odd harmonics are adequately suppressed by the virtue of mismatch.
 
-Lossy PCB material and therefore high NFmin inherently makes this architecture unsuitable for pre-LNA application, however otherwise it's quite useful where the signal levels are high enough.
+The bandwidth of the filter is primarily controlled by the coupling (i.e. spacing) between the stubs - e.g. the closer the coupling, the wider the passband becomes. With closer coupling however, the impedance of the open ends of the shorted stubs decrease (and vice versa for lighter coupling), this needs to be compensated by moving the input- and output port taps higher towards the open end of the stubs, for optimum port match.
 
-Due to the stub nature of the filter, resonances appear at every odd harminics, however the appropriate placement of the input- and output ports along the length of the shorted stubs ensure that the ports are only matched at the fundamental frequency and therefore the odd harmonics are adequately suppressed by the virtue of mismatch at the ports.
+Lossy PCB material and therefore high NFmin makes this architecture suitable only for post-LNA or high-level signal filtering applications.
 
 ![design](hairpin_design.png)
 ![build](hairpin_build.jpg)
