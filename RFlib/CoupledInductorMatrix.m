@@ -1,4 +1,4 @@
-function M = RfTransformerMatrix(Lpri, Lsec, Kfactor, f)
+function M = CoupledInductorMatrix(Lpri, Lsec, Kfactor, f)
     N = sqrt(Lpri / Lsec)
 
     Lmpri = Lpri * Kfactor
