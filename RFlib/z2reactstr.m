@@ -11,6 +11,8 @@ function str = z2reactstr(Z, f)
         part = x / Omega(f)
     else
         str = ""
+        part = 1
+        unit = "N/A"
     end
 
     fms = ' munpfa'
