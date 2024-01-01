@@ -3,18 +3,11 @@
 % which is obtained from raw measured So (open), Ss (short)
 % and Sl (load). Z0 is the system port impedance
 
-function S = p1cal(S, So, Ss, Sl, Z0)
-    Go = So(1,1)
-    Gs = Ss(1,1)
-    Gl = Sl(1,1)
-
-    gopen = 1 - 1e-9
-    gshort = -1 * gopen
-    gload = 1e-9
+function S = p1cal(S, So, Ss, Sl, Go, Gs, Gl, Z0)
 
     % Error coefficients
-    C = [gopen 1 (gopen*Go); gshort 1 (gshort*Gs); gload 1 (gload*Gl)]
-    V = [Go; Gs; Gl]
+    C = [Go 1 (Go * So(1,1)); Gs 1 (Gs * Ss(1,1)); Gl 1 (Gl * Sl(1,1))]
+    V = [So(1,1); Ss(1,1); Sl(1,1)]
 
     E = inv(C' * C) * C' * V
     e00 = E(2)
