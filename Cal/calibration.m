@@ -7,7 +7,7 @@ Z0 = 50 + 0j
 addpath("../RFlib")
 
 
-tsm = touchstoneread('load.s2p')
+tsm = touchstoneread('offsetshort.s2p')
 
 tso = touchstoneread('opencal.s2p')
 tsos = touchstoneread('offsetshortcal.s2p')
