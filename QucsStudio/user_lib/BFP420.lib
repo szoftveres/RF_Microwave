@@ -1,0 +1,44 @@
+<QucsStudio Library 4.3.1 "BFP420">
+
+<Component bfp420spice>
+  <Description>
+BFP420
+  </Description>
+  <Model>
+.Def:LBFP420_bfp420spice net1 net2 net3 net4 Package="SOT343"
+C:CBEPAR net22 net33 "5.592e-014" "0" "" "neutral" "SMD0603"
+C:CBCPAR net22 net11 "1.143e-013" "0" "" "neutral" "SMD0603"
+C:CCEPAR net11 net33 "1.596e-013" "0" "" "neutral" "SMD0603"
+C:CBEPCK net20 net30 "4.741e-014" "0" "" "neutral" "SMD0603"
+C:CBCPCK net20 net10 "1.135e-015" "0" "" "neutral" "SMD0603"
+C:CCEPCK net10 net30 "4.48e-014" "0" "" "neutral" "SMD0603"
+BJT:Q1 net22 net11 net33 net55 "npn" "3.753e-017" "0.9996" "0.9938" "0.6604" "0.007013" "59.18" "2.685" "1e-014" "2" "3.49e-016" "1.5" "140.8" "13.61" "1.521" "0" "2.152" "0.3062" "11.99" "5.621e-013" "0.4892" "0.2565" "1.227e-013" "0.8453" "0.6803" "0.7" "4.757e-013" "0.5323" "1" "0.4148" "4.83855e-012" "6.245" "10.66" "0.5436" "4.7e-009" "26.85" "6.59e-011" "2" "1" "0" "1" "1" "0" "0.1187" "4.162" "1.11" "25" "1" "0.000702" "1108"
+R:RSUB net55 net33 "176.4" "26.85" "european" "SMD0603"
+L:LE net33 net30 "1.656e-010" "0" "" "SELF-WE-PD3S"
+L:LEX net30 net35 "4.189e-011" "0" "" "SELF-WE-PD3S"
+R:RE2 net35 net4 "0.001" "26.85" "european" "SMD0603"
+L:LC net11 net10 "7.7e-010" "0" "" "SELF-WE-PD3S"
+L:LCX net10 net1 "2.243e-010" "0" "" "SELF-WE-PD3S"
+L:LB net22 net20 "7.42e-010" "0" "" "SELF-WE-PD3S"
+L:LBX net20 net2 "2.339e-010" "0" "" "SELF-WE-PD3S"
+Diode:DIODE_SUB net11 net55 "4.356e-015" "1.02" "4e-014" "0.5" "0.7" "0.5" "0" "0" "2" "0.1" "0" "0" "0" "1" "1" "0" "0.001" "26.85" "3" "1.11" "0" "0" "0" "0" "0" "0" "25" "1" "0.000702" "1108" "normal" "D5"
+R:RE1 net35 net3 "0.001" "26.85" "european" "SMD0603"
+.Def:End
+  </Model>
+  <Symbol>
+    Line -10 -15 0 30 #000080 3 1
+    Line -30 0 20 0 #000080 2 1
+    Line -10 -5 10 -10 #000080 2 1
+    Line 0 -30 0 15 #000080 2 1
+    Line 0 15 0 15 #000080 2 1
+    Line -10 5 10 10 #000080 2 1
+    Line -6 15 6 0 #000080 2 1
+    Line 0 15 0 -6 #000080 2 1
+    .PortSym -30 0 2 0
+    .ID -90 -86 T "0=Package=SOT343=PCB footprint"
+    .PortSym 0 -30 1 0
+    Line -10 30 20 0 #000080 2 1
+    .PortSym 10 30 4 180
+    .PortSym -10 30 3 0
+  </Symbol>
+</Component>

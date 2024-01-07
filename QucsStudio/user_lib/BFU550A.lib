@@ -1,0 +1,37 @@
+<QucsStudio Library 4.3.1 "BFU550A">
+
+<Component BFU550A_SPICE_GP>
+  <Description>
+BFU550A SOT23
+  </Description>
+  <Model>
+.Def:LBFU550A_BFU550A_SPICE_GP net1 net2 net3 Package="SOT343"
+C:CCB net4 net9 "65f" "0" "" "neutral" "SMD0603"
+C:CBASEPAD net5 net6 "300f" "0" "" "neutral" "SMD0603"
+C:CBE net4 net8 "65f" "0" "" "neutral" "SMD0603"
+C:CCE net8 net9 "95f" "0" "" "neutral" "SMD0603"
+C:CEMITTERPAD net6 net7 "270f" "0" "" "neutral" "SMD0603"
+_BJT:Q1 net5 net6 net7 "npn" "1.1915e-016" "1" "1" "0.4212" "0.05625" "183.69" "2.4" "1.49e-013" "2.5" "1.1915e-016" "1.1" "133.81" "0.51249" "0.4" "0.04463" "0.54" "0.36" "0.7" "8.434e-013" "0.95" "0.33533" "1.236e-013" "0.72" "0.31844" "0.5" "0" "0.75" "0" "0.85" "1.004e-011" "10" "1" "0.07092" "0" "26.85" "1.0967e-010" "2" "1" "0" "1" "1" "0" "0" "3" "1.11" "26.85" "1" "0.000702" "1108" "SOT23"
+L:LC_WIRE net9 net6 "240p" "0" "" "SELF-WE-PD3S"
+L:LC_LEAD net1 net9 "60p" "0" "" "SELF-WE-PD3S"
+L:LB_WIRE net4 net5 "1000p" "0" "" "SELF-WE-PD3S"
+L:LB_LEAD net2 net4 "0.001p" "0" "" "SELF-WE-PD3S"
+L:LE_WIRE net7 net8 "1300p" "0" "" "SELF-WE-PD3S"
+L:LE_LEAD net3 net8 "0.001p" "0" "" "SELF-WE-PD3S"
+.Def:End
+  </Model>
+  <Symbol>
+    Line -10 -15 0 30 #000080 3 1
+    Line -30 0 20 0 #000080 2 1
+    Line -10 -5 10 -10 #000080 2 1
+    Line 0 -30 0 15 #000080 2 1
+    Line 0 15 0 15 #000080 2 1
+    Line -10 5 10 10 #000080 2 1
+    Line -6 15 6 0 #000080 2 1
+    Line 0 15 0 -6 #000080 2 1
+    .PortSym -30 0 2 0
+    .ID -90 -86 T "0=Package=SOT343=PCB footprint"
+    .PortSym 0 -30 1 0
+    .PortSym 0 30 3 0
+  </Symbol>
+</Component>
