@@ -2,7 +2,7 @@
 
 ![sim](sim.png)
 
-![kicad](kicad.kicad)
+![kicad](kicad.png)
 
 ![pcb](pcb.jpg)
 
