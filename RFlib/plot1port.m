@@ -4,17 +4,17 @@ function plot2ports(ts, mkr)
     
     S11 = []
     f = []
+    Z = 50
 
     for a = 1:length(ts.points)
         f = [f; ts.points(a).f]
-        Z = ts.points(a).Z
         S11 = [S11; abcd2s(ts.points(a).ABCD, Z)(1,1)]
     end
 
     subplot(1, 2, 1)
     if nargin > 1
         smithgplot(S11, mkr)
-        smithtitle(S11(mkr), f(mkr), ts.points(mkr).Z)
+        smithtitle(S11(mkr), f(mkr), Z)
     else
         smithgplot(S11)
     end

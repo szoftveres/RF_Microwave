@@ -3,7 +3,6 @@
 %
 % ts.points[P]
 %   P.f             frequency
-%   P.Z             impedance (yes, port imedance can vary with frequency)
 %   P.ABCD(2,2)     ABCD matrix
 
 
@@ -51,7 +50,6 @@ function ts = touchstoneread(filename)
         if (line < 0 || isempty(line))
             break
         end
-        P.Z = str2double(impedance_str)
         [P.f, line] = readfreq(line, frequnit_str)
         datapoint = zeros(2)
         % cheating here, trying to avoid division by zero

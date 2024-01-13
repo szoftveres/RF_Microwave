@@ -29,7 +29,7 @@ Lr = (Zm*Qr) / Omega(Fm)
 % capacitor
 Cr = Admittance(ZL/Qr) / Omega(Fm)
 
-ts = sweep2ts(sweeppoints, Z0)
+ts = sweep2ts(sweeppoints)
 
 for fp = 1:length(sweeppoints)
     f = sweeppoints(fp)
@@ -55,4 +55,6 @@ Ll + Lr
 Cr
 
 pause()
+
+touchstonewrite([mfilename() '.s2p'], ts)
 

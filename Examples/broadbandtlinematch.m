@@ -22,7 +22,7 @@ function M = SteppedLines(M, level, Zl, Zr, f)
     return
 end
 
-ts = sweep2ts(sweeppoints, Z0)
+ts = sweep2ts(sweeppoints)
 
 for fp = 1:length(sweeppoints)
     f = sweeppoints(fp)
@@ -41,5 +41,8 @@ end
 plot2ports(ts)
 
 pause()
+
+touchstonewrite([mfilename() '.s2p'], ts)
+
 
 

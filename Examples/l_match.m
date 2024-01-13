@@ -24,7 +24,7 @@ L = (Z0*Q) / Omega(Fm)
 % capacitor
 C = Admittance(ZL/Q) / Omega(Fm)
 
-ts = sweep2ts(sweeppoints, Z0)
+ts = sweep2ts(sweeppoints)
 
 for fp = 1:length(sweeppoints)
     f = sweeppoints(fp)
@@ -44,6 +44,7 @@ for fp = 1:length(sweeppoints)
 end
 
 plot2ports(ts, 51)
+touchstonewrite([mfilename() '.s2p'], ts)
 
 L
 C

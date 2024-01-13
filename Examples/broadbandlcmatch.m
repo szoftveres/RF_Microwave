@@ -41,7 +41,7 @@ C2 = Admittance(ZL/Q2) / Omega(Fm)
 f1 = 1 / (2 * pi * sqrt(L1 * C1))
 f2 = 1 / (2 * pi * sqrt(L2 * C2))
 
-ts = sweep2ts(sweeppoints, Z0)
+ts = sweep2ts(sweeppoints)
 
 for fp = 1:length(sweeppoints)
     f = sweeppoints(fp)
@@ -64,6 +64,8 @@ end
 plot2ports(ts, 51)
 
 pause()
+
+touchstonewrite([mfilename() '.s2p'], ts)
 
 L1
 C1

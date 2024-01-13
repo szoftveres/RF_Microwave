@@ -29,7 +29,7 @@ Cr = Admittance(Zm/Qr) / Omega(Fm)
 % right inductor
 Lr = (ZL*Qr) / Omega(Fm)
 
-ts = sweep2ts(sweeppoints, Z0)
+ts = sweep2ts(sweeppoints)
 
 for fp = 1:length(sweeppoints)
     f = sweeppoints(fp)
@@ -55,4 +55,6 @@ Cl + Cr
 Lr
 
 pause()
+
+touchstonewrite([mfilename() '.s2p'], ts)
 

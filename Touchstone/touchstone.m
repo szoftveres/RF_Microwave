@@ -10,6 +10,8 @@ ts = touchstoneread('nanovna2.s2p')
 
 plot2ports(ts, 69)
 
+touchstonewrite('out.s2p', ts)
+
 pause()
 
 

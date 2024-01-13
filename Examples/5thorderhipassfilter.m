@@ -13,7 +13,7 @@ L1 = 11e-9
 L2 = 5e-9
 C = 3.3e-12
 
-ts = sweep2ts(sweeppoints, Z0)
+ts = sweep2ts(sweeppoints)
 
 for fp = 1:length(sweeppoints)
     f = sweeppoints(fp)
@@ -36,4 +36,5 @@ plot2ports(ts)
 
 pause()
 
+touchstonewrite([mfilename() '.s2p'], ts)
 
