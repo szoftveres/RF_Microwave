@@ -1,4 +1,4 @@
-## The 915MHz design
+## Cascode BJT LNA for 915MHz
 
 This design is optimized around inductor values that are available to purchase as discrete parts; the matching networks use electrically short microstrip lines as trimmable shunt capacitors.
 

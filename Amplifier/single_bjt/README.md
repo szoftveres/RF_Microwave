@@ -1,4 +1,4 @@
-### The design:
+## Single BJT LNA for 915MHz with simultaneous conjugate stub matching
 
 This is a bilateral case, meaning that any change in the matching conditions on one port affects the other one, due to the transistor internal (Miller) capacitance. Therefore matching has to be carried out simultaneously on both ports. (Cascode circuits largely overcome this problem by superior isolation between the ports)
 
