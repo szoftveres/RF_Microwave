@@ -1,4 +1,4 @@
-## 1-Port calibration using the 3-term error model
+## 1-port calibration using the 3-term error model
 
 [Calculating](calibration.m) the actual S-parameters of a DUT network, by the virtue of deemedding an "error matrix" from it (e.g. test fixture or cabling). The error matrix elements are obtained by measuring three different calibration standards and calculating the error coefficients. The actual maths are [here](https://github.com/szoftveres/RF_Microwave/tree/main/RFlib/p1cal.m).
 

@@ -1,5 +1,5 @@
 * [Microstrip designs](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip)
-* [Various LNAs and amplifiers](https://github.com/szoftveres/rf_microwave/tree/main/lna_design)
+* [Various LNAs and amplifiers](https://github.com/szoftveres/rf_microwave/tree/main/Amplifier)
 * [VNA calibration maths](https://github.com/szoftveres/RF_Microwave/tree/main/Cal)
 * [Fixture de-embedding](https://github.com/szoftveres/RF_Microwave/tree/main/DeembedFixture)
 * [Complex impedance matching with 1/4 wave impedance transformer](https://github.com/szoftveres/RF_Microwave/tree/main/ComplexMatching)
