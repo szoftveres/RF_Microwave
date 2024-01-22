@@ -1,3 +1,5 @@
+This repository contains a full 2-port RF simulation framework written for GNU Octave, as well as some miscellaneous RF projects.
+
 * [Microstrip designs](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip)
 * [Various LNAs and amplifiers](https://github.com/szoftveres/rf_microwave/tree/main/Amplifier)
 * [VNA calibration maths](https://github.com/szoftveres/RF_Microwave/tree/main/Cal)
