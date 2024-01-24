@@ -5,7 +5,7 @@ We have a 1.4mm thick single-sided PCB of unknown substrate and a 1/4" wide copp
 ![image 1](TraceThickness.jpg)
 ![image 2](SubstrateThickness.jpg)
 
-After building a transmission line with this copper strip of known width on the PCB of known thickness, we need to determine its characteristic impedance; we can use the 1/4 wave impedance transformer method for this: a 1/4 wave impedance transformer terminated by 50Ω on one side looks purely resistive on its other side at the frequency where it's behaving as a 1/4 wave impedance transformer, and the impedance it's showing (measured by VNA) is based on how it's reflecting the 50Ω termination back, based on its own characteristic impedance.
+After building a transmission line with this copper strip of known width on the PCB of known thickness, we need to determine its characteristic impedance; we can use the λ/4 impedance transformer method for this: a λ/4 impedance transformer terminated by 50Ω on one side looks purely resistive on its other side at the frequency where it's behaving as a λ/4 impedance transformer, and the impedance it's showing (measured by VNA) is based on how it's reflecting the 50Ω termination back, based on its own characteristic impedance.
 The characteristic impedance of the transmission line can then be derived from the impedances at its two sides: Zt = sqrt(Z1 * Z2), where Z1 is the termination impedance (50Ω) and Z2 is the measured impedance (16Ω) at its other side.
 
 ![image 3](ThickWg.jpg)
@@ -26,5 +26,5 @@ The resulting width is 2.72mm.
 
 ![image 7](ThinWg.jpg)
 
-We can verify the new, 2.72mm wide transmission line, by again using the 1/4 wave impedance transformer method. The new, 50Ω terminated 1/4 wave impedance transformer is showing impedances between 44Ω and 50Ω, corresponding to 47Ω-50Ω transmission line characteristic impedance.
+We can verify the new, 2.72mm wide transmission line, by again using the λ/4 impedance transformer method. The new, 50Ω terminated λ/4 impedance transformer is showing impedances between 44Ω and 50Ω, corresponding to 47Ω-50Ω transmission line characteristic impedance.
 

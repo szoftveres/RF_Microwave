@@ -40,11 +40,11 @@ Load (calibrated):
 
 ### Replacing the open cal standard with offset short
 
-An offset short is made of a transmission line of known length, terminated by a short. This network provides an open at the calibration plane at a *single frequency* where the transmission line has a length of 1/4 wave. However, since the (arbitrary) calibration standards can be provided as parameters, we can build a frequency dependent model, modeling the behaviour of our known offset short as a function of frequency, and provide this model at each frequency point, accounting for the real behaviour of the offset short. This way we can fairly accurately provide a short as well as nearby references to our calibration.
+An offset short is made of a transmission line of known length, terminated by a short. This network provides an open at the calibration plane at a *single frequency* where the transmission line has a length of λ/4. However, since the (arbitrary) calibration standards can be provided as parameters, we can build a frequency dependent model, modeling the behaviour of our known offset short as a function of frequency, and provide this model at each frequency point, accounting for the real behaviour of the offset short. This way we can fairly accurately provide a short as well as nearby references to our calibration.
 
 ![os_setup](os_setup.jpg)
 
-The attached offset short has a 1/4 wave length at 161.2MHz
+The attached offset short has a λ/4 length at 161.2MHz
 
 Measured offset short (corrected for by using the previous open cal standard):
 

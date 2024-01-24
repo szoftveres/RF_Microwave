@@ -6,7 +6,7 @@ The capacitively loaded 1/4 transmission line (due to change in boundary conditi
 
 The unequal ratio of the loading capacitances ensures that the load (50Ω) gets transformed to a higher impedance, e.g. to match the high impedance of the output of a transistor amplifier.
 
-In the below example, a transmission line with a characteristic impedance of 100Ω and a length equal to the 1/4 wavelength of 1.5GHz is loaded with 1.5pF at the amplifier output (Hi-Z) side and with 5pF at the 50Ω load (Lo-Z) side.
+In the below example, a transmission line with a characteristic impedance of 100Ω and a length equal to the λ/4 wavelength of 1.5GHz is loaded with 1.5pF at the amplifier output (Hi-Z) side and with 5pF at the 50Ω load (Lo-Z) side.
 
 ![image circ](circ.png)
 

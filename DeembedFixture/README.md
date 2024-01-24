@@ -22,7 +22,7 @@ In case the 2x-thru s-parameters are available (which is the case when a special
 
 ## Example
 
-We have a series RC network of 25Ω and 22pf behind a [50ohm copper tape microstrip line that has a length of 1/4 wave at 376MHz](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip)
+We have a series RC network of 25Ω and 22pf behind a [50ohm copper tape microstrip line that has a length of λ/4 at 376MHz](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip)
 
 ![exnetwork](exnetwork.png)
 ![exline](exline.jpg)
@@ -33,5 +33,5 @@ When we measure this network, we get a Z1,1 impedance of *48.4 + 39.5j* Ω.
 ![exreal](exreal.jpg)
 ![eximag](eximag.jpg)
 
-After de-embedding the 1/4 wave transmission line (since this time we don't have the second SMA connector, and the components are directly soldered to the other end of the miscrostrip line, I deducted ~10% from the overall transmission line electrical length), we get an impedance of *26.675 - 17.813j* Ω, which is an impedance of a series RC network of 26.7 ohms resistance and 23.7pf capacitance at 376MHz.
+After de-embedding the λ/4 transmission line (since this time we don't have the second SMA connector, and the components are directly soldered to the other end of the miscrostrip line, I deducted ~10% from the overall transmission line electrical length), we get an impedance of *26.675 - 17.813j* Ω, which is an impedance of a series RC network of 26.7 ohms resistance and 23.7pf capacitance at 376MHz.
 
