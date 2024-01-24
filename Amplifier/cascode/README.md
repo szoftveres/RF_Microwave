@@ -32,12 +32,15 @@ Simulated P1DBout is around +6dBm; the 2nd and 3rd harmonics are observable but 
 
 ![linearity](hb2.png)  
 
-### Build and measurements
+### Prototyping, build and measurements
 
 T-match input version; the final tuned stub lengths are exactly as simulated:
 
 ![lnapcb](lnapcb.jpg)
 ![lnacloseup](lnacloseup.jpg)
+
+![kicadpcb](kicadpcb.png)
+![oshpcb](oshpcb.jpg)
 
 The measured gain (19.68dB, note the added 10dB attenuator on the output) is very close to simulated:
 
