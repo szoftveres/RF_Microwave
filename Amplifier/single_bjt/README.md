@@ -14,7 +14,7 @@ Biasing of the collector is implemented by using a 1/4 wave (RF) shorted transmi
 
 This amplifier is potentially unstable when its ports are matched, but can be made unconditionally stable by some degeneration of gain, and/or isolation of reactive load from its terminals. This can be achieved by i.e. a series or parallel resistor on its input or output. Attaching the resistor to the output is preferred however, due to the resistor having a contribution to the noise figure.
 
-One approach is a parallel resistor (R3, 500 ohms, Q degeneration) attached to the collector, at the expense of ~1dB gain loss. Since the resistive component is added after amplification, its contribution to the overall noise figure is negligible.
+One approach is a parallel resistor (R3, 500Ω, Q degeneration) attached to the collector, at the expense of ~1dB gain loss. Since the resistive component is added after amplification, its contribution to the overall noise figure is negligible.
 
 ![stabdegen1](stabdegen1.png)
 

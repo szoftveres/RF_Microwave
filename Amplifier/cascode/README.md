@@ -2,7 +2,7 @@
 
 This design is optimized around inductor values that are available to purchase as discrete parts; the matching networks use electrically short microstrip lines as trimmable shunt capacitors.
 
-Input matching is implemented with a high-Q narrow-band T-match, taking advantage of its natural filtering and band-passing effect before the first LNA stage. Output matching is implemented with an L-match; in order to improve stability, artificial resistive loss (R22, 10ohm) was added in series with the shunt capacitance (electrically short microstrip); this degenerates the Q of the matching network at the expense of slight loss of gain, without having significant effect on the noise figure. Reducing the value of this resistance to the point of losing unconditional stability buys another 4dB of gain.
+Input matching is implemented with a high-Q narrow-band T-match, taking advantage of its natural filtering and band-passing effect before the first LNA stage. Output matching is implemented with an L-match; in order to improve stability, artificial resistive loss (R22, 10Ω) was added in series with the shunt capacitance (electrically short microstrip); this degenerates the Q of the matching network at the expense of slight loss of gain, without having significant effect on the noise figure. Reducing the value of this resistance to the point of losing unconditional stability buys another 4dB of gain.
 
 The LNA circuit, with the input T-match tuned for best NF:
 
@@ -16,7 +16,7 @@ With the amplifying devices used in this circuit (Philips/NXP BFR92A, ft = 5GHz)
 
 Besides non-ideal (lossy) inductors in the input T-matching network, the use of electrically short microstrip stub as shunt capacitance - being built on lossy PCB material and being at the highest impedance point of the matching network - introduces around 0.6dB NF degradation versus an ideal (lossless) 1.5pF capacitor.
 
-Without compromising tunability, NF can be improved by around 0.4dB by re-arranging the input to a PI-match and moving the tunable microstrip stub to the lowest impedance point of the input matching network (base of the BJT), at the expense of lower inductor and capacitor values (more uncertainty when using discrete parts) as well as the need for a good ground via for the discrete shunt capacitor.
+Without compromising tunability, NF can be improved by around 0.4dB by re-arranging the input to a PI-match and moving the tunable microstrip stub to the lowest impedance point of the input matching network (base of the BJT), at the expense of lower inductor and capacitor values (more uncertainty when using discrete parts) as well as the need for a good ground via for the discrete shunt capacitor (C14 below).
 
 The same circuit re-arranged for PI-match input, showing 0.4dB NF improvement:
 
@@ -34,10 +34,12 @@ Simulated P1DBout is around +6dBm; the 2nd and 3rd harmonics are observable but 
 
 ### Prototyping, build and measurements
 
-T-match input version; the final tuned stub lengths are exactly as simulated:
+T-match input version; the final tuned stub lengths are almost exactly as simulated:
 
 ![lnapcb](lnapcb.jpg)
 ![lnacloseup](lnacloseup.jpg)
+
+The actual PCB features a resistive PI-attenuator on the output, which is unpopulated (bypassed) in this case. The RF traces are narrower than a standard 50Ω trace, however - being in series with the several tens of nH inductors - their inductance gets absorbed into the input- and output matching networks:
 
 ![kicadpcb](kicadpcb.png)
 ![oshpcb](oshpcb.jpg)
@@ -48,7 +50,7 @@ The measured gain (19.68dB, note the added 10dB attenuator on the output) is ver
 
 ## Adapting for 2.4GHz
 
-At 2.4GHz these transistors begin to show their limitations in the form of reduced gain and increased noise figure:
+At 2.4GHz these transistors (BFR92A) begin to show their limitations in the form of reduced gain and increased noise figure:
 
 ![lna2g4](lna2g4.png)
 
