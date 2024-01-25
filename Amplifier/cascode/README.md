@@ -44,9 +44,9 @@ The actual PCB features a resistive PI-attenuator on the output, which is unpopu
 ![kicadpcb](kicadpcb.png)
 ![oshpcb](oshpcb.jpg)
 
-The measured gain (19.68dB, note the added 10dB attenuator on the output) is very close to simulated:
+Measurements were made with 20dB pad on port 1 (in order to ensure small signal behaviour) and 10dB pad on port 2; the measured gain (20dB) is very close to simulated:
 
-![vnameas](vnameas.jpg)
+![vnameas2](vnameas2.jpg)
 
 ## Adapting for 2.4GHz
 
