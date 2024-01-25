@@ -12,7 +12,7 @@ The individual LNAs have a wideband input match, and tunability (both output pea
 
 ![lnasim](lnasim.png)
 
-The achieved gain is somewhat lower than the gain of the individual amplifiers, mostly due to the lossy PCB material.
+The achieved gain of the balanced amplifier is somewhat lower than that of the individual amplifiers, mostly due to PCB loss.
 
 ![vna](vna.jpg)
 
