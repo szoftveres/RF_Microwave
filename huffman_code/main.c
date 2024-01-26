@@ -88,7 +88,7 @@ main (int argc, char** argv) {
 
     head = NULL;
 
-    fi = open("./text2.txt", O_RDONLY);
+    fi = open("./text.txt", O_RDONLY);
 
     while (bytes) {
         int newsymbol = 1;
