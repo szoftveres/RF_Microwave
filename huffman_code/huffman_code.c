@@ -60,11 +60,7 @@ void
 dfs (node_t *n, int d, char str[]) {
 
     if (!n->zero) {
-        str[d++] = ' ';
-        str[d++] = '[';
-        str[d++] = n->byte;
-        str[d++] = ']';
-        str[d++] = '\0';
+        sprintf(&(str[d]), " - [%c]", n->byte);
         printf("%s\n", str);
     } else {
 
@@ -94,6 +90,9 @@ main (int argc, char** argv) {
         int newsymbol = 1;
         bytes = read(fi, &byte, 1);
         printf("%c", byte);
+        if (byte < 0) {
+            continue;
+        }
 
         for (i = head; i; i = i->next) {
             if (i->byte == byte) {
@@ -128,8 +127,8 @@ main (int argc, char** argv) {
         newnode->byte = '@';
         newnode->occurrence = head->occurrence + head->next->occurrence;
         newnode->next = head->next->next;
-        newnode->zero = head;
-        newnode->one = head->next;
+        newnode->zero = head->next;
+        newnode->one = head;
         head = newnode;
     }
 
