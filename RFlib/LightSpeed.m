@@ -1,5 +1,5 @@
 
 function c = LightSpeed()
-    c = 299792458
+    c = 299792458;
 end
 

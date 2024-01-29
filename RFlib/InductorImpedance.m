@@ -1,5 +1,5 @@
 
 function Z = InductorImpedance(L, F)
-    Z = 0 + (Omega(F) * L)*j
+    Z = 0 + (Omega(F) * L)*j;
 end
 

@@ -4,14 +4,14 @@
 % optional: marker
 
 function smithgplot(cp, mkr)
-    Z = []
+    Z = zeros(length(cp),1);
     for spn = 1:length(cp)
-        Z = [Z; ((1 + cp(spn)) / (1 - cp(spn)))]
+        Z(spn) = ((1 + cp(spn)) / (1 - cp(spn)));
     end
     if (nargin > 1)
-        smithzplot(Z, mkr)
+        smithzplot(Z, mkr);
     else
-        smithzplot(Z)
+        smithzplot(Z);
     end
 end
 

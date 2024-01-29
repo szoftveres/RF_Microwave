@@ -1,69 +1,48 @@
 % script matrix1
 
-n_symbols = 2048
+n_symbols = 8192
 dim = 8
 
 % common functions
-addpath("../RFlib")
+addpath("../octavelib")
 
 
 % Generating the random symbols
 
-iq = []
+for noisep = 1:10
 
-ri = randi([0 dim-1], 1, n_symbols);
-rq = randi([0 dim-1], 1, n_symbols);
+    ri = randi([0 dim-1], 1, n_symbols);
+    rq = randi([0 dim-1], 1, n_symbols);
+
+    iq = zeros(n_symbols,1);
+
+    for fp = 1:n_symbols
+        iq(fp) = ((ri(fp) - ((dim - 1) / 2)) / dim + j * ((rq(fp) - ((dim - 1) / 2))) / dim);
+    end
+
+    iq_orig = iq;
 
 
-for fp = 1:n_symbols
-    iq = [iq; ((ri(fp) - ((dim - 1) / 2)) / dim + j * ((rq(fp) - ((dim - 1) / 2))) / dim)]
+    % Adding white noise
+
+    SNRdB = 18-noisep;
+
+    iq = whitenoise(iq, SNRdB);
+
+    % Adding phase noise
+
+    noiselevel = 0.1;
+
+    iq = phasenoise(iq, noiselevel);
+
+    % Plotting
+
+    qamplot(iq, dim)
+    title("SNR: 18dB")
+    errors = qam_compare(iq, iq_orig, dim)
+    pause(1)
 end
-
-
-% Adding white noise
-
-iq_o = iq
-iq = []
-SNRdB = -18
-
-noiselevel = 10^(SNRdB/10)
-for fp = 1:n_symbols
-    noisem = rand(1) * noiselevel
-    noisea = rand(1) * 2 * pi
-    noisesignal = noisem * (cos(noisea) + j*sin(noisea))
-    iq = [iq; iq_o(fp) + noisesignal]
-end
-
-
-% Adding phase noise
-
-iq_o = iq
-iq = []
-
-noiselevel = 0.2
-
-for fp = 1:n_symbols
-
-    cm = abs(iq_o(fp))
-    ca = arg(iq_o(fp))
-    noisei = (-0.5 + rand(1)) * noiselevel
-    d = cm * (cos(ca + noisei) + j*sin(ca + noisei))
-    iq = [iq; d]
-end
-
-
-% Plotting
-
-ri = []
-rq = []
-for fp = 1:n_symbols
-    ri = [ri; real(iq(fp))]
-    rq = [rq; imag(iq(fp))]
-end
-
-plot(ri, rq, "b.", "LineWidth", 3)
-axis([(-0.5) (0.5) (-0.5) (0.5)])
-title("SNR: -18dB")
 
 pause()
+
 

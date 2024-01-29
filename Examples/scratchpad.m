@@ -4,23 +4,23 @@
 sweeppoints = 500e+6:10e+6:1.5e+9;
 
 % port impedance
-Z0 = 50 + 0j
+Z0 = 50 + 0j;
 
 % common functions
 addpath("../RFlib")
 
 
-ts = sweep2ts(sweeppoints)
+ts = sweep2ts(sweeppoints);
 
 for fp = 1:length(sweeppoints)
-    f = sweeppoints(fp)
+    f = sweeppoints(fp);
 
-    M = SeriesImpedanceMatrix(CapacitorImpedance(3.3e-12, f))
+    M = SeriesImpedanceMatrix(CapacitorImpedance(3.3e-12, f));
 
-    ts.points(fp).ABCD = M
+    ts.points(fp).ABCD = M;
 end
 
-plot2ports(ts, 51)
+plot2ports(ts, 51);
 
-pause()
+pause();
 
