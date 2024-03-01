@@ -1,4 +1,4 @@
-This repository contains a full 2-port RF simulation framework written for GNU Octave, as well as some miscellaneous RF projects.
+This repository contains a full 2-port GNU Octave RF network simulation framework, as well as some RF projects.
 
 ## Microstrip
 
@@ -16,8 +16,9 @@ This repository contains a full 2-port RF simulation framework written for GNU O
 
 * [915MHz Dipole with Gamma-match](https://github.com/szoftveres/RF_microwave/tree/main/em_antenna/dipole_915_gamma)
 
-## GNU Octave RF/Microwave Simulations
+## RF/Microwave Simulations
 
+* [2-port network simulation framework for GNU Octave](https://github.com/szoftveres/RF_Microwave/tree/main/RFlib)
 * [VNA calibration maths](https://github.com/szoftveres/RF_Microwave/tree/main/Cal)
 * [Fixture de-embedding](https://github.com/szoftveres/RF_Microwave/tree/main/DeembedFixture)
 * [Complex impedance matching with λ/4 impedance transformer](https://github.com/szoftveres/RF_Microwave/tree/main/ComplexMatching)
