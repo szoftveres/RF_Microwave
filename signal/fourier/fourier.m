@@ -1,11 +1,22 @@
 % fourier.m
 
 
-symbols = [(0 + 5j),  (-2 + 2j),  (3 - 1j),  (-1 -1j)];
+symbols = [(0 + 0j),
+           (1 + 0j),
+           (0 + 0j),
+           (0 + 0j),
+           (0 + 0j),
+           (0 + 0j),
+           (0 + 0j),
+           (0 + 0j)
+];
 si = real(symbols);
 sq = imag(symbols);
 
 n = length(symbols);
+
+iii = ifft(symbols);
+iii
 
 dft = fft(symbols);
 

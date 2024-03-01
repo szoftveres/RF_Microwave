@@ -22,6 +22,7 @@ for noisep = 1:10
 
     iq_orig = iq;
 
+    %%% channel start %%%
 
     % Adding white noise
 
@@ -35,12 +36,14 @@ for noisep = 1:10
 
     iq = phasenoise(iq, noiselevel);
 
+    %%% channel end %%%
+
     % Plotting
 
     qamplot(iq, dim)
     title("SNR: 18dB")
     errors = qam_compare(iq, iq_orig, dim)
-    pause(1)
+    pause(0.5)
 end
 
 pause()
