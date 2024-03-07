@@ -8,6 +8,8 @@ The LNA circuit, with the input T-match tuned for best NF:
 
 ![cascode_schem](cascode_schem.png)
 
+### Stability
+
 With the amplifying devices used in this circuit (Philips/NXP BFR92A, ft = 5GHz) and the degeneration in the output matching, stability is not an issue, the circuit is unconditionally stable throughout the entire operating range of the transistors:
 
 ![rollet](rollet.png)
