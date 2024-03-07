@@ -6,20 +6,20 @@ This repository contains a full 2-port GNU Octave RF network simulation framewor
 * [Hybrid Coupler](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Hybrid)
 * [Determining the properties of an unknown substrate](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Substrate)
 
-## Amplifiers
+## Amplifier designs
 
 * [Cascode BJT LNA](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/cascode)
 * [Single BJT LNA](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/single_bjt)
 * [Balanced Amplifier](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/balanced)
 
-## EM / Antenna
+## EM / Antenna design and simulation
 
 * [915MHz Dipole with Gamma-match](https://github.com/szoftveres/RF_microwave/tree/main/em_antenna/dipole_915_gamma)
 * [Waveguide to microstrip adapter](https://github.com/szoftveres/RF_microwave/tree/main/em_antenna/wg_adapter)
 
 ## RF/Microwave Simulations
 
-* [2-port network simulation framework for GNU Octave](https://github.com/szoftveres/RF_Microwave/tree/main/RFlib)
+* [2-port network simulation framework (cascaded ABCD matrix solver) for GNU Octave](https://github.com/szoftveres/RF_Microwave/tree/main/RFlib)
 * [VNA calibration maths](https://github.com/szoftveres/RF_Microwave/tree/main/Cal)
 * [Fixture de-embedding](https://github.com/szoftveres/RF_Microwave/tree/main/DeembedFixture)
 * [Complex impedance matching with λ/4 impedance transformer](https://github.com/szoftveres/RF_Microwave/tree/main/ComplexMatching)
