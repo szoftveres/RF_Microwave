@@ -4,6 +4,7 @@ This repository contains a full 2-port GNU Octave RF network simulation framewor
 
 * [Coupled line filter](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Filters)
 * [Hybrid Coupler](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Hybrid)
+* [SMD pad discontinuity compensation](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/pad_comp)
 * [Determining the properties of an unknown substrate](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Substrate)
 
 ## Amplifiers
