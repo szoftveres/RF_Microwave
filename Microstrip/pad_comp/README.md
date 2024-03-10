@@ -1,8 +1,10 @@
 ## SMD pad discontinuity compensation
 
-SMD pads (e.g. footprint of inline DC blocking SMD capacitors) present a shunt capacitive discontinuity in the transmission line which can significantly affect high-frequency behaviour. This can be compensated by making this parasitic capacitance part of a lumped-element transmission line segment (Pi-network), which can be easily realized using microstrip technology.
+SMD pads (e.g. footprint of inline DC blocking SMD capacitors) present a shunt capacitive discontinuity in the transmission line which can significantly affect high-frequency behaviour.
 
 ![sim_nocomp2](sim_nocomp2.png)
+
+This can be compensated by making this parasitic capacitance part of a lumped-element transmission line segment (Pi-network), which can be easily realized using microstrip technology.
 
 ![sim_comp2](sim_comp2.png)
 
