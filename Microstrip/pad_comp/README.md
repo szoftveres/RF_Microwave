@@ -4,7 +4,7 @@ SMD pads (e.g. footprint of inline DC blocking SMD capacitors) present a shunt c
 
 ![sim_nocomp2](sim_nocomp2.png)
 
-This can be compensated by making this parasitic capacitance part of a lumped-element transmission line segment (Pi-network), which can be easily realized using microstrip technology.
+This can be compensated by absorbing this parasitic capacitance into a lumped-element transmission line segment (Pi-network), which can be easily realized using microstrip technology.
 
 ![sim_comp2](sim_comp2.png)
 
