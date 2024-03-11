@@ -1,5 +1,3 @@
-This repository contains a full 2-port GNU Octave RF network simulation framework, as well as some RF projects.
-
 ## Microstrip
 
 * [Coupled line filter](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Filters)
