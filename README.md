@@ -26,7 +26,3 @@
 * [Transfer (ABCD) matrix simulation of loosely coupled resonant tank band-pass filters](https://github.com/szoftveres/RF_Microwave/tree/main/MultiElementBandpassFilter)
 * [QAM with channel (white) noise and phase noise](https://github.com/szoftveres/RF_Microwave/tree/main/signal/qam)
 
-
-![image 1](ABCD1.png)
-![image 2](ABCD2.png)
-
