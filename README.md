@@ -5,7 +5,7 @@
 * [SMD pad discontinuity compensation](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/pad_comp)
 * [Determining the properties of an unknown substrate](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Substrate)
 
-## Amplifiers
+## Amplifier
 
 * [Cascode BJT LNA](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/cascode)
 * [Single BJT LNA](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/single_bjt)
@@ -16,7 +16,7 @@
 * [915MHz Dipole with Gamma-match](https://github.com/szoftveres/RF_microwave/tree/main/em_antenna/dipole_915_gamma)
 * [Waveguide to microstrip adapter](https://github.com/szoftveres/RF_microwave/tree/main/em_antenna/wg_adapter)
 
-## RF/Microwave Simulations
+## Numerical Simulation (GNU Octave)
 
 * [2-port RF network simulation framework (cascaded ABCD matrix solver) for GNU Octave](https://github.com/szoftveres/RF_Microwave/tree/main/RFlib)
 * [VNA calibration maths](https://github.com/szoftveres/RF_Microwave/tree/main/Cal)
