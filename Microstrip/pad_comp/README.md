@@ -1,6 +1,6 @@
 ## SMD pad discontinuity compensation
 
-SMD pads (e.g. footprint of inline DC blocking SMD capacitors) present a shunt capacitive discontinuity in the transmission line which can significantly affect high-frequency behaviour.
+SMD pads (e.g. footprint of inline DC blocking SMD capacitors) present a shunt capacitive discontinuity in the transmission line which can significantly degrade high-frequency performance.
 
 ![sim_nocomp2](sim_nocomp2.png)
 
