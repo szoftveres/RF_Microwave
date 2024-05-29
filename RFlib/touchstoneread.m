@@ -8,8 +8,9 @@
 
 function ts = touchstoneread(filename)
     % get the ports from the S*P extension
-    ext = filename(strfind(filename,'.')+1:length(filename));
-    ports = str2num(ext(2));
+    [dir, name, ext] = fileparts(filename);
+    pext = ext(strfind(ext,'.')+1:length(ext));
+    ports = str2num(pext(2));
     if (ports != 1 && ports != 2)
         error("Unsupported port number");
     end
