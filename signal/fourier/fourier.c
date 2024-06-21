@@ -5,12 +5,14 @@
 
 #define DP (8)
 
-#define DIVVER (1)
+#define FACTOR (1 << 5)
+
 
 static int math_lookup_t[] = {
-    0, 90, 127, 90, 0, -90, -127, -90,
-    0, 90, 127, 90
+    0, 64, 91, 64, 0, -64, -91, -64,
+    0, 64, 91, 64
 };
+
 
 const int *sin_t = &(math_lookup_t[0]);
 const int *cos_t = &(math_lookup_t[2]);
@@ -34,25 +36,31 @@ dft8 (int *i_in, int *q_in, int *i_out, int *q_out) {
         *q_out = 0;
 
         for (k = 0; k != DP; k++) {
-            int ang = (n * k) % 8;
-            *i_out += ((*i_p * cos_t[ang]) + (*q_p * sin_t[ang]));
-            *q_out += ((-(*i_p) * sin_t[ang]) + (*q_p * cos_t[ang]));
-            i_p++;
-            q_p++;
-        }
-        *i_out /= DP * DIVVER;
-        *q_out /= DP * DIVVER;
-        i_out++;
-        q_out++;
+             int ang = (n * k) % DP;
+
+             *i_out += *i_p * cos_t[ang];
+             *i_out += *q_p * sin_t[ang];
+             *q_out -= *i_p * sin_t[ang];
+             *q_out += *q_p * cos_t[ang];
+
+             i_p++;
+             q_p++;
+         }
+         *i_out /= DP * FACTOR;
+         *q_out /= DP * FACTOR;
+
+         i_out++;
+         q_out++;
     }
 }
 
+
 void
 ift8 (int *i_in, int *q_in, int *i_out, int *q_out) {
-    int n;
-    int k;
+     int n;
+     int k;
 
-    for (n = 0; n != DP; n++) {
+     for (n = 0; n != DP; n++) {
         int *i_p = i_in;
         int *q_p = q_in;
 
@@ -60,14 +68,19 @@ ift8 (int *i_in, int *q_in, int *i_out, int *q_out) {
         *q_out = 0;
 
         for (k = 0; k != DP; k++) {
-            int ang = (n * k) % 8;
-            *i_out += ((*i_p * cos_t[ang]) - (*q_p * sin_t[ang]));
-            *q_out += ((*i_p * sin_t[ang]) + (*q_p * cos_t[ang]));
+            int ang = (n * k) % DP;
+
+            *i_out += *i_p * cos_t[ang];
+            *i_out -= *q_p * sin_t[ang];
+            *q_out += *i_p * sin_t[ang];
+            *q_out += *q_p * cos_t[ang];
+
             i_p++;
             q_p++;
         }
-        *i_out /= DP * DIVVER;
-        *q_out /= DP * DIVVER;
+        *i_out /= DP * FACTOR;
+        *q_out /= DP * FACTOR;
+
         i_out++;
         q_out++;
     }
