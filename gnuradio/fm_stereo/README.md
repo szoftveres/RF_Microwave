@@ -1,4 +1,6 @@
-## RTL-SDR FM Receiver with DIY Stereo MPX Decoder
+## RTL-SDR FM Receiver with Stereo MPX Decoder
 
-![blockdiagram](blockdiagram.png)
+Fully DIY implementation (i.e. not using any pre-defined GnuRadio blocks); Polar discriminator FM demodulator and pilot-frequency doubling Stereo MPX decoder, with post-processing stereo enhancer.
+
+![blockdiagram2](blockdiagram2.png)
 

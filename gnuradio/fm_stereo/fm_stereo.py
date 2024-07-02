@@ -244,6 +244,8 @@ class fm_stereo(gr.top_block, Qt.QWidget):
         self.blocks_threshold_ff_0 = blocks.threshold_ff((-0.1), 0.1, 0)
         self.blocks_sub_xx_1_0 = blocks.sub_ff(1)
         self.blocks_sub_xx_1 = blocks.sub_ff(1)
+        self.blocks_null_sink_0 = blocks.null_sink(gr.sizeof_float*1)
+        self.blocks_multiply_xx_1 = blocks.multiply_vcc(1)
         self.blocks_multiply_xx_0_1 = blocks.multiply_vff(1)
         self.blocks_multiply_xx_0 = blocks.multiply_vff(1)
         self.blocks_multiply_const_vxx_2 = blocks.multiply_const_ff((1 - (mono * 0.5)))
@@ -251,7 +253,10 @@ class fm_stereo(gr.top_block, Qt.QWidget):
         self.blocks_multiply_const_vxx_1 = blocks.multiply_const_ff((1 + (st_enh * 2)))
         self.blocks_multiply_const_vxx_0_0 = blocks.multiply_const_ff((-1))
         self.blocks_multiply_const_vxx_0 = blocks.multiply_const_ff(st_enh)
+        self.blocks_delay_0_0 = blocks.delay(gr.sizeof_gr_complex*1, 1)
         self.blocks_delay_0 = blocks.delay(gr.sizeof_float*1, phasedelay)
+        self.blocks_conjugate_cc_0 = blocks.conjugate_cc()
+        self.blocks_complex_to_magphase_0 = blocks.complex_to_magphase(1)
         self.blocks_add_xx_0 = blocks.add_vff(1)
         self.blocks_add_const_vxx_0_0_0_0 = blocks.add_const_ff((mono * 1000))
         self.blocks_add_const_vxx_0_0_0 = blocks.add_const_ff((mono * 1000))
@@ -287,15 +292,6 @@ class fm_stereo(gr.top_block, Qt.QWidget):
                 window.WIN_RECTANGULAR,
                 6.76))
         self.audio_sink_0 = audio.sink(audio_samp_rate, 'default', True)
-        self.analog_fm_demod_cf_0 = analog.fm_demod_cf(
-        	channel_rate=(audio_samp_rate*16),
-        	audio_decim=1,
-        	deviation=115000,
-        	audio_pass=56000,
-        	audio_stop=115000,
-        	gain=1.0,
-        	tau=0.0,
-        )
         self.analog_fm_deemph_0_0 = analog.fm_deemph(fs=(audio_samp_rate*16), tau=(75e-6))
         self.analog_fm_deemph_0 = analog.fm_deemph(fs=(audio_samp_rate*16), tau=(75e-6))
 
@@ -305,9 +301,6 @@ class fm_stereo(gr.top_block, Qt.QWidget):
         ##################################################
         self.connect((self.analog_fm_deemph_0, 0), (self.rational_resampler_xxx_0, 0))
         self.connect((self.analog_fm_deemph_0_0, 0), (self.rational_resampler_xxx_0_0, 0))
-        self.connect((self.analog_fm_demod_cf_0, 0), (self.band_pass_filter_0, 0))
-        self.connect((self.analog_fm_demod_cf_0, 0), (self.blocks_multiply_const_vxx_2, 0))
-        self.connect((self.analog_fm_demod_cf_0, 0), (self.qtgui_freq_sink_x_0, 0))
         self.connect((self.band_pass_filter_0, 0), (self.blocks_threshold_ff_0_0_0, 0))
         self.connect((self.band_pass_filter_0_0, 0), (self.blocks_add_const_vxx_0_0_0_0, 0))
         self.connect((self.band_pass_filter_0_0, 0), (self.blocks_multiply_const_vxx_0_0, 0))
@@ -316,7 +309,13 @@ class fm_stereo(gr.top_block, Qt.QWidget):
         self.connect((self.blocks_add_const_vxx_0_0_0, 0), (self.blocks_threshold_ff_0, 0))
         self.connect((self.blocks_add_const_vxx_0_0_0_0, 0), (self.blocks_threshold_ff_0_0, 0))
         self.connect((self.blocks_add_xx_0, 0), (self.blocks_multiply_const_vxx_0, 0))
+        self.connect((self.blocks_complex_to_magphase_0, 1), (self.band_pass_filter_0, 0))
+        self.connect((self.blocks_complex_to_magphase_0, 1), (self.blocks_multiply_const_vxx_2, 0))
+        self.connect((self.blocks_complex_to_magphase_0, 0), (self.blocks_null_sink_0, 0))
+        self.connect((self.blocks_complex_to_magphase_0, 1), (self.qtgui_freq_sink_x_0, 0))
+        self.connect((self.blocks_conjugate_cc_0, 0), (self.blocks_multiply_xx_1, 1))
         self.connect((self.blocks_delay_0, 0), (self.band_pass_filter_0_0, 0))
+        self.connect((self.blocks_delay_0_0, 0), (self.blocks_conjugate_cc_0, 0))
         self.connect((self.blocks_multiply_const_vxx_0, 0), (self.blocks_sub_xx_1, 1))
         self.connect((self.blocks_multiply_const_vxx_0, 0), (self.blocks_sub_xx_1_0, 1))
         self.connect((self.blocks_multiply_const_vxx_0_0, 0), (self.blocks_add_const_vxx_0_0_0, 0))
@@ -326,12 +325,14 @@ class fm_stereo(gr.top_block, Qt.QWidget):
         self.connect((self.blocks_multiply_const_vxx_2, 0), (self.blocks_multiply_xx_0_1, 0))
         self.connect((self.blocks_multiply_xx_0, 0), (self.analog_fm_deemph_0, 0))
         self.connect((self.blocks_multiply_xx_0_1, 0), (self.analog_fm_deemph_0_0, 0))
+        self.connect((self.blocks_multiply_xx_1, 0), (self.blocks_complex_to_magphase_0, 0))
         self.connect((self.blocks_sub_xx_1, 0), (self.blocks_multiply_const_vxx_1_0, 0))
         self.connect((self.blocks_sub_xx_1_0, 0), (self.blocks_multiply_const_vxx_1, 0))
         self.connect((self.blocks_threshold_ff_0, 0), (self.blocks_multiply_xx_0_1, 1))
         self.connect((self.blocks_threshold_ff_0_0, 0), (self.blocks_multiply_xx_0, 1))
         self.connect((self.blocks_threshold_ff_0_0_0, 0), (self.band_pass_filter_0_1, 0))
-        self.connect((self.low_pass_filter_0, 0), (self.analog_fm_demod_cf_0, 0))
+        self.connect((self.low_pass_filter_0, 0), (self.blocks_delay_0_0, 0))
+        self.connect((self.low_pass_filter_0, 0), (self.blocks_multiply_xx_1, 0))
         self.connect((self.rational_resampler_xxx_0, 0), (self.blocks_add_xx_0, 1))
         self.connect((self.rational_resampler_xxx_0, 0), (self.blocks_sub_xx_1_0, 0))
         self.connect((self.rational_resampler_xxx_0_0, 0), (self.blocks_add_xx_0, 0))
