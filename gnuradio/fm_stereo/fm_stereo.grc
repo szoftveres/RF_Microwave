@@ -157,6 +157,23 @@ blocks:
     coordinate: [720, 156.0]
     rotation: 0
     state: true
+- name: analog_const_source_x_0
+  id: analog_const_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '1.0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1000, 988.0]
+    rotation: 0
+    state: true
 - name: analog_fm_deemph_0
   id: analog_fm_deemph
   parameters:
@@ -249,7 +266,7 @@ blocks:
     minoutbuf: '0'
     samp_rate: audio_samp_rate*16
     type: fir_filter_fff
-    width: '1000'
+    width: '5000'
     win: window.WIN_RECTANGULAR
   states:
     bus_sink: false
@@ -274,7 +291,7 @@ blocks:
     minoutbuf: '0'
     samp_rate: audio_samp_rate*16
     type: fir_filter_fff
-    width: '1000'
+    width: '2000'
     win: window.WIN_RECTANGULAR
   states:
     bus_sink: false
@@ -354,8 +371,8 @@ blocks:
     coordinate: [1616.0, 784]
     rotation: 270
     state: true
-- name: blocks_complex_to_magphase_0
-  id: blocks_complex_to_magphase
+- name: blocks_complex_to_arg_0
+  id: blocks_complex_to_arg
   parameters:
     affinity: ''
     alias: ''
@@ -367,7 +384,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 472.0]
+    coordinate: [1008, 504.0]
     rotation: 180
     state: true
 - name: blocks_conjugate_cc_0
@@ -423,6 +440,22 @@ blocks:
     coordinate: [704, 392.0]
     rotation: 0
     state: true
+- name: blocks_float_to_complex_0
+  id: blocks_float_to_complex
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1288, 368.0]
+    rotation: 0
+    state: true
 - name: blocks_multiply_const_vxx_0
   id: blocks_multiply_const_vxx
   parameters:
@@ -458,6 +491,24 @@ blocks:
     bus_structure: null
     coordinate: [552, 924.0]
     rotation: 0
+    state: true
+- name: blocks_multiply_const_vxx_0_0_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [824, 500.0]
+    rotation: 180
     state: true
 - name: blocks_multiply_const_vxx_1
   id: blocks_multiply_const_vxx
@@ -567,7 +618,7 @@ blocks:
     coordinate: [1000, 376.0]
     rotation: 0
     state: true
-- name: blocks_null_sink_0
+- name: blocks_null_sink_0_0
   id: blocks_null_sink
   parameters:
     affinity: ''
@@ -581,7 +632,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [680, 472.0]
+    coordinate: [1224, 848.0]
     rotation: 180
     state: true
 - name: blocks_sub_xx_1
@@ -674,6 +725,24 @@ blocks:
     coordinate: [464, 660.0]
     rotation: 180
     state: true
+- name: blocks_vco_f_0
+  id: blocks_vco_f
+  parameters:
+    affinity: ''
+    alias: ''
+    amplitude: '1.0'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: audio_samp_rate*16
+    sensitivity: 19000*3.141592*2
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1192, 932.0]
+    rotation: 0
+    state: true
 - name: low_pass_filter_0
   id: low_pass_filter
   parameters:
@@ -696,6 +765,146 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [464, 324.0]
+    rotation: 0
+    state: true
+- name: low_pass_filter_0_0
+  id: low_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '15000'
+    decim: '16'
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: audio_samp_rate*16
+    type: fir_filter_fff
+    width: '1000'
+    win: window.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1424, 508.0]
+    rotation: 0
+    state: true
+- name: low_pass_filter_0_0_0
+  id: low_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '15000'
+    decim: '16'
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: audio_samp_rate*16
+    type: fir_filter_fff
+    width: '1000'
+    win: window.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1424, 660.0]
+    rotation: 0
+    state: true
+- name: qtgui_const_sink_x_0
+  id: qtgui_const_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: '"blue"'
+    color10: '"red"'
+    color2: '"red"'
+    color3: '"red"'
+    color4: '"red"'
+    color5: '"red"'
+    color6: '"red"'
+    color7: '"red"'
+    color8: '"red"'
+    color9: '"red"'
+    comment: ''
+    grid: 'False'
+    gui_hint: ''
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'True'
+    marker1: '0'
+    marker10: '0'
+    marker2: '0'
+    marker3: '0'
+    marker4: '0'
+    marker5: '0'
+    marker6: '0'
+    marker7: '0'
+    marker8: '0'
+    marker9: '0'
+    name: '""'
+    nconnections: '1'
+    size: '1024'
+    style1: '0'
+    style10: '0'
+    style2: '0'
+    style3: '0'
+    style4: '0'
+    style5: '0'
+    style6: '0'
+    style7: '0'
+    style8: '0'
+    style9: '0'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: complex
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    xmax: '2'
+    xmin: '-2'
+    ymax: '2'
+    ymin: '-2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1472, 372.0]
     rotation: 0
     state: true
 - name: qtgui_freq_sink_x_0
@@ -776,7 +985,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [616, 524.0]
+    coordinate: [552, 484.0]
     rotation: 180
     state: true
 - name: qtgui_freq_sink_x_0_0
@@ -858,46 +1067,6 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [448, 236.0]
-    rotation: 0
-    state: true
-- name: rational_resampler_xxx_0
-  id: rational_resampler_xxx
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    decim: '16'
-    fbw: '0'
-    interp: '1'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    taps: '[]'
-    type: fff
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1432, 540.0]
-    rotation: 0
-    state: true
-- name: rational_resampler_xxx_0_0
-  id: rational_resampler_xxx
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    decim: '16'
-    fbw: '0'
-    interp: '1'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    taps: '[]'
-    type: fff
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1432, 668.0]
     rotation: 0
     state: true
 - name: rtlsdr_source_0
@@ -1259,8 +1428,11 @@ blocks:
     state: true
 
 connections:
-- [analog_fm_deemph_0, '0', rational_resampler_xxx_0, '0']
-- [analog_fm_deemph_0_0, '0', rational_resampler_xxx_0_0, '0']
+- [analog_const_source_x_0, '0', blocks_vco_f_0, '0']
+- [analog_fm_deemph_0, '0', blocks_float_to_complex_0, '0']
+- [analog_fm_deemph_0, '0', low_pass_filter_0_0, '0']
+- [analog_fm_deemph_0_0, '0', blocks_float_to_complex_0, '1']
+- [analog_fm_deemph_0_0, '0', low_pass_filter_0_0_0, '0']
 - [band_pass_filter_0, '0', blocks_threshold_ff_0_0_0, '0']
 - [band_pass_filter_0_0, '0', blocks_add_const_vxx_0_0_0_0, '0']
 - [band_pass_filter_0_0, '0', blocks_multiply_const_vxx_0_0, '0']
@@ -1269,34 +1441,36 @@ connections:
 - [blocks_add_const_vxx_0_0_0, '0', blocks_threshold_ff_0, '0']
 - [blocks_add_const_vxx_0_0_0_0, '0', blocks_threshold_ff_0_0, '0']
 - [blocks_add_xx_0, '0', blocks_multiply_const_vxx_0, '0']
-- [blocks_complex_to_magphase_0, '0', blocks_null_sink_0, '0']
-- [blocks_complex_to_magphase_0, '1', band_pass_filter_0, '0']
-- [blocks_complex_to_magphase_0, '1', blocks_multiply_const_vxx_2, '0']
-- [blocks_complex_to_magphase_0, '1', qtgui_freq_sink_x_0, '0']
+- [blocks_complex_to_arg_0, '0', blocks_multiply_const_vxx_0_0_0, '0']
 - [blocks_conjugate_cc_0, '0', blocks_multiply_xx_1, '1']
 - [blocks_delay_0, '0', band_pass_filter_0_0, '0']
 - [blocks_delay_0_0, '0', blocks_conjugate_cc_0, '0']
+- [blocks_float_to_complex_0, '0', qtgui_const_sink_x_0, '0']
 - [blocks_multiply_const_vxx_0, '0', blocks_sub_xx_1, '1']
 - [blocks_multiply_const_vxx_0, '0', blocks_sub_xx_1_0, '1']
 - [blocks_multiply_const_vxx_0_0, '0', blocks_add_const_vxx_0_0_0, '0']
+- [blocks_multiply_const_vxx_0_0_0, '0', band_pass_filter_0, '0']
+- [blocks_multiply_const_vxx_0_0_0, '0', blocks_multiply_const_vxx_2, '0']
+- [blocks_multiply_const_vxx_0_0_0, '0', qtgui_freq_sink_x_0, '0']
 - [blocks_multiply_const_vxx_1, '0', audio_sink_0, '0']
 - [blocks_multiply_const_vxx_1_0, '0', audio_sink_0, '1']
 - [blocks_multiply_const_vxx_2, '0', blocks_multiply_xx_0, '0']
 - [blocks_multiply_const_vxx_2, '0', blocks_multiply_xx_0_1, '0']
 - [blocks_multiply_xx_0, '0', analog_fm_deemph_0, '0']
 - [blocks_multiply_xx_0_1, '0', analog_fm_deemph_0_0, '0']
-- [blocks_multiply_xx_1, '0', blocks_complex_to_magphase_0, '0']
+- [blocks_multiply_xx_1, '0', blocks_complex_to_arg_0, '0']
 - [blocks_sub_xx_1, '0', blocks_multiply_const_vxx_1_0, '0']
 - [blocks_sub_xx_1_0, '0', blocks_multiply_const_vxx_1, '0']
 - [blocks_threshold_ff_0, '0', blocks_multiply_xx_0_1, '1']
 - [blocks_threshold_ff_0_0, '0', blocks_multiply_xx_0, '1']
 - [blocks_threshold_ff_0_0_0, '0', band_pass_filter_0_1, '0']
+- [blocks_vco_f_0, '0', blocks_null_sink_0_0, '0']
 - [low_pass_filter_0, '0', blocks_delay_0_0, '0']
 - [low_pass_filter_0, '0', blocks_multiply_xx_1, '0']
-- [rational_resampler_xxx_0, '0', blocks_add_xx_0, '1']
-- [rational_resampler_xxx_0, '0', blocks_sub_xx_1_0, '0']
-- [rational_resampler_xxx_0_0, '0', blocks_add_xx_0, '0']
-- [rational_resampler_xxx_0_0, '0', blocks_sub_xx_1, '0']
+- [low_pass_filter_0_0, '0', blocks_add_xx_0, '1']
+- [low_pass_filter_0_0, '0', blocks_sub_xx_1_0, '0']
+- [low_pass_filter_0_0_0, '0', blocks_add_xx_0, '0']
+- [low_pass_filter_0_0_0, '0', blocks_sub_xx_1, '0']
 - [rtlsdr_source_0, '0', low_pass_filter_0, '0']
 - [rtlsdr_source_0, '0', qtgui_freq_sink_x_0_0, '0']
 
