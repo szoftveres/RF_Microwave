@@ -1,6 +1,6 @@
 ## Cascode BJT LNA for 915MHz
 
-With the input T-match tuned for best NF:
+Initial design, built around discrete BFR92 transistors, with input T-match (tuned for best NF):
 
 ![cascode_schem](cascode_schem.png)
 
@@ -20,19 +20,25 @@ Simulated P1DBout is around +6dBm; the 2nd and 3rd harmonics are observable but 
 
 ### Prototyping, build and measurements
 
-Prototype, with stubs:
-![lnapcb](lnapcb.jpg)
+Prototype, with stubs in the in- and output matching networks:
 
+![lnapcb](lnapcb.jpg)
 
 Build, with output pad (4dB) and integrated bias-tee:
 
+![cascode_photo](cascode_photo.jpg)
+
+The values of C7, L2 and C3 were determined experimentally:
+
 ![schematic_cascode](schematic_cascode.png)
 
-![cascode_photo](cascode_photo.jpg)
+S-parameters:
 
 ![lna_sparams](lna_sparams.png)
 
-Gain: +18.17 dB, P1dBin: -11.8 dBm, OP1dB: +5.37 dBm 
+Power sweep, Pin = -35 dBm - -5 dBm
+Gain: +18.17 dB, P1dBin: -11.8 dBm, OP1dB: +5.37 dBm
+
 ![lna_pwrsweep](lna_pwrsweep.png)
 
 
