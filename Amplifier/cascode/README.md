@@ -1,4 +1,4 @@
-## Cascode BJT LNA for 915MHz
+## Antenna amplifier for 915MHz
 
 Initial design, built around discrete BFR92 transistors, with input T-match (tuned for best NF):
 
@@ -24,7 +24,7 @@ Prototype, with stubs in the in- and output matching networks:
 
 ![lnapcb](lnapcb.jpg)
 
-Build, with output pad (4dB) and integrated bias-tee:
+Final build with input L-match, output pad (4dB) and integrated bias-tee:
 
 ![cascode_photo](cascode_photo.jpg)
 
@@ -37,7 +37,10 @@ S-parameters:
 ![lna_sparams](lna_sparams.png)
 
 Power sweep, Pin = -35 dBm - -5 dBm
+
 Gain: +18.17 dB, P1dBin: -11.8 dBm, OP1dB: +5.37 dBm
+
+Current consumption is 10mA (Vcc = +9V)
 
 ![lna_pwrsweep](lna_pwrsweep.png)
 
