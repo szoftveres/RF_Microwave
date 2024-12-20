@@ -45,7 +45,7 @@ Current consumption is 10mA (Vcc = +9V)
 ![lna_pwrsweep](lna_pwrsweep.png)
 
 
-
+[Balanced amplifier based on this LNA](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/balanced)
 
 
 

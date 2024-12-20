@@ -4,7 +4,7 @@ Two [915MHz Antenna LNAs](https://github.com/szoftveres/RF_Microwave/tree/main/A
 
 ### Prototyping
 
-Several built [antenna LNAs](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode) showed an S2,1 phase difference of no more than 5 degrees, making them a good candidate. Prototyped with the [DIY 915MHz hybrids](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Hybrid):
+Several built antenna LNAs showed an S2,1 phase difference of no more than 5 degrees, making them a good candidate. Prototyped with the [DIY 915MHz hybrids](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Hybrid):
 
 ![balanced_proto](balanced_proto.jpg)
 
