@@ -1,18 +1,31 @@
 ## Balanced amplifier for 915MHz
 
-![balancedpcb](balancedpcb.jpg)
+Two [915MHz Antenna LNAs](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode) turned into a balanced amplifier, intended for low power PA and driver use.
 
-This design uses a slightly modified version of the [915MHz cascode amp](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode) and the [915MHz hybrid](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Hybrid) as building blocks.
+### Prototyping
 
-Advantages of a balanced amplifier are 3dB more OP1DB headroom, input- and output match being independent of the match to the actual active devices due to the reflected power being absorbed on the (terminated) isolated ports, and redundancy.
+Several built [antenna LNAs](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode) showed an S2,1 phase difference of no more than 5 degrees, making them a good candidate. Prototyped with the [DIY 915MHz hybrids](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Hybrid):
 
-It's required however that the individual amplifiers are "identical", i.e. the output phase relative to the input must be the same for both devices, in order for the 90° hybrid to be able to combine the output of both devices.
+![balanced_proto](balanced_proto.jpg)
 
-The individual LNAs have a wideband input match, and tunability (both output peaking and phase matching) is achieved by a tuning stub on the output.
+### Build and measurements
 
-![lnasim](lnasim.png)
+![balanced_photo](balanced_photo.jpg)
 
-The achieved gain of the balanced amplifier is somewhat lower than that of the individual amplifiers, mostly due to PCB loss.
+![balanced_schem](balanced_schem.png)
 
-![vna](vna.jpg)
+S-parameters:
+
+![balanced_sparams](balanced_sparams.png)
+
+Power sweep, Pin = -35 dBm - -8 dBm
+
+Gain: +21.9 dB, P1dBin: -9.1 dBm, OP1dB: +11.8 dBm
+
+Current consumption is 20mA (Vcc = +9V)
+
+![balanced_pwrsweep](balanced_pwrsweep.png)
+
+
+
 
