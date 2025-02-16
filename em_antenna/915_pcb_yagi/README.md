@@ -19,6 +19,6 @@ Since the antenna is made of a regular (lossy) FR4 PCB substrate, loss could be 
 
 The build included the 4:1 balun as well as an SMA connector; resonance is a bit off but the input return loss semms quite acceptable.
 
-![build](build.jpg)
+![build_pcb](build.jpg)
 
 ![meas](meas.jpg)
