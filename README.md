@@ -9,7 +9,6 @@
 
 * [Cascode BJT LNA](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/cascode)
 * [Single BJT LNA](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/single_bjt)
-* [Balanced Amplifier](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/balanced)
 
 ## EM / Antenna
 
