@@ -58,6 +58,8 @@ Prototyped with the [DIY 915MHz hybrids](https://github.com/szoftveres/RF_Microw
 
 ### Build and measurements
 
+The final build uses QCN-12A+ SMD branchline couplers from Mini-Circuits. The layout of the individual amplifiers on the PCB is identical to the single LNA, in order to preserve their (already characterized) performance.
+
 ![balanced_photo](balanced_photo.jpg)
 
 ![balanced_schem](balanced_schem.png)
