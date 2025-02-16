@@ -1,11 +1,4 @@
-## Microstrip
-
-* [Coupled line filter](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Filters)
-* [Hybrid Coupler](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Hybrid)
-* [SMD pad discontinuity compensation](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/pad_comp)
-* [Determining the properties of an unknown substrate](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Substrate)
-
-## Amplifier
+## RF Amplifiers
 
 * [Cascode BJT LNA](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/cascode)
 * [Single BJT LNA](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/single_bjt)
@@ -13,7 +6,14 @@
 ## EM / Antenna
 
 * [915MHz Dipole with Gamma-match](https://github.com/szoftveres/RF_microwave/tree/main/em_antenna/dipole_915_gamma)
-* [Waveguide to microstrip adapter](https://github.com/szoftveres/RF_microwave/tree/main/em_antenna/wg_adapter)
+* [Microstrip to waveguide adapter](https://github.com/szoftveres/RF_microwave/tree/main/em_antenna/wg_adapter)
+
+## Microstrip
+
+* [SMD pad discontinuity compensation](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/pad_comp)
+* [Coupled line filter](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Filters)
+* [Hybrid Coupler](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Hybrid)
+* [Determining the properties of an unknown substrate](https://github.com/szoftveres/RF_Microwave/tree/main/Microstrip/Substrate)
 
 ## Numerical Simulation (GNU Octave)
 
