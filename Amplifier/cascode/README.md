@@ -1,5 +1,7 @@
 ## Antenna amplifier for 915MHz
 
+The intent here was to come up with a discrete low-noie antenna amplifier with robust characteristics, while developing further practical RF/ microwave skills using discrete devices.
+
 Initial design, built around discrete BFR92 transistors, with input T-match (tuned for best NF):
 
 ![cascode_schem](cascode_schem.png)
