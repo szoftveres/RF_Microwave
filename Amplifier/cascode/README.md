@@ -2,6 +2,8 @@
 
 The intent here was to come up with a discrete low-noie antenna amplifier with robust characteristics, while developing further practical RF/ microwave skills using discrete devices.
 
+The output L-match is formed by L4 indutor, Ccb (output) capacitance of T6 transistor and MS31-MS32 stub, which is electically short (capacitive). R22 resistor in series with the stub degenerates the L-match, which is necessary for stabilizing the amplifier. Tuning of the output match is done by adjusting the length of the stub.
+
 Initial design, built around discrete BFR92 transistors, with input T-match (tuned for best NF):
 
 ![cascode_schem](cascode_schem.png)
@@ -26,7 +28,7 @@ Prototype, with stubs in the in- and output matching networks:
 
 ![lnapcb](lnapcb.jpg)
 
-Final build with input L-match, output pad (4dB) and integrated bias-tee:
+Final build with additional on-board 4dB output attenuator and bias-tee. The input is matched with L-match and the short output stub is replaced by C3.
 
 ![cascode_photo](cascode_photo.jpg)
 
@@ -58,7 +60,7 @@ Prototyped with the [DIY 915MHz hybrids](https://github.com/szoftveres/RF_Microw
 
 ### Build and measurements
 
-The final build uses QCN-12A+ SMD branchline couplers from Mini-Circuits. The layout of the individual amplifiers on the PCB is identical to the single LNA, in order to preserve their (already characterized) performance.
+The final build uses off-the-shelf SMD branchline couplers (Mini-Circuits QCN-12A+). The layout of the individual amplifiers on the PCB is identical to the single LNA, in order to preserve their (already characterized) performance, and the in- and out connecting trace lengths are equal.
 
 ![balanced_photo](balanced_photo.jpg)
 
