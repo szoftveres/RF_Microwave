@@ -30,11 +30,11 @@ Prototype, with stubs in the in- and output matching networks:
 
 Final build with additional on-board 4dB output attenuator and bias-tee. The input is matched with L-match and the short output stub is replaced by C3.
 
-![cascode_photo](cascode_photo.jpg)
-
-The values of C7, L2 and C3 were determined experimentally:
-
 ![schematic_cascode](schematic_cascode.png)
+
+The values of C7, L2 and C3 were determined experimentally.
+
+![cascode_photo](cascode_photo.jpg)
 
 S-parameters:
 
@@ -66,9 +66,11 @@ The final build uses off-the-shelf SMD branchline couplers (Mini-Circuits QCN-12
 
 ![balanced_schem](balanced_schem.png)
 
-S-parameters:
+In- and output now appears to be perfectly matched over a broad band - due to the impedance of R11 and R12 being reflected on the input-and output ports.
 
 ![balanced_sparams](balanced_sparams.png)
+
+The amplifier is usable for generic LNA, or driver amplifier applications due to higher output power.
 
 Power sweep, Pin = -35 dBm - -8 dBm
 
