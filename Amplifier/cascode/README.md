@@ -67,6 +67,7 @@ Prototyped with the [DIY 915MHz hybrids](https://github.com/szoftveres/RF_Microw
 ### Build and measurements
 
 The final build uses off-the-shelf SMD branchline couplers (Mini-Circuits QCN-12A+). The layout of the individual amplifiers on the PCB is identical to the single LNA, in order to preserve their (already characterized) performance, and the in- and out connecting trace lengths are equal.
+Since the output L-match of each amplifier is now terminated by the output branchline coupler, the 4 dB attenuators were omitted - the extra 4 dB gain, nearly 7 dB more output power compared to a single LNA and a broadband output match makes this amplifier a good PA driver.
 
 ![balanced_photo](balanced_photo.jpg)
 
