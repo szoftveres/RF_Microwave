@@ -2,7 +2,7 @@
 
 The intent here was to come up with a discrete low-noie antenna amplifier with robust characteristics, while developing further practical RF/ microwave skills using discrete devices.
 
-The output L-match is formed by L4 indutor, Ccb (output) capacitance of T6 transistor and MS31-MS32 stub, which is electically short (capacitive). R22 resistor in series with the stub degenerates the L-match, which is necessary for stabilizing the amplifier. Tuning of the output match is done by adjusting the length of the stub.
+The output L-match is formed by L4 indutor, Ccb (output) capacitance of T6 transistor and MS31-MS32 electically short (capacitive) stub. R22 resistor degenerates the L-match, which is necessary for stabilizing the amplifier. Tuning of the output match is done by adjusting the length of the stub.
 
 Initial design, built around discrete BFR92 transistors, with input T-match (tuned for best NF):
 
