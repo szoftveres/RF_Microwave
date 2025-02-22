@@ -28,13 +28,19 @@ Prototype, with stubs in the in- and output matching networks:
 
 ![lnapcb](lnapcb.jpg)
 
-Final build with additional on-board 4dB output attenuator and bias-tee. The input is matched with L-match and the short output stub is replaced by C3.
+Final build, the input is matched with L-match and the short stub of the output L-match is replaced by C3.
+The final build includes a built-in 4 dB output attenuator, mainly in order to create a good transition between the output L-match of the LNA and whatever follows it - a poor cable or connector could de-tune the L-match and potentially de-stabilize the amplifier. The LNA still has plenty of gain, so trading off 4 dB gain and power for extra robustness seemed like a good deal.
+Also a bias-tee is included on the final circuit and PCB, enabling the installation of the LNA near the antenna and powering it through the RF coax cable.
 
 ![schematic_cascode](schematic_cascode.png)
 
 The values of C7, L2 and C3 were determined experimentally.
 
 ![cascode_photo](cascode_photo.jpg)
+
+Installed on a [PCB antenna](https://github.com/szoftveres/RF_Microwave/tree/main/em_antenna/915_pcb_yagi) and powered remotely via the RF cable:
+
+![on_antenna](on_antenna.jpg)
 
 S-parameters:
 
