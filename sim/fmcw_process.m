@@ -59,7 +59,7 @@ for i=2:totalsamples
 end
 
 sweeps
-sweeps_to_skip = sweeps / 60
+sweeps_to_skip = min(round(sweeps / 10), 5)
 periodicity_of_sweeps_hz = sweeps / recording_length_seconds
 
 
@@ -103,12 +103,16 @@ printf("\n\n == Analyzing sweeps ..\n\n");
 samples_to_skip_front = round(lowest_samples_per_sweep / 6)
 samples_to_skip_back = round(lowest_samples_per_sweep / 20)
 
+%samples_to_skip_front = 2;
+%samples_to_skip_back = 2;
+
 
 subarray_size = 1+lowest_samples_per_sweep-samples_to_skip_back-samples_to_skip_front
 
-% Background noise calc
+% Background average noise calculation
 avg_subarray = zeros(1,subarray_size);
-window = rot90(blackman(subarray_size));
+%window = ones(1,subarray_size);
+window = rot90(hanning(subarray_size));
 
 sweepnumber = 0;
 for i=2:totalsamples
@@ -119,7 +123,7 @@ for i=2:totalsamples
             continue;
         endif
         subarray = sample(i+samples_to_skip_front:i+lowest_samples_per_sweep-samples_to_skip_back);
-        subarray = abs(dct(subarray .* window));
+        subarray = abs(fft(subarray .* window));
         avg_subarray = avg_subarray + subarray;
     endif
 end
@@ -140,9 +144,9 @@ for i=2:totalsamples
         endif
         subarray = sample(i+samples_to_skip_front:i+lowest_samples_per_sweep-samples_to_skip_back);
         
-        subarray = abs(dct(subarray .* window)) - avg_subarray + 100;
+        subarray = abs(fft(subarray .* window)) - avg_subarray + 100;
 
-        subarray = subarray(1:subarray_size/4);
+        subarray = subarray(1:subarray_size/6);
         plotarray = [plotarray ; log10(subarray)];
     endif
 end
@@ -151,24 +155,19 @@ end
 plotarray_size = size(plotarray)
 
 
+printf("\n\n == Plotting ..\n\n");
 
-%for i=1:samples:size(p)(2)-1
-%    subarray = fft(p(i+1:i+samples-2))(samples/2:samples-2);
-%    subarray = dct(p(i+1:i+samples-2));
-%    plotarray = [plotarray ; log10(abs(subarray))];
-%end
+plotmin = min(min(plotarray));
+plotmax = max(max(plotarray));
+plotampl = (plotmax - plotmin);
 
-plotmin = min(min(plotarray))
-plotmax = max(max(plotarray))
-plotmag = (plotmax - plotmin) / 4;
-
-
+plotmean = mean(mean(plotarray));
 
 figure;
 %colormap ("gray");
 h = pcolor(flip(rot90(plotarray)));
 set(h, 'EdgeColor', 'none');
-caxis([plotmin+plotmag plotmax-plotmag]);
+caxis([(plotmean )      (plotmax - (plotampl * 0.20 ))]);
 printf("Done\n");
 
 pause();
