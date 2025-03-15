@@ -5,29 +5,9 @@ sync_channel = 2;
 sample_channel = 1;
 
 
-
-% Functions to detect sweep start and sweep end
-
-function retval = sweepstart(previous, current)
-    retval = 0;
-    if (current > 0.12 && previous < 0.12)
-        retval = 1;
-    endif
-end
-
-function retval = sweepend(previous, current)
-    retval = 0;
-    if (previous > -0.12 && current < -0.12)
-        retval = 1;
-    endif
-end
-
-
 printf("\n\n == Reading data ..\n\n");
 
-% Reading in the file
-
-[audiofile, samplerate] = audioread("radartest_car_success2.wav");
+[audiofile, samplerate] = audioread("radartest_car_success3.wav");
 
 
 samplerate
@@ -39,10 +19,6 @@ recording_length_seconds = totalsamples / samplerate
 % Separating the two (sync and sample) channels
 sync = [];
 sample = [];
-%for i=1:totalsamples
-%    sync = [sync audiofile(i,sync_channel)];
-%    sample = [sample audiofile(i,sample_channel)];
-%end
 
 sync = rot90(audiofile(:, sync_channel));
 sample = rot90(audiofile(:, sample_channel));
@@ -50,106 +26,93 @@ sample = rot90(audiofile(:, sample_channel));
 
 printf("\n\n == Detecting sweeps ..\n\n");
 
-% Calculating the total number of sweeps
 sweeps = 0;
+sweepstarts = [];
+sweepends = [];
+in_sweep = 0;
+
+
 for i=2:totalsamples
-    if (sweepstart(sync(i-1), sync(i)))
+    if (sync(i-1) < 0.12 && sync(i) > 0.12 && not(in_sweep))
+        sweepstarts = [sweepstarts i];
+        in_sweep = 1;
+    endif
+    if (sync(i-1) > -0.12 && sync(i) < -0.12 && in_sweep)
+        sweepends = [sweepends i];
         sweeps = sweeps + 1;
+        in_sweep = 0;
     endif
 end
 
 sweeps
-sweeps_to_skip = min(round(sweeps / 10), 5)
+sweeps_to_skip = 3
 periodicity_of_sweeps_hz = sweeps / recording_length_seconds
 
 
+sweepstarts = sweepstarts(sweeps_to_skip:sweeps-sweeps_to_skip);
+sweepends = sweepends(sweeps_to_skip:sweeps-sweeps_to_skip);
+
+
 % Calculating the number of samples within a sweep
-sweepnumber = 0;
-samples_per_sweep = 0;
-sweeps_counted = 0;
+sweeps_counter = 0;
 lowest_samples_per_sweep = 9e+9;
 highest_samples_per_sweep = 0;
 average_samples_per_sweep = 0;
-for i=2:totalsamples
-    if (sweepstart(sync(i-1), sync(i)))
-        sweepnumber = sweepnumber + 1;
-        samples_per_sweep = 0;
-    endif
-
-    if (sweepnumber < sweeps_to_skip || sweepnumber > sweeps-sweeps_to_skip)
-        % Skipping the first and last couple of sweeps
-        continue;
-    endif
-
-    samples_per_sweep = samples_per_sweep + 1;
-
-    if (sweepend(sync(i-1), sync(i)))
-        sweeps_counted = sweeps_counted + 1;
-        average_samples_per_sweep = average_samples_per_sweep + samples_per_sweep;
-        lowest_samples_per_sweep = min(lowest_samples_per_sweep, samples_per_sweep);
-        highest_samples_per_sweep = max(highest_samples_per_sweep, samples_per_sweep);
-    endif
-
+sweeps_counter = length(sweepstarts);
+for i=1:sweeps_counter
+    samples_per_sweep = sweepends(i) - sweepstarts(i);
+    average_samples_per_sweep = average_samples_per_sweep + samples_per_sweep;
+    lowest_samples_per_sweep = min(lowest_samples_per_sweep, samples_per_sweep);
+    highest_samples_per_sweep = max(highest_samples_per_sweep, samples_per_sweep);
 end
 
-sweeps_counted
+
+sweeps_counter
 lowest_samples_per_sweep
-average_samples_per_sweep = average_samples_per_sweep / sweeps_counted
+average_samples_per_sweep = average_samples_per_sweep / sweeps_counter
 highest_samples_per_sweep
 
-
-printf("\n\n == Analyzing sweeps ..\n\n");
+printf("\n\n == Processing ..\n\n");
 
 samples_to_skip_front = round(lowest_samples_per_sweep / 6)
 samples_to_skip_back = round(lowest_samples_per_sweep / 20)
 
-%samples_to_skip_front = 2;
-%samples_to_skip_back = 2;
-
 
 subarray_size = 1+lowest_samples_per_sweep-samples_to_skip_back-samples_to_skip_front
 
-% Background average noise calculation
+
+% Processing
 avg_subarray = zeros(1,subarray_size);
 %window = ones(1,subarray_size);
 window = rot90(hanning(subarray_size));
 
-sweepnumber = 0;
-for i=2:totalsamples
-    if (sweepstart(sync(i-1), sync(i)))
-        sweepnumber = sweepnumber + 1;
-        if (sweepnumber < sweeps_to_skip || sweepnumber > sweeps-sweeps_to_skip)
-            % Skipping the first and last couple of sweeps
-            continue;
-        endif
-        subarray = sample(i+samples_to_skip_front:i+lowest_samples_per_sweep-samples_to_skip_back);
-        subarray = abs(fft(subarray .* window));
-        avg_subarray = avg_subarray + subarray;
-    endif
-end
-
-avg_subarray = avg_subarray / sweeps_counted;
-
-
-% Frequency analysis
-plotarray = [];
+dataarray = [];
 subarray = [];
-sweepnumber = 0;
-for i=2:totalsamples
-    if (sweepstart(sync(i-1), sync(i)))
-        sweepnumber = sweepnumber + 1;
-        if (sweepnumber < sweeps_to_skip || sweepnumber > sweeps-sweeps_to_skip)
-            % Skipping the first and last couple of sweeps
-            continue;
-        endif
-        subarray = sample(i+samples_to_skip_front:i+lowest_samples_per_sweep-samples_to_skip_back);
-        
-        subarray = abs(fft(subarray .* window)) - avg_subarray + 100;
+for i=1:sweeps_counter
+    subarray = sample(sweepstarts(i)+samples_to_skip_front:sweepstarts(i)+lowest_samples_per_sweep-samples_to_skip_back);
+    subarray = abs(fft(subarray .* window));
+    avg_subarray = avg_subarray + subarray;
 
-        subarray = subarray(1:subarray_size/6);
-        plotarray = [plotarray ; log10(subarray)];
-    endif
+    dataarray = [dataarray ; subarray];
 end
+
+avg_subarray = avg_subarray / sweeps_counter;
+
+
+% Removing averaged background return
+plotarray_timeslots = size(dataarray)(1);
+plotarray = [];
+for i=1:plotarray_timeslots
+    subarray = dataarray(i,:);
+    subarray = subarray - avg_subarray + 100;
+    subarray = log10(subarray(1:subarray_size/6));
+    plotarray = [plotarray ; subarray];
+end
+
+
+%subarray = subarray(1:subarray_size/6);
+%subarray = abs(fft(subarray .* window)) - avg_subarray + 100;
+
 
 
 plotarray_size = size(plotarray)
