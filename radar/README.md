@@ -4,6 +4,7 @@
 
 The radar operates in the 902-928 MHz frequency band and uses mostly DIY components (including the antennas). The analog signals (IF and sweep sync) are fed into a stereo audio line-in interface of a PC and is recorded and saved as 48kHz sample rate stereo WAV file. The WAV file is then processed by the [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/radar/fmcw_process.m).
 
+![arch](arch.png)
 
 The sweep periodicity is set to approximately 100 Hz, with the sweep span being roughly 30 MHz. This gives a 3 GHz/sec chirp steepness. With c (speed of light) being approximately 300000 km/sec, the different target distances and associated IF frequencies can easily be calulated:
 
@@ -12,7 +13,7 @@ The sweep periodicity is set to approximately 100 Hz, with the sweep span being 
 150m distance -> 300m roudtrip -> 1us time of flight -> 3kHz IF
 
 Since we're only detectig the magnitude of the IF frequencies (ignoring the phase) at approximately 100Hz steps, the theoretical resolution is 5m. 
-The audio interface can reliably record frequencies up to at least ~15kHz, which gives a theoretical range of ~750 m (~ 1/2 mile).
+The audio interface can reliably record frequencies up to at least ~15kHz, which gives a theoretical range of ~750 m (1/2 mile).
 
 ### Components
 
@@ -34,5 +35,15 @@ Since received RF signal experiences spherical expansion (Friis path loss) twice
 Luckily, since increasing distance translates directly to increasing IF frequency, a compensation can easily be implemented in the analog frontend, in the form of a 2nd order (40 dB/decade) high-pass filter.
 
 ![analog_frontend_schem](analog_frontend_schem.png)
+
+#### LNA and driver RF amplifiers
+
+These are [DIY designs](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode)
+
+
+#### Antennas
+
+The antennas used here are two-element [DIY PCB Yagi](https://github.com/szoftveres/RF_Microwave/tree/main/em_antenna/915_pcb_yagi) arrays, spaced 1/2 λ apart and fed through a Wilkinson splitter. Since the two elements interact with each other, their combined reduced feedpoint impedance is re-matched by an L-match at the dipole elements.
+
 
 
