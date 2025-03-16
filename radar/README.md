@@ -8,6 +8,7 @@ The radar operates in the 902-928 MHz frequency band and uses mostly DIY compone
 The sweep periodicity is set to approximately 100 Hz, with the sweep span being roughly 30 MHz. This gives a 3 GHz/sec chirp steepness. With c (speed of light) being approximately 300000 km/sec, the different target distances and associated IF frequencies can easily be calulated:
 
 15m distance -> 30m roudtrip -> 100ns time of fligt -> 300Hz IF
+
 150m distance -> 300m roudtrip -> 1us time of flight -> 3kHz IF
 
 Since we're only detectig the magnitude of the IF frequencies (ignoring the phase) at approximately 100Hz steps, the theoretical resolution is 5m. 
@@ -32,6 +33,6 @@ The ramp generator is a Miller-integrator & Scmitt-trigger based circuit that pr
 Since received RF signal experiences spherical expansion (Friis path loss) twice during its time in flight (once when transmitted by the transmitter antenna, and once when reflected back from a small, point-like object), the reflected signal strength of an object that was repositioned at double distance is only 1/16 of what the radar would receive when the object was at 1/2 distance. This has to be compensated for.
 Luckily, since increasing distance translates directly to increasing IF frequency, a compensation can easily be implemented in the analog frontend, in the form of a 2nd order (40 dB/decade) high-pass filter.
 
-![analog_fronted_schem](analog_fronted_schem.png)
+![analog_frontend_schem](analog_frontend_schem.png)
 
 
