@@ -1,12 +1,14 @@
 ## FMCW Radar
 
-Prototyping and Testing
+Prototyping and testing
 
 ### Architecture
 
 The radar operates in the 902-928 MHz frequency band and uses mostly DIY components (including the antennas). The analog (IF and sweep sync) signals are fed into a stereo audio line-in interface of a PC, recorded and saved as 48kHz sample rate stereo WAV file. The WAV file is then processed by the [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/radar/fmcw_process.m).
 
 ![arch](arch.png)
+
+Chirp spectrum on a spectrum analyzer:
 
 ![sweep_spectrum](sweep_spectrum.jpg)
 
@@ -33,6 +35,8 @@ The ramp generator is a Miller-integrator & Scmitt-trigger based circuit that pr
 
 ![ramp_gen_schem](ramp_gen_schem.png)
 
+Ramp and sync signals:
+
 ![ramp_waveform](ramp_waveform.jpg)
 
 #### Analog frontend
@@ -44,11 +48,11 @@ Luckily, since increasing distance translates directly to increasing IF frequenc
 
 #### Driver amplifier and Antenna LNA
 
-The driver amplifier is a [DIY balanced amplifier](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode), capable of delivering +10 dBm into the Wilkinson splitter - the Mini-Circuits ADE-5+ mixer requires +7 dBm LO power.
+The driver amplifier is a [DIY balanced amplifier](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode), capable of delivering +10 dBm into the Wilkinson splitter - the Mini-Circuits ADE-5+ mixer used in this project requires +7 dBm LO power.
 
 ![driver](https://github.com/szoftveres/RF_Microwave/blob/main/Amplifier/cascode/balanced_photo.jpg)
 
-The antenna amplifier LNA is the [DIY cascode antenna amplifier](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode), which has an integrated bias-tee and can be powered through the RF coax cable.
+The antenna amplifier LNA is the [DIY cascode antenna amplifier](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode), which has an integrated bias-tee and therefore can be placed directly at the antenna and powered through the RF coax cable.
 
 ![lna](https://github.com/szoftveres/RF_Microwave/blob/main/Amplifier/cascode/cascode_photo.jpg)
 
@@ -69,17 +73,17 @@ Simulated array factor and far-field pattern of one array:
 
 ### Testing and processing
 
-The initial testing was done on a straight section of street with some car traffic. The analog signals of the continuously running radar were fed into a PC, and several audio recordings were made when a vehicle passed by.
+The initial testing was done on a straight section of street with light vehicle traffic - several seconds long audio recordings were made when a vehicle was passing by.
 
 ![earth](earth.png)
 
-The processing script detects the sweeps and performs FFT on the samples of each sweep. The resulting 2-dimensional color map shows objects at various distances (Y-axis) as a function of time (X-axis).
+The processing script detects the sweeps and performs FFT on the samples of each sweep. The resulting 2-dimensional image shows objects at various distances (Y-axis) as a function of time (X-axis).
 
 ![car_with_noise](car_with_noise.png)
 
-Since the environment has a lot of stationary reflecting objects (buildings, etc..), the radar image is mostly showing static frequency components (horizontal lines).
+The image mostly shows static frequency components (horizontal lines) from stationary reflecting objects (buildings, etc..).
 
-These components can be characterized (e.g. by taking an initial measurement, or by calculating an average value for each component throughout the plot, etc..) and subtracted from each sweep, resulting in an image that better highlights moving objects.
+These components can be characterized (e.g. by taking an initial measurement, or by calculating an average value for each component throughout the plot, etc..) and subtracted from each sweep, resulting in an image that better highlights moving objects - in this case, a vehicle moving away from the radar:
 
 ![car_without_noise](car_without_noise.png)
 
