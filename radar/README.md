@@ -36,7 +36,7 @@ Luckily, since increasing distance translates directly to increasing IF frequenc
 
 ![analog_frontend_schem](analog_frontend_schem.png)
 
-#### LNA and driver RF amplifiers
+#### Driver amplifier and Antenna LNA
 
 The driver amplifier is a [DIY balanced amplifier](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode), capable of delivering +10 dBm into the Wilkinson splitter - the Mini-Circuits ADE-5+ mixer requires +7 dBm LO power.
 
@@ -50,5 +50,19 @@ The antenna amplifier LNA is the [DIY cascode antenna amplifier](https://github.
 
 The antennas used here are two-element [DIY PCB Yagi](https://github.com/szoftveres/RF_Microwave/tree/main/em_antenna/915_pcb_yagi) arrays, spaced 1/2 λ apart and fed through a Wilkinson splitter. Since the two elements interact with each other, their combined reduced feedpoint impedance is re-matched with L-match at each dipole elements.
 
+### Testing and processing
 
+The initial testing was done on a straight section of street with some car traffic. While the radar was running and continuously sweeping, the analog signals were fed into a PC, and several audio recordings were made when a vehicle passed by.
+
+![earth](earth.png)
+
+The processing script detects the sweeps and performs FFT on the samples of each sweep. The resulting 2-dimensional heat map shows the objects at various distances (Y-axis) as a function of time (X-axis).
+
+![car_with_noise](car_with_noise.png)
+
+Since the environment has a lot of stationary reflecting objects (buildings, etc..), the radar image is mostly showing static frequency components.
+
+These components can be removed by calculating an average value for each component throughout the plot, then subtracting them from each sweep. The resulting image (now free of static components) highlights moving objects.
+
+![car_without_noise](car_without_noise.png)
 
