@@ -60,9 +60,9 @@ The processing script detects the sweeps and performs FFT on the samples of each
 
 ![car_with_noise](car_with_noise.png)
 
-Since the environment has a lot of stationary reflecting objects (buildings, etc..), the radar image is mostly showing static frequency components.
+Since the environment has a lot of stationary reflecting objects (buildings, etc..), the radar image is mostly showing static frequency components (horizontal lines).
 
-These components can be removed by calculating an average value for each component throughout the plot, then subtracting them from each sweep. The resulting image (now free of static components) highlights moving objects.
+These components can be characterized (e.g. by taking an initial measurement, or calculating an average value for each component throughout the plot, etc..) and subtracted from each sweep, resulting in an image that better highlights moving objects.
 
 ![car_without_noise](car_without_noise.png)
 
