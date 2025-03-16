@@ -48,11 +48,20 @@ The antenna amplifier LNA is the [DIY cascode antenna amplifier](https://github.
 
 #### Antennas
 
+There are some special requirements towards the antennas. On one hand, since the image is 1-dimensional, the radar can only look ahead at a narrow beam, which calls for a beamforming antenna. On the other hand, good isolation between the transmitting- and receiving antennas is critical, the relatively high output power from the transmitting antenna must not drive the LNA, mixer and front-end into saturation.  
+
 The antennas used here are two-element [DIY PCB Yagi](https://github.com/szoftveres/RF_Microwave/tree/main/em_antenna/915_pcb_yagi) arrays, spaced 1/2 λ apart and fed through a Wilkinson splitter. Since the two elements interact with each other, their combined reduced feedpoint impedance is re-matched with L-match at each dipole elements.
+
+Far-field patterns:
+
+![array_factor](array_factor.png)
+
+![array_pattern](antenna_array_pattern.png)
+
 
 ### Testing and processing
 
-The initial testing was done on a straight section of street with some car traffic. While the radar was running and continuously sweeping, the analog signals were fed into a PC, and several audio recordings were made when a vehicle passed by.
+The initial testing was done on a straight section of street with some car traffic. The analog signals of the continuously running radar were fed into a PC, and several audio recordings were made when a vehicle passed by.
 
 ![earth](earth.png)
 
@@ -62,7 +71,7 @@ The processing script detects the sweeps and performs FFT on the samples of each
 
 Since the environment has a lot of stationary reflecting objects (buildings, etc..), the radar image is mostly showing static frequency components (horizontal lines).
 
-These components can be characterized (e.g. by taking an initial measurement, or calculating an average value for each component throughout the plot, etc..) and subtracted from each sweep, resulting in an image that better highlights moving objects.
+These components can be characterized (e.g. by taking an initial measurement, or by calculating an average value for each component throughout the plot, etc..) and subtracted from each sweep, resulting in an image that better highlights moving objects.
 
 ![car_without_noise](car_without_noise.png)
 
