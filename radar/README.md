@@ -1,4 +1,6 @@
-## Prototyping an FMCW Radar
+## FMCW Radar
+
+Prototyping and Testing
 
 ### Architecture
 
@@ -48,7 +50,7 @@ The antenna amplifier LNA is the [DIY cascode antenna amplifier](https://github.
 
 #### Antennas
 
-There are some special requirements towards the antennas. On one hand, since the image is 1-dimensional, the radar can only look ahead at a narrow beam, which calls for a beamforming antenna. On the other hand, good isolation between the transmitting- and receiving antennas is critical, the relatively high RF levels from the nearby transmitting antenna must not reach and overdrive the receiver LNA, mixer and analog front-end.
+There are some special requirements towards the antennas. On one hand, the radar can only look ahead at a narrow beam and its image is 1-dimensional, which calls for a beamforming antenna. On the other hand, good isolation between the transmitting- and receiving antennas is critical, the relatively high RF levels from the nearby transmitting antenna must not reach and overdrive the receiver LNA, mixer and analog front-end.
 
 The antennas used here are two-element [DIY PCB Yagi](https://github.com/szoftveres/RF_Microwave/tree/main/em_antenna/915_pcb_yagi) arrays, spaced 1/2 λ apart and fed through a Wilkinson splitter. Since the two elements interact with each other, their combined reduced feedpoint impedance is re-matched with L-match at each dipole elements. This array arrangement has field strength nulls at perpendicular (90°) angles, as well as a 60° beam pattern ahead of the antenna; the measured isolation is on the order of -40 dB when the antennas are side-by-side, only 1 m apart from each other.
 
@@ -66,7 +68,7 @@ The initial testing was done on a straight section of street with some car traff
 
 ![earth](earth.png)
 
-The processing script detects the sweeps and performs FFT on the samples of each sweep. The resulting 2-dimensional heat map shows the objects at various distances (Y-axis) as a function of time (X-axis).
+The processing script detects the sweeps and performs FFT on the samples of each sweep. The resulting 2-dimensional color map shows objects at various distances (Y-axis) as a function of time (X-axis).
 
 ![car_with_noise](car_with_noise.png)
 
