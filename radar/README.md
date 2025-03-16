@@ -4,9 +4,11 @@ Prototyping and Testing
 
 ### Architecture
 
-The radar operates in the 902-928 MHz frequency band and uses mostly DIY components (including the antennas). The analog signals (IF and sweep sync) are fed into a stereo audio line-in interface of a PC and is recorded and saved as 48kHz sample rate stereo WAV file. The WAV file is then processed by the [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/radar/fmcw_process.m).
+The radar operates in the 902-928 MHz frequency band and uses mostly DIY components (including the antennas). The analog (IF and sweep sync) signals are fed into a stereo audio line-in interface of a PC, recorded and saved as 48kHz sample rate stereo WAV file. The WAV file is then processed by the [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/radar/fmcw_process.m).
 
 ![arch](arch.png)
+
+![sweep_spectrum](sweep_spectrum.jpg)
 
 The sweep periodicity is set to approximately 100 Hz, with the sweep span being roughly 30 MHz. This gives a 3 GHz/sec chirp steepness. With c (speed of light) being approximately 300000 km/sec, the different target distances and associated IF frequencies can easily be calulated:
 
@@ -24,8 +26,6 @@ The audio interface can reliably record frequencies up to at least ~15kHz, which
 The VCO is a Colpitts type varicap-tuned dsicrete transistor oscillator with buffered output, designed to operate between roughly 800MHz and 1GHz. Its output level is relatively flat across the band, at +2dBm.
 
 ![VCO_schem](VCO_schem.png)
-
-![sweep_spectrum](sweep_spectrum.jpg)
 
 #### Ramp waveform generator
 
@@ -56,10 +56,11 @@ The antenna amplifier LNA is the [DIY cascode antenna amplifier](https://github.
 
 There are some special requirements towards the antennas. On one hand, the radar can only look ahead at a narrow beam and its image is 1-dimensional, which calls for a beamforming antenna. On the other hand, good isolation between the transmitting- and receiving antennas is critical, the relatively high RF levels from the nearby transmitting antenna must not reach and overdrive the receiver LNA, mixer and analog front-end.
 
-The antennas used here are two-element [DIY PCB Yagi](https://github.com/szoftveres/RF_Microwave/tree/main/em_antenna/915_pcb_yagi) arrays, spaced 1/2 λ apart and fed through a Wilkinson splitter. Since the two elements interact with each other, their combined reduced feedpoint impedance is re-matched with L-match at each dipole elements. This array arrangement has field strength nulls at perpendicular (90°) angles, as well as a 60° beam pattern ahead of the antenna; the measured isolation is on the order of -40 dB when the antennas are side-by-side, only 1 m apart from each other.
+The antennas used here are two-element [DIY PCB Yagi](https://github.com/szoftveres/RF_Microwave/tree/main/em_antenna/915_pcb_yagi) arrays, spaced 1/2 λ apart and fed through Wilkinson-combiners. Since the two elements within one array interact with each other, the reduced feedpoint impedance is re-matched with L-match at each antenna element. This array arrangement has field strength nulls at perpendicular (90°) angles, as well as a 60° beam pattern ahead of the antenna; the measured isolation is on the order of -40 dB when the antennas are side-by-side, only 1 m apart from each other:
 
+![antenna_assembly](antenna_assembly.jpg)
 
-Far-field patterns:
+Simulated array factor and far-field pattern of one array:
 
 ![array_factor](array_factor.png)
 
