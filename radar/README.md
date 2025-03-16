@@ -48,7 +48,7 @@ The antenna amplifier LNA is the [DIY cascode antenna amplifier](https://github.
 
 #### Antennas
 
-There are some special requirements towards the antennas. On one hand, since the image is 1-dimensional, the radar can only look ahead at a narrow beam, which calls for a beamforming antenna. On the other hand, good isolation between the transmitting- and receiving antennas is critical, the relatively high output power from the transmitting antenna must not drive the LNA, mixer and front-end into saturation.  
+There are some special requirements towards the antennas. On one hand, since the image is 1-dimensional, the radar can only look ahead at a narrow beam, which calls for a beamforming antenna. On the other hand, good isolation between the transmitting- and receiving antennas is critical, the relatively high output power from the transmitting antenna must not drive the LNA, mixer and front-end into saturation. A two-element Yagi array with 1/2 λ element spacing has field strength nulls at perpendicular (90°) angles, as well as a 60° beam pattern ahead of the antenna.
 
 The antennas used here are two-element [DIY PCB Yagi](https://github.com/szoftveres/RF_Microwave/tree/main/em_antenna/915_pcb_yagi) arrays, spaced 1/2 λ apart and fed through a Wilkinson splitter. Since the two elements interact with each other, their combined reduced feedpoint impedance is re-matched with L-match at each dipole elements.
 
