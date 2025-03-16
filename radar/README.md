@@ -38,12 +38,17 @@ Luckily, since increasing distance translates directly to increasing IF frequenc
 
 #### LNA and driver RF amplifiers
 
-These are [DIY designs](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode)
+The driver amplifier is a [DIY balanced amplifier](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode), capable of delivering +10 dBm into the Wilkinson splitter - the Mini-Circuits ADE-5+ mixer requires +7 dBm LO power.
 
+![driver](https://github.com/szoftveres/RF_Microwave/blob/main/Amplifier/cascode/balanced_photo.jpg)
+
+The antenna amplifier LNA is the [DIY cascode antenna amplifier](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode), which has an integrated bias-tee and can be powered through the RF coax cable.
+
+![lna](https://github.com/szoftveres/RF_Microwave/blob/main/Amplifier/cascode/cascode_photo.jpg)
 
 #### Antennas
 
-The antennas used here are two-element [DIY PCB Yagi](https://github.com/szoftveres/RF_Microwave/tree/main/em_antenna/915_pcb_yagi) arrays, spaced 1/2 λ apart and fed through a Wilkinson splitter. Since the two elements interact with each other, their combined reduced feedpoint impedance is re-matched by an L-match at the dipole elements.
+The antennas used here are two-element [DIY PCB Yagi](https://github.com/szoftveres/RF_Microwave/tree/main/em_antenna/915_pcb_yagi) arrays, spaced 1/2 λ apart and fed through a Wilkinson splitter. Since the two elements interact with each other, their combined reduced feedpoint impedance is re-matched with L-match at each dipole elements.
 
 
 
