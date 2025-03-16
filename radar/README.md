@@ -29,6 +29,8 @@ The VCO is a Colpitts type varicap-tuned dsicrete transistor oscillator with buf
 
 ![VCO_schem](VCO_schem.png)
 
+![VCO_photo](vco_photo.jpg)
+
 #### Ramp waveform generator
 
 The ramp generator is a Miller-integrator & Scmitt-trigger based circuit that produces a linear sawtooth waveform, as well as a sync signal that is used by the processing algorithm to detect the sweep starts and ends.
