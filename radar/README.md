@@ -21,6 +21,12 @@ The sweep periodicity is set to approximately 100 Hz, with the sweep span being 
 Since we're only detectig the magnitude of the IF frequencies (ignoring the phase) at approximately 100Hz steps, the theoretical resolution is 5m. 
 The audio interface can reliably record frequencies up to at least ~15kHz, which gives a theoretical range of ~750 m (1/2 mile).
 
+#### Estimating the noise- and ADC limited range
+
+First we must make some assumptions about the target - for simplicity, let's assume that it can be modeled as an antenna with +9 dBi gain (same as what we're using in this radar) and that it reflects 100% of its received power back. Tx power of the radar is +7 dBm; we need approximately 20 kHz bandwidth for analog processing and the LNA has approximately 2.5 dB noise figure; this brings the minimum level at the input of the LNA to approximately -128 dBm. Both (Tx and Rx) antennas have approximately +9 dBi gain. Calculating with Friis path loss for each path (out and return) gives a noise-limited range of approximately 500m.
+
+The ADC of the audio interface is recording with 16 bit resolution. For 1Vpp full signal level, 1 bit corresponds to approximately 15 uVpp, which translates to -92 dBm signal level, which can easily be reached with the combined gain of the LNA (+18 dB) and the analog front-end (> +80 dB above 3kHz).
+
 ### Components
 
 #### VCO
@@ -68,7 +74,7 @@ Measured isolation between the Tx and Rx antennas is on the order of -40 dB when
 
 ![antenna_assembly](antenna_assembly.jpg)
 
-Simulated array factor and far-field pattern of one array:
+Simulated array factor and far-field pattern for one array:
 
 ![array_factor](array_factor.png)
 
@@ -81,7 +87,7 @@ The initial testing was done on a straight section of street with light vehicle 
 
 ![earth](earth.png)
 
-The [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/radar/fmcw_process.m) detects the sweeps and performs FFT on the samples of each sweep. The resulting 2-dimensional image shows objects at various distances (Y-axis) as a function of time (X-axis).
+The [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/radar/fmcw_process.m) detects each sweep (using the sync signal) and performs FFT on the samples. The resulting 2-dimensional image shows objects at various distances (Y-axis) as a function of time (X-axis).
 
 ![car_with_noise](car_with_noise.png)
 
