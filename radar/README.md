@@ -25,7 +25,7 @@ The audio interface can reliably record frequencies up to at least ~15kHz, which
 
 First we must make some assumptions about the target - for simplicity, let's assume that it can be modeled as an antenna with +9 dBi gain (same as what we're using in this radar) and that it reflects 100% of its received power back. Tx power of the radar is +7 dBm; we need approximately 20 kHz bandwidth for analog processing and the LNA has approximately 2.5 dB noise figure; this brings the minimum level at the input of the LNA to approximately -128 dBm. Both (Tx and Rx) antennas have approximately +9 dBi gain. Calculating with Friis path loss for each path (out and return) gives a noise-limited range of approximately 500m.
 
-The ADC of the audio interface is recording with 16 bit resolution. For 1Vpp full signal level, 1 bit corresponds to approximately 15 uVpp, which translates to -92 dBm signal level, which can easily be reached with the combined gain of the LNA (+18 dB) and the analog front-end (> +80 dB above 3kHz).
+The ADC of the audio interface is recording with 16 bit resolution. For 1Vpp full signal level, the magnitude of one symbol out of 65536 is approximately 15 uVpp, which translates to -92 dBm signal level, which can easily be reached with the combined gain of the LNA (+18 dB) and the analog front-end (> +80 dB above 3kHz).
 
 ### Components
 
@@ -83,7 +83,7 @@ Simulated array factor and far-field pattern for one array:
 
 ### Testing and processing
 
-The initial testing was done on a straight section of street with light vehicle traffic - several seconds long audio recordings were made when a vehicle was passing by.
+The initial testing was done on a straight section of street - several seconds long audio recordings were made when a vehicle was passing by.
 
 ![earth](earth.png)
 
@@ -93,7 +93,9 @@ The [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/rad
 
 The image is mostly showing static frequency components (horizontal lines) from stationary reflecting objects (nearby buildings, etc..).
 
-These components can be characterized (e.g. by taking an initial measurement, or by calculating an average value for each component throughout the plot, etc..) and subtracted from each sweep, resulting in an image that better highlights moving objects - in this case, a vehicle moving away from the radar:
+These components can be characterized (e.g. by taking an initial measurement, or by calculating an average value for each component throughout the plot, etc..) and removed, resulting in an image that better highlights moving objects.
+
+Radar image of a vehicle moving away from the radar:
 
 ![car_without_noise](car_without_noise.png)
 
