@@ -91,11 +91,9 @@ The [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/rad
 
 ![car_with_noise](car_with_noise.png)
 
-The image is mostly showing static frequency components (horizontal lines) from stationary reflecting objects (nearby buildings, etc..).
+The image is mostly showing static frequency components (horizontal lines) from stationary reflecting objects (nearby buildings, etc..). These components can be characterized (e.g. by taking an initial measurement, or by calculating an average value for each component throughout the plot, etc..) and removed, resulting in an image that better highlights moving objects.
 
-These components can be characterized (e.g. by taking an initial measurement, or by calculating an average value for each component throughout the plot, etc..) and removed, resulting in an image that better highlights moving objects.
-
-Radar image of a vehicle moving away from the radar:
+Radar image of a vehicle moving away from the radar, after static removal:
 
 ![car_without_noise](car_without_noise.png)
 
