@@ -1,7 +1,5 @@
 ## FMCW Radar
 
-Prototyping and testing
-
 ### Architecture
 
 The radar operates in the 902-928 MHz frequency band and uses mostly DIY components (including the antennas). The analog (IF and sweep sync) signals are fed into a stereo audio line-in interface of a PC, recorded and saved as 48kHz sample rate stereo WAV file. The WAV file is then processed by the [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/radar/fmcw_process.m).
@@ -9,10 +7,6 @@ The radar operates in the 902-928 MHz frequency band and uses mostly DIY compone
 ![arch](arch.png)
 
 ![boards_annotated](boards_annotated.jpg)
-
-Chirp spectrum on a spectrum analyzer:
-
-![sweep_spectrum](sweep_spectrum.jpg)
 
 The sweep periodicity is set to approximately 100 Hz, with the sweep span being roughly 30 MHz. This gives a 3 GHz/sec chirp steepness. With c (speed of light) being approximately 300000 km/sec, the different target distances and associated IF frequencies can easily be calulated:
 
@@ -51,8 +45,10 @@ Ramp and sync signals:
 
 #### Analog frontend
 
-Received RF signal experiences spherical expansion (Friis path loss) twice during its time in flight (once when transmitted by the transmitter antenna, and once when reflected back from a small, point-like object), therefore the reflected signal strength of an object that was repositioned at double distance is only 1/16 of what the radar would receive when the object was at 1/2 distance. This has to be compensated for.
-Increasing distance translates directly to increasing IF frequency, so compensation can easily be implemented in the analog frontend, in the form of a 2nd order (40 dB/decade) high-pass filter.
+The reflected signal experiences spherical expansion (a.k.a. Friis path loss) twice during its time in flight (first when on the way to the target and the second time when reflected back); consequently, moving a target twice as far away reduces the magnitude of the reflected signal to 1/16th of its original level. This has to be compensated for, since we want to see distant objects on the radar image with the same intensity as nearby ones.
+Distance translates directly to baseband frequency, so compensation can easily be implemented with a 2nd order (40 dB/decade) high-pass filter, implemented in the analog frontend.
+
+The analog frontend is also the main gain block before the ADC, since it's easier to achieve high amplification at baseband frequencies. The LNA is only used to overcome the noise contribution of the mixer in the RF path.
 
 ![analog_frontend_schem](analog_frontend_schem.png)
 
@@ -93,9 +89,9 @@ The [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/rad
 
 ![car_with_noise](car_with_noise.png)
 
-The image is mostly showing static frequency components (horizontal lines) from stationary reflecting objects (nearby buildings, etc..). These components can be characterized (e.g. by taking an initial measurement, or by calculating an average value for each component throughout the plot, etc..) and removed, resulting in an image that better highlights moving objects.
+The image is mostly showing static frequency components (horizontal lines) from stationary reflecting objects (nearby buildings, etc..).
 
-After static removal, radar image of a vehicle moving away:
+These components can be characterized (e.g. by taking an initial measurement, or by calculating an average value for each component throughout the plot, etc..) and removed, resulting in an image that better highlights moving objects:
 
 ![car_without_noise](car_without_noise.png)
 
