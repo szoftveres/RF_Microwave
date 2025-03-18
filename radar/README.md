@@ -8,6 +8,8 @@ The radar operates in the 902-928 MHz frequency band and uses mostly DIY compone
 
 ![arch](arch.png)
 
+![boards_annotated](boards_annotated.jpg)
+
 Chirp spectrum on a spectrum analyzer:
 
 ![sweep_spectrum](sweep_spectrum.jpg)
@@ -93,7 +95,7 @@ The [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/rad
 
 The image is mostly showing static frequency components (horizontal lines) from stationary reflecting objects (nearby buildings, etc..). These components can be characterized (e.g. by taking an initial measurement, or by calculating an average value for each component throughout the plot, etc..) and removed, resulting in an image that better highlights moving objects.
 
-Radar image of a vehicle moving away from the radar, after static removal:
+After static removal, radar image of a vehicle moving away:
 
 ![car_without_noise](car_without_noise.png)
 
