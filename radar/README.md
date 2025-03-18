@@ -6,23 +6,6 @@ The radar operates in the 902-928 MHz frequency band and uses mostly DIY compone
 
 ![arch](arch.png)
 
-![boards_annotated](boards_annotated.jpg)
-
-The sweep periodicity is set to approximately 100 Hz, with the sweep span being roughly 30 MHz. This gives a 3 GHz/sec chirp steepness. With c (speed of light) being approximately 300000 km/sec, the different target distances and associated IF frequencies can easily be calulated:
-
-15m distance -> 30m roudtrip -> 100ns time of fligt -> 300Hz IF
-
-150m distance -> 300m roudtrip -> 1us time of flight -> 3kHz IF
-
-We're only detectig the magnitude of the IF frequencies (ignoring the phase) at approximately 100Hz steps, consequently the theoretical resolution is 5m. 
-The audio interface can reliably record frequencies up to at least ~15kHz, which gives a theoretical range of ~750 m (1/2 mile).
-
-#### Estimating the noise- and ADC limited range
-
-First we must make some assumptions about the target - for simplicity, let's assume that it can be modeled as an antenna with +9 dBi gain (same as what we're using in this radar) that reflects 100% of its received power back. Tx power of the radar is +7 dBm; we need approximately 20 kHz bandwidth for analog processing and the LNA has approximately 2.5 dB noise figure; this brings the minimum noise limited signal level at the input of the LNA to approximately -128 dBm at room temperature. Both (Tx and Rx) antennas have approximately +9 dBi gain. Calculating with Friis path loss for each path (out and return) gives a noise-limited range of approximately 500m.
-
-The ADC of the audio interface is recording with 16 bit resolution. For 1Vpp full signal level, the magnitude of one symbol out of 65536 is approximately 15 uVpp, which translates to -92 dBm signal level, which can easily be reached with the combined gain of the LNA (+18 dB) and the analog front-end (> +80 dB above 3kHz), at 7 dB mixer conversion loss.
-
 ### Components
 
 #### VCO
@@ -78,6 +61,24 @@ Simulated array factor and far-field pattern for one array:
 
 ![array_pattern](antenna_array_pattern.png)
 
+### Build
+
+![boards_annotated](boards_annotated.jpg)
+
+The sweep periodicity is set to approximately 100 Hz, with the sweep span being roughly 30 MHz. This gives a 3 GHz/sec chirp steepness. With c (speed of light) being approximately 300000 km/sec, the different target distances and associated IF frequencies can easily be calulated:
+
+15m distance -> 30m roudtrip -> 100ns time of fligt -> 300Hz IF
+
+150m distance -> 300m roudtrip -> 1us time of flight -> 3kHz IF
+
+We're only detectig the magnitude of the IF frequencies (ignoring the phase) at approximately 100Hz steps, consequently the theoretical resolution is 5m.
+The audio interface can reliably record frequencies up to at least ~15kHz, which gives a theoretical range of ~750 m (1/2 mile).
+
+#### Estimating the noise- and ADC limited range
+
+First we must make some assumptions about the target - for simplicity, let's assume that it can be modeled as an antenna with +9 dBi gain (same as what we're using in this radar) that reflects 100% of its received power back. Tx power of the radar is +7 dBm; we need approximately 20 kHz bandwidth for analog processing and the LNA has approximately 2.5 dB noise figure; this brings the minimum noise limited signal level at the input of the LNA to approximately -128 dBm at room temperature. Both (Tx and Rx) antennas have approximately +9 dBi gain. Calculating with Friis path loss for each path (out and return) gives a noise-limited range of approximately 500m.
+
+The ADC of the audio interface is recording with 16 bit resolution. For 1Vpp full signal level, the magnitude of one symbol out of 65536 is approximately 15 uVpp, which translates to -92 dBm signal level, which can easily be reached with the combined gain of the LNA (+18 dB) and the analog front-end (> +80 dB above 3kHz), at 7 dB mixer conversion loss.
 
 ### Testing and processing
 
