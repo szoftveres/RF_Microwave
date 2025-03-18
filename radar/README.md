@@ -68,7 +68,7 @@ There are some special requirements towards the antennas. On one hand, the radar
 
 The antennas used here are two-element [DIY PCB Yagi](https://github.com/szoftveres/RF_Microwave/tree/main/em_antenna/915_pcb_yagi) arrays, spaced 1/2 λ apart and fed through Wilkinson-combiners. Since the two elements within one array interact with each other, the reduced feedpoint impedance is re-matched with L-match at each antenna element. This array arrangement has field strength nulls at perpendicular (90°) angles, as well as a 60° beam width ahead of the antenna.
 
-Measured isolation between the Tx and Rx antennas is on the order of -40 dB when the antennas are side-by-side, only 1 m apart from each other:
+Measured isolation between the Tx and Rx antennas is on the order of -40 dB when the antennas are side-by-side, only 60 cm apart from each other:
 
 ![antenna_assembly](antenna_assembly.jpg)
 
