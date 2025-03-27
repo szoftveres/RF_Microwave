@@ -10,7 +10,7 @@ The radar operates in the 902-928 MHz frequency band and uses mostly DIY compone
 
 #### VCO
 
-Requirements towards the VCO is relatively linear tuneability and flat power output across the band. An on-board trimmer sets the center frequency of the VCO, the FM modulation comes from the ramp waveform generator. The design in this radar is a dsicrete transistor Colpitts type varicap-tuned oscillator with buffered output. A 0-5V tuning voltage range can tune the oscillator between approximately 800 MHz and 1 GHz, the required 30 MHz is a fraction of that, ensuring good linearity. Output level is relatively flat across the band, at +2dBm. The output is lightly coupled and buffered, hence following stages have no pulling effect on the VCO.
+Requirements towards the VCO is relatively linear tuneability and flat power output across the band. The design in this radar is a dsicrete transistor Colpitts type varicap-tuned oscillator with buffered output. A 0-5V tuning voltage range can tune the oscillator between approximately 800 MHz and 1 GHz, the required 30 MHz is a fraction of that, ensuring good linearity. An on-board trimmer sets the center frequency of the VCO, the FM modulation comes from the ramp waveform generator. Output level is relatively flat across the band, at +2dBm. The output is lightly coupled and buffered, hence following stages have no pulling effect on the VCO.
 
 ![VCO_schem](VCO_schem.png)
 
@@ -18,7 +18,7 @@ Requirements towards the VCO is relatively linear tuneability and flat power out
 
 #### Ramp waveform generator
 
-The ramp waveform generator needs to produce linear ramp waveforms, and a sync signal, which indicates the start- and stop of each sweep. This is done by a Miller-integrator - Scmitt-trigger duo circuit, implemented with a single LM324 opamp, the ramp and sync signals are taken from different stages of the circuit. The ramp amplitude can also be adjusted on board, this is used for setting the frequency sweep depth of the VCO.
+The ramp waveform generator needs to produce linear ramp waveforms, and a sync signal, which indicates the start- and stop of each sweep. This is done by a Miller-integrator - Scmitt-trigger duo circuit, implemented with a single LM324 opamp, the ramp and sync signals are taken from different stages of the circuit. The ramp amplitude control is also on this board, the amplitude determines the FM deviation of the radar.
 
 ![ramp_gen_schem](ramp_gen_schem.png)
 
@@ -37,13 +37,13 @@ The analog frontend is also the main gain block before the ADC, the RF LNA is ma
 
 #### Antenna LNA
 
-The role of the antenna LNA is to overcome the noise contributions of the mixer, the design is covered [in this page](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode). As an extra feature, the LNA has a built-in bias-tee, which makes it suitable to be placed right after the antenna and powered through the RF coax cable.
+The role of the antenna LNA is to overcome the noise contributions of the mixer, the design is covered in [this page](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode). The LNA has an on-board bias-tee, which makes it suitable for being placed right after the antenna and powered through the RF coax cable - this helps eliminating RX path noise figure degradation due to cable losses.
 
 ![lna](https://github.com/szoftveres/RF_Microwave/blob/main/Amplifier/cascode/cascode_photo.jpg)
 
 #### Driver amplifier
 
-The driver amplifier amplifies the output RF signal coming from the VCO, to where it's sufficient to drive the mixer through the Wilkinson splitter - the Mini-Circuits ADE-5+ mixer used in this project requires +7 dBm LO power, hence the driver amplifier has to be able to provide +10 dBm at its output. The RF signal from the other branch of the Wilkinson splitter goes is the transmitted RF signal, either going directly to the Tx antenna, or driving a Tx PA.
+The driver amplifier amplifies the signal from the VCO, to where it's sufficient to drive the mixer through the Wilkinson splitter - the Mini-Circuits ADE-5+ mixer used in this project requires +7 dBm LO power, hence the driver amplifier has to be able to provide +10 dBm at its output. The other branch of the Wilkinson splitter either goes directly to the Tx antenna, or can drive a PA for more Tx output power.
 The driver amplifier is essentially a balanced-amp version of the previously discussed antenna LNA and it's covered on the [same design page](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode)
 
 ![driver](https://github.com/szoftveres/RF_Microwave/blob/main/Amplifier/cascode/balanced_photo.jpg)
