@@ -37,7 +37,7 @@ The analog frontend is also the main gain block before the ADC, the RF LNA is ma
 
 #### Antenna LNA
 
-The role of the antenna LNA is to overcome the noise contributions of the mixer, the design is covered in [this page](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode). The LNA has an on-board bias-tee, which makes it suitable for being placed right after the antenna and powered through the RF coax cable - this helps eliminating RX path noise figure degradation due to cable losses.
+The role of the antenna LNA is to overcome the noise contributions of the mixer, the design is covered in [this page](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode). The LNA has an on-board bias-tee, which makes it suitable for being placed right after the antenna and powered through the RF coax cable - this helps overcoming RX path noise figure degradation due to cable losses.
 
 ![lna](https://github.com/szoftveres/RF_Microwave/blob/main/Amplifier/cascode/cascode_photo.jpg)
 
