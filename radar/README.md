@@ -10,7 +10,7 @@ The radar operates in the 902-928 MHz frequency band and uses mostly DIY compone
 
 #### VCO
 
-Requirements towards the VCO is relatively linear tuneability and flat power output across the band. The design in this radar is a dsicrete transistor Colpitts type varicap-tuned oscillator with buffered output. A 0-5V tuning voltage range can tune the oscillator between approximately 800 MHz and 1 GHz, the required 30 MHz is a fraction of that, ensuring good linearity. An on-board trimmer sets the center frequency of the VCO, the FM modulation comes from the ramp waveform generator. Output level is relatively flat across the band, at +2dBm. The output is lightly coupled and buffered, hence following stages have no pulling effect on the VCO.
+Requirements towards the VCO is relatively linear tuneability and flat power output across the band. The design in this radar is a dsicrete transistor Colpitts type varicap-tuned oscillator with buffered output. An on-board trimmer provides 0-5V tuning voltage, this sets the center frequency of the oscillator oscillator from approximately 800 MHz and 1 GHz; the external FM modulation comes from the ramp waveform generator. The required 30 MHz deviation is a fraction of the full tuning range of the VCO, ensuring good linearity. Output level is relatively flat across the band, at +2dBm. The output is lightly coupled and buffered, hence following stages have no pulling effect on the VCO.
 
 ![VCO_schem](VCO_schem.png)
 
