@@ -1,8 +1,10 @@
-## FMCW Radar
+## Experimental FMCW Radar
+
+This experimental radar was built to test out a fully DIY-built RF system (RF amplifiers, VCO, beamforming antennas, splitters, etc..) as well as to gain experience with simple digital signal processing in GNU Octave.
 
 ### Architecture
 
-The radar operates in the 902-928 MHz frequency band and uses mostly DIY components (including the antennas). The analog (baseband and sweep sync) signals are fed into a stereo audio line-in interface of a PC, recorded and saved as 48kHz sample rate stereo WAV file. The WAV file is then processed by the [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/radar/fmcw_process.m).
+Architecturally the radar is conventional (standard), operating in the 902-928 MHz frequency band. The analog (baseband and sweep sync) signals are fed into a stereo audio line-in interface of a PC, recorded and saved as 48kHz sample rate stereo WAV file. The WAV file is then processed by the [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/radar/fmcw_process.m).
 
 ![arch](arch.png)
 
@@ -10,7 +12,9 @@ The radar operates in the 902-928 MHz frequency band and uses mostly DIY compone
 
 #### VCO
 
-Requirements towards the VCO is relatively linear tuneability and flat power output across the band. The design in this radar is a dsicrete transistor Colpitts type varicap-tuned oscillator with buffered output. An on-board trimmer provides 0-5V tuning voltage, this sets the center frequency of the oscillator oscillator from approximately 800 MHz and 1 GHz; the external FM modulation comes from the ramp waveform generator. The required 30 MHz deviation is a fraction of the full tuning range of the VCO, ensuring good linearity. Output level is relatively flat across the band, at +2dBm. The output is lightly coupled and buffered, hence following stages have no pulling effect on the VCO.
+Requirements towards the VCO are relatively linear tuneability and flat power output across the band.
+
+The on-board trimmer (RV1) sets the center frequency of the oscillator anywhere between 800 MHz and 1 GHz; the required 30 MHz FM deviation is a fraction of the full tuning range, ensuring good linearity, despite the non-linearity of the tuning varicaps. Output level is relatively flat across the band, at +2dBm (this can be pre-set by the on-board output attenuator).
 
 ![VCO_schem](VCO_schem.png)
 
@@ -18,7 +22,7 @@ Requirements towards the VCO is relatively linear tuneability and flat power out
 
 #### Ramp waveform generator
 
-The ramp waveform generator needs to produce linear ramp waveforms, and a sync signal, which indicates the start- and stop of each sweep. This is done by a Miller-integrator - Scmitt-trigger duo circuit, implemented with a single LM324 opamp, the ramp and sync signals are taken from different stages of the circuit. The ramp amplitude control is also on this board, the amplitude determines the FM deviation of the radar.
+The ramp waveform generator needs to produce linear ramp waveforms, and a sync signal, which is used by the DSP to detect the start- and stop of each sweep. The ramp amplitude control is also on this board, the amplitude determines the FM deviation of the radar.
 
 ![ramp_gen_schem](ramp_gen_schem.png)
 
@@ -37,7 +41,9 @@ The analog frontend is also the main gain block before the ADC, the RF LNA is ma
 
 #### Antenna LNA
 
-The role of the antenna LNA is to overcome the noise contributions of the mixer, the design is covered in [this page](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode). The LNA has an on-board bias-tee, which makes it suitable for being placed right after the antenna and powered through the RF coax cable - this helps overcoming RX path noise figure degradation due to cable losses.
+The role of the antenna LNA is to overcome the noise contributions of the mixer, as well as to provide linear amplification despite the powerful Tx signal source nearby (sufficiently high OP1DB).
+
+The design is covered in [this page](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode). The LNA has an on-board bias-tee, which makes it suitable for being placed right after the antenna and powered through the RF coax cable - this helps overcoming RX path noise figure degradation due to cable losses.
 
 ![lna](https://github.com/szoftveres/RF_Microwave/blob/main/Amplifier/cascode/cascode_photo.jpg)
 
@@ -52,9 +58,9 @@ The driver amplifier is essentially a balanced-amp version of the previously dis
 
 There are some special requirements towards the antennas. On one hand, the radar can only look ahead at a narrow beam and its image is 1-dimensional, which calls for a beamforming antenna. On the other hand, good isolation between the transmitting- and receiving antennas is critical, the relatively high Tx RF levels must not be picked up by the nearby Rx antenna and overdrive the receiver LNA, mixer and analog front-end.
 
-The antennas used here are two-element [DIY PCB Yagi](https://github.com/szoftveres/RF_Microwave/tree/main/em_antenna/915_pcb_yagi) arrays, spaced 1/2 λ apart and fed through Wilkinson-combiners. Due to proximity, the two elements within one array mutually interact with each other, reducing the feedpoint impedance - it is re-matched with L-match at each antenna element.
+The antennas used here are two-element [DIY PCB Yagi](https://github.com/szoftveres/RF_Microwave/tree/main/em_antenna/915_pcb_yagi) arrays, spaced 1/2 λ apart, providing 60° beam width and better than 12dB front-to-back ratio.
 
-The arrays have field strength nulls at perpendicular (90°) angles, as well as a 60° beam width ahead of the antenna. Measured isolation between the Tx and Rx antennas is on the order of -40 dB when the antennas are side-by-side, only 60 cm apart from each other:
+The Tx and Rx bays are mounted on rods with their vertical nulls pointing toward each other; measured isolation between the two bays is better than -40 dB with this arrangement, only 60 cm apart from each other:
 
 ![antenna_assembly](antenna_assembly.jpg)
 
@@ -66,22 +72,26 @@ Simulated array factor and far-field pattern for one array:
 
 ### Build
 
+Components mounted on an aluminum backplane:
+
 ![boards_annotated](boards_annotated.jpg)
 
-The sweep periodicity is set to approximately 100 Hz, with the sweep span being roughly 30 MHz. This gives a 3 GHz/sec chirp steepness. With c (speed of light) being approximately 300000 km/sec, the different target distances and associated baseband frequencies can easily be calulated:
+#### FMCW Radar Parameters
+
+The sweep periodicity is set to approximately 100 Hz (10ms period), with the sweep span being roughly 30 MHz. This gives a 3 GHz/sec chirp steepness. With c (speed of light) being approximately 300000 km/sec, the different target distances and associated baseband frequencies can easily be calulated:
 
 15m distance -> 30m roudtrip -> 100ns time of fligt -> 300Hz baseband
 
 150m distance -> 300m roudtrip -> 1us time of flight -> 3kHz baseband
 
-Theoretical resolution is 5m, the radar is only detectig the magnitude of the baseband frequencies (ignoring the phase) at approximately 100Hz steps.
-The audio interface can reliably record frequencies up to at least ~15kHz, which gives a theoretical range of ~750 m (1/2 mile).
+The processing script gathers samples and runs FFT on the full length of each sweep, hence the FFT bucket resolution is 100Hz, giving a physical resolution of 5m / FFT bucket to this radar (the radar is only detectig the magnitude of the baseband frequencies - ignoring the phase).
+The audio interface can reliably record frequencies up to at least ~15kHz, which sets the sample-rate limited range to ~750 m (1/2 mile).
 
 #### Estimating the noise- and ADC limited range
 
 First some assumptions have to be made about the target - for simplicity, let's assume that it can be modeled as an antenna with +9 dBi gain (same as what this radar is using for Tx and Rx antennas) that reflects 100% of its received power back. Tx power of the radar is +7 dBm; approximately 20 kHz bandwidth is needed for analog processing and the LNA has approximately 2.5 dB noise figure; this brings the minimum noise limited signal level at the input of the LNA to approximately -128 dBm at room temperature. Both (Tx and Rx) antennas have approximately +9 dBi gain. Calculating with Friis path loss for each path (out and return) gives a noise-limited range of approximately 500m.
 
-The ADC of the audio interface is recording with 16 bit resolution. For 1Vpp full signal level, the magnitude of one symbol out of 65536 is approximately 15 uVpp, which translates to -92 dBm signal level, which can easily be reached with the combined gain of the LNA (+18 dB) and the analog front-end (> +80 dB above 3kHz), at 7 dB mixer conversion loss.
+The ADC of the audio interface is recording with 16 bit resolution. Relative to 1Vpp full signal level, the magnitude of one symbol out of 65536 is approximately 15 uVpp, which translates to -92 dBm signal level - this is the minimum detectable signal level by the ADC. When the previously calculated, -128dBm (noise-limit minimum level) signal reaches the LNA, it gets amplified sufficiently by the combined gain of the LNA (+18 dB) and the analog front-end (> +80 dB above 3kHz), at 7 dB mixer conversion loss, to easily surpass this level. Consequently, the ADC bit-resolution is not a factor.
 
 ### Testing and processing
 
@@ -89,13 +99,13 @@ The initial testing was done on a straight section of street - several seconds l
 
 ![earth](earth.png)
 
-The [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/radar/fmcw_process.m) detects each sweep (using the sync signal) and performs FFT on the samples. The resulting 2-dimensional image shows objects at various distances (Y-axis) as a function of time (X-axis).
+The [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/radar/fmcw_process.m) detects each sweep by the sync signal, and performs FFT on the samples. The Y-axis in resulting 2-dimensional image is the distance, the X-axis is the time, and the color represents signal intensity.
 
 ![car_with_noise](car_with_noise.png)
 
-The image is mostly showing static frequency components (horizontal lines) from stationary reflecting objects (nearby buildings, etc..).
+The image is mostly showing static frequency components (horizontal lines) from stationary reflecting objects (nearby buildings, cars on driveways, etc..).
 
-These components can be characterized (e.g. by taking an initial measurement, or by calculating an average value for each component throughout the plot, etc..) and removed, resulting in an image that better highlights moving objects:
+These components can be characterized (e.g. by taking an initial measurement, or by calculating an average value for each component throughout the X-axis, etc..) and removed, resulting in an image that better highlights moving objects:
 
 ![car_without_noise](car_without_noise.png)
 
