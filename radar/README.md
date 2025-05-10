@@ -76,7 +76,7 @@ Components mounted on an aluminum backplane:
 
 ![boards_annotated](boards_annotated.jpg)
 
-#### FMCW Radar Parameters
+#### Basic Parameters
 
 The sweep periodicity is set to approximately 100 Hz (10ms period), with the sweep span being roughly 30 MHz. This gives a 3 GHz/sec chirp steepness. With c (speed of light) being approximately 300000 km/sec, the different target distances and associated baseband frequencies can easily be calulated:
 
