@@ -1,6 +1,6 @@
 ## Experimental FMCW Radar
 
-This experimental radar was built to test out a fully DIY-built RF system (RF amplifiers, VCO, beamforming antennas, splitters, etc..) as well as to gain experience with simple digital signal processing in GNU Octave.
+The purpose of this experimental radar was to test out an easy-to-build, fully DIY RF system (RF amplifiers, VCO, beamforming antennas, splitters, etc..) as well as simple digital signal processing algorithms in GNU Octave.
 
 ### Architecture
 
@@ -12,9 +12,9 @@ Architecturally the radar is conventional (standard), operating in the 902-928 M
 
 #### VCO
 
-Requirements towards the VCO are relatively linear tuneability and flat power output across the band.
+Ideally, the VCO has to be able to tune strictly linearly across the frequency range, following the tuning voltage, and provide flat power level across the band. Neither of these requirements can be achieved with a simple VCO like this one, however the fact that we're using only a small portion of the tuning range gives acceptable results.
 
-The on-board trimmer (RV1) sets the center frequency of the oscillator anywhere between 800 MHz and 1 GHz; the required 30 MHz FM deviation is a fraction of the full tuning range, ensuring good linearity, despite the non-linearity of the tuning varicaps. Output level is relatively flat across the band, at +2dBm (this can be pre-set by the on-board output attenuator).
+The on-board trimmer (RV1) sets the center frequency of the oscillator anywhere between 800 MHz and 1 GHz, the microstrip coupler is designed for roughly 12dB coupling factor.
 
 ![VCO_schem](VCO_schem.png)
 
@@ -22,7 +22,7 @@ The on-board trimmer (RV1) sets the center frequency of the oscillator anywhere 
 
 #### Ramp waveform generator
 
-The ramp waveform generator needs to produce linear ramp waveforms, and a sync signal, which is used by the DSP to detect the start- and stop of each sweep. The ramp amplitude control is also on this board, the amplitude determines the FM deviation of the radar.
+The ramp waveform generator needs to produce linear ramp waveforms, and a sync signal, which is being recorded and used by the DSP algorithm to detect the start- and stop of each sweep. The ramp amplitude (VCO tuning voltage level) control is also on this board, determining the FM sweep width of the radar.
 
 ![ramp_gen_schem](ramp_gen_schem.png)
 
@@ -41,9 +41,11 @@ The analog frontend is also the main gain block before the ADC, the RF LNA is ma
 
 #### Antenna LNA
 
-The role of the antenna LNA is to overcome the noise contributions of the mixer, as well as to provide linear amplification despite the powerful Tx signal source nearby (sufficiently high OP1DB).
+The role of the antenna LNA is to overcome the noise contributions of the mixer, as well as to provide linear amplification (sufficiently high OP1DB) despite the powerful Tx signal source nearby.
 
-The design is covered in [this page](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode). The LNA has an on-board bias-tee, which makes it suitable for being placed right after the antenna and powered through the RF coax cable - this helps overcoming RX path noise figure degradation due to cable losses.
+The design is covered in [this page](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode).
+
+A long, lossy cable between the antenna and the LNA can degrade the Rx path noise figure due to cable losses, therefore the LNA features an on-board bias-tee and is placed direclty at the antenna, supplied with power through the coax cable.
 
 ![lna](https://github.com/szoftveres/RF_Microwave/blob/main/Amplifier/cascode/cascode_photo.jpg)
 
@@ -56,7 +58,7 @@ The driver amplifier is essentially a balanced-amp version of the previously dis
 
 #### Antennas
 
-There are some special requirements towards the antennas. On one hand, the radar can only look ahead at a narrow beam and its image is 1-dimensional, which calls for a beamforming antenna. On the other hand, good isolation between the transmitting- and receiving antennas is critical, the relatively high Tx RF levels must not be picked up by the nearby Rx antenna and overdrive the receiver LNA, mixer and analog front-end.
+There are some special requirements towards the antennas. First, ideally we'd want the radar to "see" at a narrow angle (because its image is 1-dimensional), which calls for a beamforming antenna. Then, good isolation between the transmitting- and receiving antennas is critical, the relatively high Tx RF levels must not be picked up by the nearby Rx antenna and overdrive the receiver LNA, mixer and analog front-end.
 
 The antennas used here are two-element [DIY PCB Yagi](https://github.com/szoftveres/RF_Microwave/tree/main/em_antenna/915_pcb_yagi) arrays, spaced 1/2 λ apart, providing 60° beam width and better than 12dB front-to-back ratio.
 
@@ -64,7 +66,7 @@ The Tx and Rx bays are mounted on rods with their vertical nulls pointing toward
 
 ![antenna_assembly](antenna_assembly.jpg)
 
-Simulated array factor and far-field pattern for one array:
+Simulated array factor and far-field pattern (OpenEMS) for one array:
 
 ![array_factor](array_factor.png)
 
@@ -78,14 +80,14 @@ Components mounted on an aluminum backplane:
 
 #### Basic Parameters
 
-The sweep periodicity is set to approximately 100 Hz (10ms period), with the sweep span being roughly 30 MHz. This gives a 3 GHz/sec chirp steepness. With c (speed of light) being approximately 300000 km/sec, the different target distances and associated baseband frequencies can easily be calulated:
+The sweep periodicity is set to approximately 100 Hz (10ms period), with the sweep span being roughly 30 MHz. This gives a 3 GHz/sec chirp steepness. With given c (speed of light), the different target distances and associated baseband frequencies can easily be calulated:
 
 15m distance -> 30m roudtrip -> 100ns time of fligt -> 300Hz baseband
 
 150m distance -> 300m roudtrip -> 1us time of flight -> 3kHz baseband
 
-The processing script gathers samples and runs FFT on the full length of each sweep, hence the FFT bucket resolution is 100Hz, giving a physical resolution of 5m / FFT bucket to this radar (the radar is only detectig the magnitude of the baseband frequencies - ignoring the phase).
-The audio interface can reliably record frequencies up to at least ~15kHz, which sets the sample-rate limited range to ~750 m (1/2 mile).
+The processing script gathers samples and runs FFT on the full length of each sweep, hence the FFT bucket resolution is 100Hz, giving a physical resolution of 5m / FFT bucket to this radar (the radar is only sensitive to the magnitude of the baseband frequencies and ignores the phase).
+The audio interface can reliably record frequencies up to at least ~15kHz, which sets the analog bandwidth limited range to ~750 m (1/2 mile).
 
 #### Estimating the noise- and ADC limited range
 
@@ -95,7 +97,7 @@ The ADC of the audio interface is recording with 16 bit resolution. Relative to 
 
 ### Testing and processing
 
-The initial testing was done on a straight section of street - several seconds long audio recordings were made when a vehicle was passing by.
+Several seconds long audio recordings were made, when a vehicle was passing by on a straight residental street section.
 
 ![earth](earth.png)
 
