@@ -1,10 +1,14 @@
 ## Antenna amplifier for 915MHz
 
-The intent here was to come up with a discrete low-noie antenna amplifier with robust characteristics, while developing further practical RF/ microwave skills using discrete devices.
+#### Design process and concept
 
-The output L-match is formed by L4 indutor, Ccb (output) capacitance of T6 transistor and MS31-MS32 electically short (capacitive) stub. R22 resistor degenerates the L-match, which is necessary for stabilizing the amplifier. Tuning of the output match is done by adjusting the length of the stub.
+Due to having no access to expensive simulation tools and instruments, it was important to pick an architecture that is robust and suitable for DIY build.
 
-Initial design, built around discrete BFR92 transistors, with input T-match (tuned for best NF):
+Cascode arrangement is quite forgiving to source- and load impedance changes (due to great isolation) and is much easier to stabilize than a single-transistor design.
+
+The real part of the input impedance of BJTs is dependent on (and therefore can be predicted / varied by) the bias current, whereas (for comparison) the input impedance of FETs is largely reactive and (mostly) independent of the bias, which makes input matching more complicated.
+
+The initial design was simulated with QucsStudio - the output L-match is formed by L3 and L4 indutors, Ccb (output) capacitance of T6 transistor and MS31-MS32 electically short (capacitive) stub. R22 resistor degenerates the L-match, which is necessary for stabilizing the amplifier. Tuning of the output match is done by adjusting the length of the stub. Tuned for best NF:
 
 ![cascode_schem](cascode_schem.png)
 
@@ -28,19 +32,21 @@ Prototype, with stubs in the in- and output matching networks:
 
 ![lnapcb](lnapcb.jpg)
 
-Final build, the input is matched with L-match and the short stub of the output L-match is replaced by C3.
+On the final build, the input is matched with a discrete L-match and the short stub of the output L-match is replaced by C3.
 The final build includes a built-in 4 dB output attenuator, mainly in order to create a good transition between the output L-match of the LNA and whatever follows it - a poor cable or connector could de-tune the L-match and potentially de-stabilize the amplifier. The LNA still has plenty of gain, so trading off 4 dB gain and power for extra robustness seemed like a good deal.
 Also a bias-tee is included on the final circuit and PCB, enabling the installation of the LNA near the antenna and powering it through the RF coax cable.
 
 ![schematic_cascode](schematic_cascode.png)
 
-The values of C7, L2 and C3 were determined experimentally.
+The values of C7, L2 and C3 were determined by a series of successive S11 measurements and re-adjustment, by replacing the L-match components on the final board.
 
 ![cascode_photo](cascode_photo.jpg)
 
 Installed on a [PCB antenna](https://github.com/szoftveres/RF_Microwave/tree/main/em_antenna/915_pcb_yagi) and powered remotely via the RF cable:
 
 ![on_antenna](on_antenna.jpg)
+
+#### Measurements 
 
 S-parameters:
 
@@ -67,13 +73,15 @@ Prototyped with the [DIY 915MHz hybrids](https://github.com/szoftveres/RF_Microw
 ### Build and measurements
 
 The final build uses off-the-shelf SMD branchline couplers (Mini-Circuits QCN-12A+). The layout of the individual amplifiers on the PCB is identical to the single LNA, in order to preserve their (already characterized) performance, and the in- and out connecting trace lengths are equal.
-Since the output L-match of each amplifier is now terminated by the output branchline coupler, the 4 dB attenuators were omitted - the extra 4 dB gain, nearly 7 dB more output power compared to a single LNA and a broadband output match makes this amplifier a good PA driver.
+Since the output L-match of each amplifier is now terminated by the output hybrid coupler, the 4 dB attenuators were omitted - the extra 4 dB gain, nearly 7 dB more output power compared to a single LNA and a broadband output match makes this amplifier a good PA driver.
 
 ![balanced_photo](balanced_photo.jpg)
 
 ![balanced_schem](balanced_schem.png)
 
-In- and output now appears to be perfectly matched over a broad band - due to the impedance of R11 and R12 being reflected on the input-and output ports.
+#### Measurements
+
+In- and output now appears to be matched over a broad band - due to the impedances of R11 and R12 being reflected on the input-and output ports.
 
 ![balanced_sparams](balanced_sparams.png)
 
