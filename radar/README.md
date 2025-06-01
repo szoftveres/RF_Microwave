@@ -1,6 +1,6 @@
 ## Experimental FMCW Radar
 
-The purpose of this experimental radar was to test out an easy-to-build, fully DIY RF system (RF amplifiers, VCO, beamforming antennas, splitters, etc..) as well as simple digital signal processing algorithms in GNU Octave.
+The purpose of this experimental radar was to test out an easy-to-build, fully DIY (RF amplifiers, VCO, beamforming antennas, splitters, etc..) RF system as well as simple digital signal processing algorithms in GNU Octave.
 
 ### Architecture
 
@@ -9,6 +9,16 @@ Architecturally the radar is conventional (standard), operating in the 902-928 M
 ![arch](arch.png)
 
 ### Components
+
+#### Ramp waveform generator
+
+The ramp waveform generator produces periodic linear ramp waveforms, and a sync signal, which is being recorded and used by the DSP algorithm to detect the start- and stop of each sweep. The ramp amplitude (VCO tuning voltage level) control is also on this board, setting the FM sweep width of the radar.
+
+![ramp_gen_schem](ramp_gen_schem.png)
+
+Ramp and sync signals:
+
+![ramp_waveform](ramp_waveform.jpg)
 
 #### VCO
 
@@ -20,39 +30,11 @@ The on-board trimmer (RV1) sets the center frequency of the oscillator anywhere 
 
 ![VCO_photo](vco_photo.jpg)
 
-#### Ramp waveform generator
-
-The ramp waveform generator needs to produce linear ramp waveforms, and a sync signal, which is being recorded and used by the DSP algorithm to detect the start- and stop of each sweep. The ramp amplitude (VCO tuning voltage level) control is also on this board, determining the FM sweep width of the radar.
-
-![ramp_gen_schem](ramp_gen_schem.png)
-
-Ramp and sync signals:
-
-![ramp_waveform](ramp_waveform.jpg)
-
-#### Analog frontend
-
-The reflected signal experiences spherical expansion (a.k.a. Friis path loss) twice during its time in flight (first when on the way to the target and the second time when reflected back); consequently, moving a target twice as far away reduces the magnitude of the reflected signal to 1/16th of its original level. This has to be compensated for, distant objects on the radar image should show up with the same intensity as nearby ones.
-Distance translates directly to baseband frequency, so compensation can easily be implemented with a 2nd order (40 dB/decade) high-pass filter, implemented in the analog frontend.
-
-The analog frontend is also the main gain block before the ADC, the RF LNA is mainly used to overcome the noise contribution of the mixer.
-
-![analog_frontend_schem](analog_frontend_schem.png)
-
-#### Antenna LNA
-
-The role of the antenna LNA is to overcome the noise contributions of the mixer, as well as to provide linear amplification (sufficiently high OP1DB) despite the powerful Tx signal source nearby.
-
-The design is covered in [this page](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode).
-
-A long, lossy cable between the antenna and the LNA can degrade the Rx path noise figure due to cable losses, therefore the LNA features an on-board bias-tee and is placed direclty at the antenna, supplied with power through the coax cable.
-
-![lna](https://github.com/szoftveres/RF_Microwave/blob/main/Amplifier/cascode/cascode_photo.jpg)
-
 #### Driver amplifier
 
 The driver amplifier amplifies the signal from the VCO, to where it's sufficient to drive the mixer through the Wilkinson splitter - the Mini-Circuits ADE-5+ mixer used in this project requires +7 dBm LO power, hence the driver amplifier has to be able to provide +10 dBm at its output. The other branch of the Wilkinson splitter either goes directly to the Tx antenna, or can drive a PA for more Tx output power.
-The driver amplifier is essentially a balanced-amp version of the previously discussed antenna LNA and it's covered on the [same design page](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode)
+
+The driver amplifier is essentially a balanced-amp version of the Rx antenna LNA (discussed below), it's covered on a [common design page](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode).
 
 ![driver](https://github.com/szoftveres/RF_Microwave/blob/main/Amplifier/cascode/balanced_photo.jpg)
 
@@ -71,6 +53,26 @@ Simulated array factor and far-field pattern (OpenEMS) for one array:
 ![array_factor](array_factor.png)
 
 ![array_pattern](antenna_array_pattern.png)
+
+#### Rx Antenna LNA
+
+The role of the receiver antenna LNA is to overcome the noise contributions of the mixer, as well as to maintain linear amplification at the presence of a nearby powerful Tx signal source.
+
+The design is covered in [this page](https://github.com/szoftveres/RF_Microwave/tree/main/Amplifier/cascode) (the above mentioned driver amplifier is also discussed on this page).
+
+A long, lossy cable between the antenna and the LNA can degrade the Rx path noise figure due to cable losses, therefore the LNA features an on-board bias-tee, and is physically connected directly to the antenna RF output. Power is supplied through the coax cable via another bias-tee at the radar electronics side.
+
+![lna](https://github.com/szoftveres/RF_Microwave/blob/main/Amplifier/cascode/cascode_photo.jpg)
+
+#### Analog frontend
+
+The reflected signal experiences spherical expansion (a.k.a. Friis path loss) twice during its time in flight (first when on the way to the target and the second time when reflected back); consequently, moving a target twice as far away reduces the magnitude of the reflected signal to 1/16th of its original level. This has to be compensated for, distant objects should show up with the same intensity as nearby objects on the radar image. Also, feeding the baseband directly to the ADC without any pre-compensation would severely limit the magnitude (ADC quantizing) resolution of the faint echo signals from distant objects.
+
+Distance translates directly to baseband frequency, so compensation can easily be implemented with a 2nd order (40 dB/decade) high-pass (pre-emphasis) filter on the baseband frequencies.
+
+The analog frontend is also the main gain block before the ADC, the RF LNA is mainly used to overcome the noise contribution of the mixer.
+
+![analog_frontend_schem](analog_frontend_schem.png)
 
 ### Build
 
