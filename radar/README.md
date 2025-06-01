@@ -88,12 +88,12 @@ The sweep periodicity is set to approximately 100 Hz (10ms period), with the swe
 
 150m distance -> 300m roudtrip -> 1us time of flight -> 3kHz baseband
 
-The processing script gathers samples and runs FFT on the full length of each sweep, hence the FFT bucket resolution is 100Hz, giving a physical resolution of 5m / FFT bucket to this radar (the radar is only sensitive to the magnitude of the baseband frequencies and ignores the phase).
+The processing script gathers samples and runs FFT on the full length of each sweep, hence the FFT bucket resolution is 100Hz, giving a physical resolution of 5m / FFT bucket - roughly the length of a car - to this radar (the radar is only sensitive to the magnitude of the baseband frequencies and ignores the phase).
 The audio interface can reliably record frequencies up to at least ~15kHz, which sets the analog bandwidth limited range to ~750 m (1/2 mile).
 
 #### Estimating the noise- and ADC limited range
 
-First some assumptions have to be made about the target - for simplicity, let's assume that it can be modeled as an antenna with +9 dBi gain (same as what this radar is using for Tx and Rx antennas) that reflects 100% of its received power back. Tx power of the radar is +7 dBm; approximately 20 kHz bandwidth is needed for analog processing and the LNA has approximately 2.5 dB noise figure; this brings the minimum noise limited signal level at the input of the LNA to approximately -128 dBm at room temperature. Both (Tx and Rx) antennas have approximately +9 dBi gain. Calculating with Friis path loss for each path (out and return) gives a noise-limited range of approximately 500m.
+First, some assumptions have to be made about the target - for simplicity, let's assume that it can be modeled as an antenna with +9 dBi gain (same as what this radar is using for Tx and Rx antennas) that reflects 100% of its received power back. Tx power of the radar is +7 dBm; approximately 20 kHz bandwidth is needed for analog processing and the LNA has approximately 2.5 dB noise figure; this brings the minimum noise limited signal level at the input of the LNA to approximately -128 dBm at room temperature. Both (Tx and Rx) antennas have approximately +9 dBi gain. Calculating with Friis path loss for each path (out and return) gives a noise-limited range of approximately 500m.
 
 The ADC of the audio interface is recording with 16 bit resolution. Relative to 1Vpp full signal level, the magnitude of one symbol out of 65536 is approximately 15 uVpp, which translates to -92 dBm signal level - this is the minimum detectable signal level by the ADC. When the previously calculated, -128dBm (noise-limit minimum level) signal reaches the LNA, it gets amplified sufficiently by the combined gain of the LNA (+18 dB) and the analog front-end (> +80 dB above 3kHz), at 7 dB mixer conversion loss, to easily surpass this level. Consequently, the ADC bit-resolution is not a factor.
 
@@ -103,7 +103,7 @@ Several seconds long audio recordings were made, when a vehicle was passing by o
 
 ![earth](earth.png)
 
-The [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/radar/fmcw_process.m) detects each sweep by the sync signal, and performs FFT on the samples. The Y-axis in resulting 2-dimensional image is the distance, the X-axis is the time, and the color represents signal intensity.
+The [processing script](https://github.com/szoftveres/RF_Microwave/tree/main/radar/fmcw_process.m) detects each sweep by the sync signal, and performs FFT on the samples. The Y-axis in the resulting 2-dimensional image is the distance, the X-axis is the time, and the color represents signal intensity.
 
 ![car_with_noise](car_with_noise.png)
 
