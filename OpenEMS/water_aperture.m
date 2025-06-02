@@ -79,8 +79,8 @@ substrate1.kappa  = 1e-3 * 2*pi*f0 * EPS0*substrate1.epsR;
 CSX = AddMaterial( CSX, 'substrate1');
 CSX = SetMaterialProperty( CSX, 'substrate1', 'Epsilon',substrate1.epsR, 'Kappa', substrate1.kappa);
 
-substrate1.width  = 80;             % X of substrate1
-substrate1.length = 80;           % Y of substrate1
+substrate1.width  = 120;             % X of substrate1
+substrate1.length = 120;           % Y of substrate1
 substrate1.yoffset = substrate1.length/2;           % Y offset
 substrate1.thickness = 1.5;         % thickness of substrate1
 substrate1.cells = 4;               % use 4 cells for meshing substrate1
@@ -92,7 +92,7 @@ CSX = AddBox( CSX, 'substrate1', 1, start, stop );
 %% ============== Water ======================
 
 water.epsR   = 80;
-water.kappa  = 1e-3 * 2*pi*f0 * EPS0*water.epsR;
+water.kappa  = 0.05 * 2*pi*f0 * EPS0*water.epsR;
 
 CSX = AddMaterial( CSX, 'water');
 CSX = SetMaterialProperty( CSX, 'water', 'Epsilon', water.epsR, 'Kappa', water.kappa);
@@ -100,8 +100,8 @@ CSX = SetMaterialProperty( CSX, 'water', 'Epsilon', water.epsR, 'Kappa', water.k
 water.width  = substrate1.width;             % X of substrate1
 water.length = substrate1.length;           % Y of substrate1
 water.yoffset = water.length/2;           % Y offset
-water.thickness = 80;         % thickness of substrate1
-water.cells = 80;               % use 4 cells for meshing substrate1
+water.thickness = 120;         % thickness of substrate1
+water.cells = 120;               % use 4 cells for meshing substrate1
 
 start = [-water.width/2  water.yoffset  0];
 stop  = start + [ water.width   -water.length  water.thickness];
@@ -109,7 +109,7 @@ CSX = AddBox( CSX, 'water', 1, start, stop );
 
 %% ============== Slot ======================
 
-slot_x = 24;
+slot_x = 25;
 slot_y = 1;
 
 CSX = AddMetal( CSX, 'slot' ); % create a perfect electric conductor (PEC)
@@ -242,7 +242,9 @@ drawnow
 %% NFFF contour plots %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %find resonance frequency from s11
 f_res_ind = find(s11==min(s11));
-f_res = freq(f_res_ind);
+f_res = freq(f_res_ind)
+%%%f_res = 950e6; %%%%%%%%%%%%%%%%
+
 
 disp( ['S11 min frequency = ' f_res/1e6 ' MHz']);
 
