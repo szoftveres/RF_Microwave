@@ -20,6 +20,10 @@ Radiation pattern overlaid on the model; peak gain is on the order of 5.7dBi, fr
 
 ![ptn_top](ptn_top.png)
 
+OpenEMS simulation of E-field magnitude and element phasing:
+
+![yagi_anim](yagi_anim.gif)
+
 ### Build and measurements
 
 The build included the 4:1 SMD balun (Mini-Circuits TCN4-162+) as well as an SMA connector; resonance is a bit off from center frequency but the input return loss semms quite good within the intended band (902 MHz - 928 MHz).
