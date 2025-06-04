@@ -22,7 +22,7 @@ Radiation pattern overlaid on the model; peak gain is on the order of 5.7dBi, fr
 
 OpenEMS simulation of E-field magnitude and element phasing:
 
-![yagi_anim](yagi_anim.gif)
+![yagi_anim2](yagi_anim2.gif)
 
 ### Build and measurements
 
