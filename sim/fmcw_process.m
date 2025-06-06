@@ -5,9 +5,24 @@ sync_channel = 2;
 sample_channel = 1;
 
 
+% 0: None
+% 1: Average
+% 2: Rolling
+static_removal = 2;
+
+
+% Post-equalization
+% 0:off, value:magnitude difference between the two ends
+post_eq = 10;
+
+
+% Logarithmic color representation (dynamic compression)
+% 0:off, 1:on
+log_color = 0;
+
 printf("\n\n == Reading data ..\n\n");
 
-[audiofile, samplerate] = audioread("radartest_car_success3.wav");
+[audiofile, samplerate] = audioread("radartest_car_success2.wav");
 
 
 samplerate
@@ -81,9 +96,11 @@ samples_to_skip_back = round(lowest_samples_per_sweep / 20)
 subarray_size = 1+lowest_samples_per_sweep-samples_to_skip_back-samples_to_skip_front
 
 
+fft_base_Hz = samplerate / subarray_size
+
 % Processing
 avg_subarray = zeros(1,subarray_size);
-%window = ones(1,subarray_size);
+window = ones(1,subarray_size);
 window = rot90(hanning(subarray_size));
 
 dataarray = [];
@@ -91,6 +108,13 @@ subarray = [];
 for i=1:sweeps_counter
     subarray = sample(sweepstarts(i)+samples_to_skip_front:sweepstarts(i)+lowest_samples_per_sweep-samples_to_skip_back);
     subarray = abs(fft(subarray .* window));
+
+    if (post_eq)
+        for eqi=1:subarray_size
+            subarray(eqi) = subarray(eqi) * (1 + (eqi / subarray_size) * post_eq);
+        end 
+    endif
+
     avg_subarray = avg_subarray + subarray;
 
     dataarray = [dataarray ; subarray];
@@ -99,21 +123,29 @@ end
 avg_subarray = avg_subarray / sweeps_counter;
 
 
-% Removing averaged background return
+% Post-processing
 plotarray_timeslots = size(dataarray)(1);
 plotarray = [];
+cat_subarray_size = subarray_size/6;
 for i=1:plotarray_timeslots
     subarray = dataarray(i,:);
-    subarray = subarray - avg_subarray + 100;
-    subarray = log10(subarray(1:subarray_size/6));
+    switch static_removal
+        case 0
+        case 1
+            subarray = subarray - avg_subarray + 100;
+        case 2
+            if (i >= 2)
+                subarray = subarray - dataarray(i-1,:) + 100;
+            endif
+    end
+    subarray = subarray(1:cat_subarray_size);
+    if (log_color)
+        subarray = log10(subarray);
+    endif
     plotarray = [plotarray ; subarray];
 end
 
-
-%subarray = subarray(1:subarray_size/6);
-%subarray = abs(fft(subarray .* window)) - avg_subarray + 100;
-
-
+plotarray = plotarray(2:end,:);
 
 plotarray_size = size(plotarray)
 
@@ -130,8 +162,27 @@ figure;
 %colormap ("gray");
 h = pcolor(flip(rot90(plotarray)));
 set(h, 'EdgeColor', 'none');
-caxis([(plotmean )      (plotmax - (plotampl * 0.20 ))]);
-printf("Done\n");
+if (static_removal)
+    caxis([(plotmean )      (plotmax - (plotampl * 0.33 ))]);
+endif
+
+
+sweepspan_Hz = 30e6
+c_meterpersec = 300e6
+sweeptime_sec = average_samples_per_sweep / samplerate
+sweepmagnitude_Hz_per_sec = sweepspan_Hz / sweeptime_sec
+
+for i=10:10:100
+    rack_freq = i * fft_base_Hz;
+    time_of_flight_sec = rack_freq / sweepmagnitude_Hz_per_sec;
+    roundtrip_meter = c_meterpersec * time_of_flight_sec;
+    target_meter = roundtrip_meter/2;
+    printf("    Y axis: %i  -   distance: %i m   -   echo %i Hz\n", i, target_meter, rack_freq);
+    
+end 
+
+
+printf("\nDone.\n");
 
 pause();
 
