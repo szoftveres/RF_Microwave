@@ -113,7 +113,25 @@ These components can be characterized (e.g. by taking an initial measurement, or
 
 ![car_without_noise](car_without_noise.png)
 
-Two targets following each other:
+Two cars arriving after each other:
 
 ![double_car](double_car.png)
+
+
+### Testing #2
+
+The next testing was done at a viewpoint, where more car traffic could be captured. 
+
+![i90photo](i90photo.jpg)
+
+The raw measurement shows two prominent radar echoes; the first one is coming from a steel wire fence roughly 20m from the antenna down below (#4 mark on the Y axis), the second one is from a large traffic sign, above the road, at 150m distance (#22 mark on the Y axis). These two obstacles pretty much frame the captureable range to ~150m, as they sahdow out the range ahead- and behind them.
+
+![i90raw](i90raw.png)
+
+Removing the static level and post-processing unveils the traffic:
+
+![i90bridge](i90bridge.png)
+
+Vehicles can be seen to roughly the #30th mark on the Y axis (40m beyond the traffic sign), as the radar signals pass underneath the traffic sign and reach so far before hitting the road surface.
+
 
