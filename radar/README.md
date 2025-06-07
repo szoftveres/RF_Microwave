@@ -99,7 +99,7 @@ The ADC of the audio interface is recording with 16 bit resolution. Relative to 
 
 ### Testing and processing
 
-Several seconds long audio recordings were made, when a vehicle was passing by on a straight residental street section.
+Several seconds long audio recordings were made, when a vehicles were passing by on a straight residental street section.
 
 ![earth](earth.png)
 
@@ -128,10 +128,10 @@ The raw measurement shows two prominent radar echoes; the first one is coming fr
 
 ![i90raw](i90raw.png)
 
-Removing the static level and post-processing unveils the traffic:
+Removing the static components and post-processing unveils the moving vehicles. Cars appear from roughly the #10 mark (60m distance), where the slope and the steel wire fence doesn't block the signal any more, to the #30th mark on the Y axis (190m from the radar), as the radar signals pass underneath the traffic sign and reach so far before hitting the road surface.
 
 ![i90bridge](i90bridge.png)
 
-Vehicles can be seen to roughly the #30th mark on the Y axis (40m beyond the traffic sign), as the radar signals pass underneath the traffic sign and reach so far before hitting the road surface.
+Unfortunately there's hardly any return from between the first and second traffic signs. This could be attributed to diffraction near/around the first traffic sign; i.e. electromagnetic waves passing above an almost ideal conductor get diffracted towards the ground and get behind the traffic sign where any echo gets blocked by the sign itself. At the wavelength of the radar center frequency (λ=0.33m), this means that for as far as ~3m above the traffic sign, the radio waves could be diffracted towards the road, and perhaps experience some level of dispersion due to changing path. 
 
 
