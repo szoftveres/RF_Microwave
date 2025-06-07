@@ -13,16 +13,16 @@ static_removal = 2;
 
 % Post-equalization
 % 0:off, value:magnitude difference between the two ends
-post_eq = 10;
+post_eq = 100;
 
 
 % Logarithmic color representation (dynamic compression)
 % 0:off, 1:on
-log_color = 0;
+log_color = 1;
 
 printf("\n\n == Reading data ..\n\n");
 
-[audiofile, samplerate] = audioread("radartest_car_success2.wav");
+[audiofile, samplerate] = audioread("radartest_car.wav");
 
 
 samplerate
@@ -135,7 +135,7 @@ for i=1:plotarray_timeslots
             subarray = subarray - avg_subarray + 100;
         case 2
             if (i >= 2)
-                subarray = subarray - dataarray(i-1,:) + 100;
+                subarray = abs(subarray - dataarray(i-1,:)) + 100;
             endif
     end
     subarray = subarray(1:cat_subarray_size);
@@ -162,9 +162,14 @@ figure;
 %colormap ("gray");
 h = pcolor(flip(rot90(plotarray)));
 set(h, 'EdgeColor', 'none');
-if (static_removal)
-    caxis([(plotmean )      (plotmax - (plotampl * 0.33 ))]);
-endif
+
+switch static_removal
+    case 0
+    case 1
+        caxis([(plotmean )      (plotmax - (plotampl * 0.33 ))]);
+    case 2
+        caxis([(plotmean )      (plotmax - (plotampl * 0.7 ))]);
+end
 
 
 sweepspan_Hz = 30e6

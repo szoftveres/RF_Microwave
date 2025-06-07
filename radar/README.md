@@ -113,3 +113,7 @@ These components can be characterized (e.g. by taking an initial measurement, or
 
 ![car_without_noise](car_without_noise.png)
 
+Two targets following each other:
+
+![double_car](double_car.png)
+
