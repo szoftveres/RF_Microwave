@@ -99,7 +99,7 @@ The ADC of the audio interface is recording with 16 bit resolution. Relative to 
 
 ### Testing and processing
 
-Several seconds long audio recordings were made, when a vehicles were passing by on a straight residental street section.
+Several seconds long audio recordings were made when vehicles were passing by on a straight residental street section.
 
 ![earth](earth.png)
 
@@ -124,14 +124,14 @@ The next testing was done at a viewpoint, where more car traffic could be captur
 
 ![i90photo](i90photo.jpg)
 
-The raw measurement shows two prominent radar echoes; the first one is coming from a steel wire fence roughly 20m from the antenna down below (#4 mark on the Y axis), the second one is from a large traffic sign, above the road, at 150m distance (#22 mark on the Y axis). These two obstacles pretty much frame the captureable range to ~150m, as they sahdow out the range ahead- and behind them.
+The raw measurement shows two prominent radar echoes; the first one coming from a steel wire fence roughly 20m from the radar antenna, down below (#4 mark on the Y axis) and the second one from a large road sign, at 150m distance (#22 mark on the Y axis). These two obstacles pretty much frame the captureable range to ~150m, as they shadow out the range ahead- and behind them.
 
 ![i90raw](i90raw.png)
 
-Removing the static components and post-processing unveils the moving vehicles. Cars appear from roughly the #10 mark (60m distance), where the slope and the steel wire fence doesn't block the signal any more, to the #30th mark on the Y axis (190m from the radar), as the radar signals pass underneath the traffic sign and reach so far before hitting the road surface.
+Removing the static components and post-processing unveils the moving vehicles. Cars appear from roughly the #10 mark (60m distance), where the slope and the steel wire fence don't block the signal any more, to the #30th mark on the Y axis (190m from the radar), as the radar signals pass underneath the road sign and reach so far before hitting the road surface.
 
 ![i90bridge](i90bridge.png)
 
-Unfortunately there's hardly any return from between the first and second traffic signs. This could be attributed to diffraction near/around the first traffic sign; i.e. electromagnetic waves passing above an almost ideal conductor get diffracted towards the ground and get behind the traffic sign where any echo gets blocked by the sign itself. At the wavelength of the radar center frequency (λ=0.33m), this means that for as far as ~3m above the traffic sign, the radio waves could be diffracted towards the road, and perhaps experience some level of dispersion due to changing path. 
+Unfortunately there's not much return from beyond the road sign, which is a major obstacle for the radar at this location. Besides simply blocking signals, it is causing Fraunhofer diffraction; i.e. electromagnetic waves get diffracted towards the ground when passing above an almost ideal conductor and subsequently the returning echoes get blocked by the road sign itself. The result is a large blind spot, with no echoes back towards the radar. At the wavelength of the radar center frequency (λ=0.33m), radio waves passing ~3m above the road sign could be diffracted towards the road. The size of the blind spot around the road sign is wavelength-dependent, higher-frequency radars 
 
 
