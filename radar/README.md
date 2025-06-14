@@ -128,10 +128,8 @@ The raw measurement shows two prominent radar echoes; the first one coming from 
 
 ![i90raw](i90raw.png)
 
-Removing the static components and post-processing unveils the moving vehicles. Cars appear from roughly the #10 mark (60m distance), where the slope and the steel wire fence don't block the signal any more, to the #30th mark on the Y axis (190m from the radar), as the radar signals pass underneath the road sign and reach so far before hitting the road surface.
+Removing the static components and post-processing unveils the moving vehicles. Cars appear from roughly the #10 mark (60m distance), where the slope and the steel wire fence don't block the signal any more, to the #30th mark on the Y axis (190m from the radar), as the radar signals pass underneath the road sign and reach so far before hitting the road surface. Unfortunately there's not much return from beyond the road sign, which is a major obstacle for the radar at this location.
 
 ![i90bridge](i90bridge.png)
-
-Unfortunately there's not much return from beyond the road sign, which is a major obstacle for the radar at this location. Besides simply blocking signals, it is causing Fraunhofer diffraction; i.e. electromagnetic waves get diffracted towards the ground when passing above an almost ideal conductor and subsequently the returning echoes get blocked by the road sign itself. The result is a large blind spot, with no echoes back towards the radar. At the wavelength of the radar center frequency (λ=0.33m), radio waves passing ~3m above the road sign could be diffracted towards the road. The size of the blind spot around the road sign is wavelength-dependent, higher-frequency radars 
 
 
