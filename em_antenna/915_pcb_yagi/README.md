@@ -28,7 +28,9 @@ OpenEMS simulation of E-field magnitude and element phasing:
 
 ### Build and measurements
 
-The build included the 4:1 SMD balun (Mini-Circuits TCN4-162+) as well as an SMA connector; resonance is a bit off from center frequency but the input return loss semms quite good within the intended band (902 MHz - 928 MHz).
+The build included the 4:1 SMD balun (Mini-Circuits TCN4-162+) as well as an SMA connector.
+
+VNA measurement largely agrees with the simulation, e.g. the return loss is better than -10dB between 850MHz and 950MHz, which conveniently gives ~100MHz bandwidth and very good match (S1,1 down to almost -20 dB) in the intended 915 MHz band.
 
 ![build_pcb](build.jpg)
 
