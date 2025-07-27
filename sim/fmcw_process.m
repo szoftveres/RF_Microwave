@@ -7,15 +7,18 @@ sample_channel = 1;
 
 % 0: None
 % 1: Average
-edge_detect = 0;
+edge_detect = 1;
 
 
 % DC level removal
-dc_removal_cycles = 0; %5
+dc_removal_cycles = 5; %5
 
 % Post-equalization
 % 0:off, value:magnitude difference between the two ends
 post_eq = 0;
+
+
+decimation_factor = 1;
 
 
 % Logarithmic color representation (dynamic compression)
@@ -107,9 +110,10 @@ window = rot90(hanning(subarray_size));
 dataarray = [];
 subarray = [];
 
-for i=1:sweeps_counter
+for i=1:decimation_factor:sweeps_counter
     subarray = sample(sweepstarts(i)+samples_to_skip_front:sweepstarts(i)+lowest_samples_per_sweep-samples_to_skip_back);
-    subarray = abs(fft(subarray .* window));
+    %subarray = abs(fft(subarray .* window));
+    subarray = (fft(subarray .* window));
 
     if (post_eq)
         for eqi=1:subarray_size
@@ -130,6 +134,7 @@ for i=1:plotarray_timeslots
     if (i >= 2)
         if (edge_detect)
             subarray = abs(subarray - dataarray(i-1,:));
+            %subarray = (subarray - dataarray(i-1,:));
         endif
     endif
     subarray = subarray(1:cat_subarray_size);
@@ -202,7 +207,7 @@ figure;
 h = pcolor(flip(rot90(plotarray)));
 set(h, 'EdgeColor', 'none');
 
-caxis([(plotmean - (plotmeantolow * 0.7))      (plotmax - (plotampl * 0.7 ))]);
+caxis([(plotmean - (plotmeantolow * 0.5))      (plotmax - (plotampl * 0.3 ))]);
 
 
 sweepspan_Hz = 30e6

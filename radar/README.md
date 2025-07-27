@@ -111,7 +111,7 @@ The image is mostly showing static frequency components (horizontal lines) from 
 
 These components can be characterized (e.g. by taking an initial measurement, or by calculating an average value for each component throughout the X-axis, etc..) and removed, resulting in an image that better highlights moving objects:
 
-![car_without_noise](car_without_noise.png)
+![car_without_noise2](car_without_noise2.png)
 
 Two cars arriving after each other:
 

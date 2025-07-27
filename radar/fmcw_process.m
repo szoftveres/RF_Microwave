@@ -7,13 +7,18 @@ sample_channel = 1;
 
 % 0: None
 % 1: Average
-% 2: Rolling
-static_removal = 2;
+edge_detect = 1;
 
+
+% DC level removal
+dc_removal_cycles = 5; %5
 
 % Post-equalization
 % 0:off, value:magnitude difference between the two ends
-post_eq = 100;
+post_eq = 0;
+
+
+decimation_factor = 1;
 
 
 % Logarithmic color representation (dynamic compression)
@@ -99,55 +104,93 @@ subarray_size = 1+lowest_samples_per_sweep-samples_to_skip_back-samples_to_skip_
 fft_base_Hz = samplerate / subarray_size
 
 % Processing
-avg_subarray = zeros(1,subarray_size);
 window = ones(1,subarray_size);
 window = rot90(hanning(subarray_size));
 
 dataarray = [];
 subarray = [];
-for i=1:sweeps_counter
+
+for i=1:decimation_factor:sweeps_counter
     subarray = sample(sweepstarts(i)+samples_to_skip_front:sweepstarts(i)+lowest_samples_per_sweep-samples_to_skip_back);
-    subarray = abs(fft(subarray .* window));
+    %subarray = abs(fft(subarray .* window));
+    subarray = (fft(subarray .* window));
 
     if (post_eq)
         for eqi=1:subarray_size
             subarray(eqi) = subarray(eqi) * (1 + (eqi / subarray_size) * post_eq);
         end 
     endif
-
-    avg_subarray = avg_subarray + subarray;
-
     dataarray = [dataarray ; subarray];
 end
 
-avg_subarray = avg_subarray / sweeps_counter;
 
-
-% Post-processing
+% Edge-detecting
 plotarray_timeslots = size(dataarray)(1);
 plotarray = [];
-cat_subarray_size = subarray_size/6;
+cat_subarray_size = floor(subarray_size/6);
+
 for i=1:plotarray_timeslots
     subarray = dataarray(i,:);
-    switch static_removal
-        case 0
-        case 1
-            subarray = subarray - avg_subarray + 100;
-        case 2
-            if (i >= 2)
-                subarray = abs(subarray - dataarray(i-1,:)) + 100;
-            endif
-    end
-    subarray = subarray(1:cat_subarray_size);
-    if (log_color)
-        subarray = log10(subarray);
+    if (i >= 2)
+        if (edge_detect)
+            subarray = abs(subarray - dataarray(i-1,:));
+            %subarray = (subarray - dataarray(i-1,:));
+        endif
     endif
+    subarray = subarray(1:cat_subarray_size);
     plotarray = [plotarray ; subarray];
 end
-
 plotarray = plotarray(2:end,:);
+plotarray_size = size(plotarray)(1);
+subarray_size = cat_subarray_size;
 
-plotarray_size = size(plotarray)
+
+%plotarray = fft2(plotarray);
+%xstart=floor(plotarray_size/33);
+%for x=xstart:plotarray_size
+%    for y=1:subarray_size
+%        plotarray(x,y) = 0;
+%    end
+%end
+%plotarray = real(ifft2(plotarray));
+
+
+% DC leveling
+avgp_subarray = zeros(1,subarray_size);
+if (dc_removal_cycles)
+    for k=1:dc_removal_cycles
+        plot2array = [];
+        avg_subarray = zeros(1,subarray_size);
+        for i=1:plotarray_timeslots-1
+            subarray = plotarray(i,:);
+            avg_subarray = avg_subarray + subarray;
+            if (k > 1)
+                subarray = subarray - avgp_subarray;
+            endif
+            plot2array = [plot2array ; subarray];
+        
+        end
+        plotarray = plot2array;
+        avgp_subarray = avg_subarray / plotarray_timeslots-1;
+    end
+endif
+
+
+plotarray = fft2(plotarray);
+xstart=floor(plotarray_size/33);
+for x=xstart:plotarray_size
+    for y=1:subarray_size
+        plotarray(x,y) = 0;
+    end
+end
+plotarray = real(ifft2(plotarray));
+
+
+plotarray = (plotarray) + 100;
+if (log_color)
+    plotarray = log10(plotarray);
+endif
+
 
 
 printf("\n\n == Plotting ..\n\n");
@@ -157,19 +200,14 @@ plotmax = max(max(plotarray));
 plotampl = (plotmax - plotmin);
 
 plotmean = mean(mean(plotarray));
+plotmeantolow = plotmean - plotmin;
 
 figure;
 %colormap ("gray");
 h = pcolor(flip(rot90(plotarray)));
 set(h, 'EdgeColor', 'none');
 
-switch static_removal
-    case 0
-    case 1
-        caxis([(plotmean )      (plotmax - (plotampl * 0.33 ))]);
-    case 2
-        caxis([(plotmean )      (plotmax - (plotampl * 0.7 ))]);
-end
+caxis([(plotmean - (plotmeantolow * 0.5))      (plotmax - (plotampl * 0.3 ))]);
 
 
 sweepspan_Hz = 30e6
