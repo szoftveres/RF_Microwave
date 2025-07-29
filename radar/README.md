@@ -132,4 +132,21 @@ Removing the static components and post-processing unveils the moving vehicles. 
 
 ![i90bridge](i90bridge.png)
 
+## Synthetic Aperture Radar Imaging
+
+### Simulation
+
+In the below simulation "field", the shapes are equally reflective:
+
+![sar_scenery](sar_scenery.png)
+
+When an imaginary radar antenna (with simulated beam pattern) is brought across the horizontal axis, each point in the field of the antenna shows up on the return 1D plot by its distance. Generally, the distance between the antenna and the point follow a parabolid shape (Pythagorean distance) as a function of the antenna location; the point is closest to the antenna when they line up laterally with each other.
+
+This image shows the distance of individual points from the antenna, as a function of antenna location on the horizontal axis:
+
+![sar_radarecho](sar_radarecho.png)
+
+The simplest way of creating a 2D image is by projecting the individual points in a 2D space by the same Pythagorean geometry (and same simulated antenna pattern) as during the simulation of scanning the original field, and correlating them; i.e. the more "hits" a point gets in a 2D space (seen from more antenna locations), the brighter it will be on the image. This correlation process highlights objects at their location in the image:
+
+![sar_correlated](sar_correlated.png)
 
