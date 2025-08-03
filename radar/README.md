@@ -152,3 +152,5 @@ The simplest way of creating a 2D image is by projecting the individual points i
 
 ![sar_correlated](sar_correlated.png)
 
+![sar_focused](sar_focused.png)
+
