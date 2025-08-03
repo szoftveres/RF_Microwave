@@ -158,3 +158,7 @@ This can be significantly improved if the phase is also made part of the correla
 
 ![sar_focused](sar_focused.png)
 
+Animated process:
+
+![animgif](anim.gif)
+
