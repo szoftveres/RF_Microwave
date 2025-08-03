@@ -148,15 +148,15 @@ To simulate real-world conditions, the simulation includes a Gaussian antenna di
 
 ![sar_radarecho](sar_radarecho.png)
 
-The simplest way of creating a 2D image -based on radar echo intensity- is by projecting the individual points in a 2D image space by the same Pythagorean geometry (and same simulated antenna pattern) that was used during the simulation of scanning the original field, and correlating them; i.e. the more "hits" a point gets in a 2D space at the intersections of projection circles from the antenna locations (seen from more antenna "angles"), the brighter it will be on the image. This correlation process highlights objects at their location in the image.
+The simplest way of creating a 2D image -based on radar echo intensity- is by projecting the individual echo circles in a 2D image space and highlighting the correlation; i.e. a pixel gets more brighter as more echo circles cross through it. Inherently, this process results in an image:
 
 ![sar_correlated](sar_correlated.png)
 
-This -intensity based- image is still quite blurry and many features diminish. E.g. the small individual pixel in the upper right corner of the original "field" is almost invisible. Another observation is that the block at the center of the image is brighter than the two -identical- blocks at the lower part of the image. This is due to the fact that the block farther away from the antenna scanning axis and it simply appears for a longer time in the broad antenna "vision field" as the simulated antenna passes along the X axis; the lower blocks don't get such long exposure.
+This -intensity based- image is still quite blurry and many features diminish. E.g. the small individual pixel in the upper right corner of the original "field" is almost invisible. The reason for blurriness of the image is that the above imaging algorithm considered an echo from an antenna location part of the pixel as long as the echo was "somewhere within the pixel", i.e. the accuracy and therefore the resolution of the correlation was limited by per-pixel geometry.
 
-The reason for blurriness of the image is that the above imaging algorithm considered an echo from an antenna location part of the pixel as long as the echo was "somewhere within the pixel", i.e. the accuracy and therefore the resolution of the correlation was limited by per-pixel geometry.
+Another observation is that the block at the center of the image is brighter than the two -identical- blocks at the lower part of the image. This is due to the fact that the block farther away from the antenna scanning axis and it simply appears for a longer time in the broad antenna "vision field" as the simulated antenna passes along the X axis; the lower blocks don't get such long exposure.
 
-This can be significantly improved if the phase is also made part of the correlation process. I.e. the phase info (i.e. how far the radar echo is from the center point of a pixel, described as a complex vector) is saved as the antenna passes along the X-axis, and then during correlation process, the radar echoes are individually correlated with the same phase error from the center of a pixel. The resulting image is much better focused and even small details (like the individual pixel at the top right of the image) appear:
+The blurriness can be significantly improved if the phase is also made part of the imaging process. I.e. for each antenna location and distance point, the phase info (i.e. how far the radar echo is from the center point of a pixel, and the echo intensity, described as a complex vector) is saved as the antenna passes along the X-axis, and then during correlation process, the radar echoes are individually correlated with the same phase error from the center of a pixel. The resulting image is much better focused and even small details (like the individual pixel at the top right of the image) appear:
 
 ![sar_focused](sar_focused.png)
 
