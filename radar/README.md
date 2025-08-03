@@ -136,21 +136,25 @@ Removing the static components and post-processing unveils the moving vehicles. 
 
 ### Simulation
 
-In the below simulation "field"; every bright pixel is equally reflective:
+In the below virtual "field", every pixel is equally reflective; the radar scans through this scenery on the lower horizontal (X) axis, from left to right.
 
 ![sar_scenery](sar_scenery.png)
 
-After bringing an imaginary radar antenna (with simulated beam pattern) across the field on the lower horizontal (X) axis, each point in the field of the antenna shows up on the return 1D plot by its distance. Generally, the distance between the antenna and a point follows a parabolid shape (Pythagorean distance) as a function of the antenna location; the point is closest to the antenna when they line up laterally with each other.
+After scanning, the result is stored in a 2-dimensional array, where X is the antenna location, Y is the range and the stored number is the intensity (and -later-, phase) that the radar picked up at that location. The distance between the antenna and a reflection point can be described with the Pythagorean distance, and follows a parabolid shape as a function of the antenna location; the point is closest to the antenna when they line up laterally with each other.
 
- Since the antenna has some simulated (Gaussian) forward directivity, the intensity of the echo fades away as the antenna moves away laterally from a point.
- 
-This image shows the distance of individual points from the antenna, as a function of antenna location on the horizontal axis.
+To simulate real-world conditions, the simulation includes a Gaussian antenna directivity, with maximum in the forward (vertical) direction; hence intensity from a point decreases as the antenna is displaced horizontally from a corresponding point:
 
 ![sar_radarecho](sar_radarecho.png)
 
-The simplest way of creating a 2D image is by projecting the individual points in a 2D space by the same Pythagorean geometry (and same simulated antenna pattern) that was used during the simulation of scanning the original field, and correlating them; i.e. the more "hits" a point gets in a 2D space at the intersections of projection circles from the antenna locations (seen from more antenna "angles"), the brighter it will be on the image. This correlation process highlights objects at their location in the image:
+The simplest way of creating a 2D image -based on radar echo intensity- is by projecting the individual points in a 2D image space by the same Pythagorean geometry (and same simulated antenna pattern) that was used during the simulation of scanning the original field, and correlating them; i.e. the more "hits" a point gets in a 2D space at the intersections of projection circles from the antenna locations (seen from more antenna "angles"), the brighter it will be on the image. This correlation process highlights objects at their location in the image.
 
 ![sar_correlated](sar_correlated.png)
+
+This -intensity based- image is still quite blurry and many features diminish. E.g. the small individual pixel in the upper right corner of the original "field" is almost invisible. Another observation is that the block at the center of the image is brighter than the two -identical- blocks at the lower part of the image. This is due to the fact that the block farther away from the antenna scanning axis and it simply appears for a longer time in the broad antenna "vision field" as the simulated antenna passes along the X axis; the lower blocks don't get such long exposure.
+
+The reason for blurriness of the image is that the above imaging algorithm considered an echo from an antenna location part of the pixel as long as the echo was "somewhere within the pixel", i.e. the accuracy and therefore the resolution of the correlation was limited by per-pixel geometry.
+
+This can be significantly improved if the phase is also made part of the correlation process. I.e. the phase info (i.e. how far the radar echo is from the center point of a pixel, described as a complex vector) is saved as the antenna passes along the X-axis, and then during correlation process, the radar echoes are individually correlated with the same phase error from the center of a pixel. The resulting image is much better focused and even small details (like the individual pixel at the top right of the image) appear:
 
 ![sar_focused](sar_focused.png)
 
