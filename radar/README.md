@@ -142,6 +142,8 @@ In the below virtual "field", every pixel is equally reflective; the radar scans
 
 After scanning, the result is stored in a 2-dimensional array, where X is the antenna location, Y is the range and the stored number is the intensity (and -later-, phase) that the radar picked up at that location. The distance between the antenna and a reflection point can be described with the Pythagorean distance, and follows a parabolid shape as a function of the antenna location; the point is closest to the antenna when they line up laterally with each other.
 
+![geometry](geometry.png)
+
 To simulate real-world conditions, the simulation includes a Gaussian antenna directivity, with maximum in the forward (vertical) direction; hence intensity from a point decreases as the antenna is displaced horizontally from a corresponding point:
 
 ![sar_radarecho](sar_radarecho.png)
