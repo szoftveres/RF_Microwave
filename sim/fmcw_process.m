@@ -10,9 +10,6 @@ sample_channel = 1;
 edge_detect = 1;
 
 
-% DC level removal
-dc_removal_cycles = 5; %5
-
 % Post-equalization
 % 0:off, value:magnitude difference between the two ends
 post_eq = 0;
@@ -145,37 +142,21 @@ plotarray_size = size(plotarray)(1);
 subarray_size = cat_subarray_size;
 
 
-%plotarray = fft2(plotarray);
-%xstart=floor(plotarray_size/33);
-%for x=xstart:plotarray_size
-%    for y=1:subarray_size
-%        plotarray(x,y) = 0;
-%    end
-%end
-%plotarray = real(ifft2(plotarray));
+% Normalizing results
 
+plotarray_normalized = [];
 
-% DC leveling
-avgp_subarray = zeros(1,subarray_size);
-if (dc_removal_cycles)
-    for k=1:dc_removal_cycles
-        plot2array = [];
-        avg_subarray = zeros(1,subarray_size);
-        for i=1:plotarray_timeslots-1
-            subarray = plotarray(i,:);
-            avg_subarray = avg_subarray + subarray;
-            if (k > 1)
-                subarray = subarray - avgp_subarray;
-            endif
-            plot2array = [plot2array ; subarray];
-        
-        end
-        plotarray = plot2array;
-        avgp_subarray = avg_subarray / plotarray_timeslots-1;
-    end
-endif
+for i=1:plotarray_size
+    subarray = plotarray(i,:);
+    min_val = min(subarray);
+    max_val = max(subarray);
+    ampl = max_val - min_val;
+    subarray = subarray - min_val;
+    subarray = subarray / ampl;
+    plotarray_normalized = [plotarray_normalized; subarray];
+end
 
-
+plotarray = plotarray_normalized;
 plotarray = fft2(plotarray);
 xstart=floor(plotarray_size/33);
 for x=xstart:plotarray_size
@@ -186,28 +167,12 @@ end
 plotarray = real(ifft2(plotarray));
 
 
-plotarray = (plotarray) + 100;
-if (log_color)
-    plotarray = log10(plotarray);
-endif
-
-
 
 printf("\n\n == Plotting ..\n\n");
 
-plotmin = min(min(plotarray));
-plotmax = max(max(plotarray));
-plotampl = (plotmax - plotmin);
-
-plotmean = mean(mean(plotarray));
-plotmeantolow = plotmean - plotmin;
-
 figure;
-%colormap ("gray");
 h = pcolor(flip(rot90(plotarray)));
 set(h, 'EdgeColor', 'none');
-
-caxis([(plotmean - (plotmeantolow * 0.5))      (plotmax - (plotampl * 0.3 ))]);
 
 
 sweepspan_Hz = 30e6
