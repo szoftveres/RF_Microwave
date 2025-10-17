@@ -130,8 +130,8 @@ for i=1:plotarray_timeslots
     subarray = dataarray(i,:);
     if (i >= 2)
         if (edge_detect)
-            subarray = abs(subarray - dataarray(i-1,:));
-            %subarray = (subarray - dataarray(i-1,:));
+            %subarray = abs(subarray - dataarray(i-1,:));
+            subarray = (subarray - dataarray(i-1,:));
         endif
     endif
     subarray = subarray(1:cat_subarray_size);
@@ -165,6 +165,15 @@ for x=xstart:plotarray_size
     end
 end
 plotarray = real(ifft2(plotarray));
+
+
+%for x=1:plotarray_size
+%    for y=1:subarray_size
+%        if plotarray(x,y) < 0
+%            plotarray(x,y) = 0;
+%        endif
+%    end
+%end
 
 
 
