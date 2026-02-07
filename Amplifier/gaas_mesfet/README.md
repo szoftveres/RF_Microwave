@@ -8,7 +8,7 @@
 
 The amplifier is designed to be installed right at the antenna, DC power is supplied through the coax cable. Its main purpose is to provide low receiver noise figure when the antenna is installed far away from the receiver (e.g. in the attic).
 
-The input is tuned with a high-Q LC filter, matching is provided by a series trimmer capacitor. The two degrees of freedom at the input enables optimum NF vs. reflection coefficient adjustment.
+The input is tuned with a high-Q LC filter, matching is provided by a series trimmer capacitor (C5). The two degrees of freedom (C5 and C4) enables optimum NF vs. reflection coefficient adjustment.
 
 The amplifying device is a Motorola MRF966 dual-gate MES-FET, capable of NF=0.6 dB at 450 MHz, biased at 15 mA.
 
