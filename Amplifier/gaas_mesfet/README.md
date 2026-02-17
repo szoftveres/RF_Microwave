@@ -22,14 +22,19 @@ FETs are voltage controlled devices with infinite input impedance at low fequenc
 
 ![gopt](gopt.png)
 
-The datasheet calls for an optimum source impedance at 450 MHz that corresponds to 115.9 + j207.9 Ω. This source impedance is quite high and would create a serious mismatch at the antenna input, so an L-match (C5, and an imaginary inductance that's absorbed into the L1 C4 tank) transforms the antenna impedance up to the desired optimum. The combination of C4 and C5 allows a wide range of input impedance to be set, including a perfect match. The exact impedance at the gate of the transistor however is still unknown (mainly due to the lack of proper simulation data of this particular vintage device).
+The datasheet calls for an optimum source impedance at 450 MHz that corresponds to 115.9 + j207.9 Ω. This source impedance is quite, so an L-match (C5, and an imaginary inductance that's absorbed into the L1 C4 tank) transforms the antenna impedance up to the desired optimum. The combination of C4 and C5 allows a wide range of input impedance to be set, including a perfect match.
 
-Since I don't have a noise meter, nor know the exact capacitance of the trimmers at each setting, I chose the strategy of trimming for the lowest input impedance while maintaining a somewhat acceptable reflection coefficient. This method ensures the highest impedance at the gate (for good noise figure), and also has the benefit of a resulting in a somewhat broader bandwidth, due to the gate impedance of the transistor (and also the Q of the inductor and trimmer cap) now affecting the overall Q of the LC tank.
+Since I don't have a noise meter, nor can deduce any information about the exact impedance at the transistor gate (the exact capacitance of the trimmers are unknonw at any particular setting, hence the impedance transformation ratio is also unknown), I chose an intuitive approach: I trim the variable capacitors for the highest gain and lowest input impedance while maintaining a somewhat acceptable reflection coefficient. This strategy ensures the highest impedance at the gate (for highest voltage -> good noise figure), and also has the benefit of a resulting in a somewhat broader bandwidth, due to the gate impedance of the transistor (and also the Q of the inductor and trimmer cap) now affecting the overall Q of the LC tank.
+
+S-parameters after tuning for 440 MHz, and low, but acceptable input imepdance:
 
 ![sparm](sparm.png)
 
-Gain is +17 dB at 440 MHz, OP1dB = +3.3 dBm, DC current is 15 mA (supply voltage range: 7V - 35V).
+Gain is +18.4 dB at 440 MHz, 3 dB bandwidth is 23 MHz (429-452 MHz), return loss is -13 dB at 440 MHz
+
+
+Power sweep at 440 MHz:
 
 ![pwrsweep](pwrsweep.png)
 
-
+OP1dB = +3 dBm, OP3dB = +6.45 dBm, DC current is 15 mA (supply voltage range: 7V - 35V).
