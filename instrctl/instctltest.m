@@ -1,6 +1,6 @@
 pkg load instrument-control
 
-serialportlist("available")
+%serialportlist("available")
 
 % common functions
 addpath("../RFlib");
