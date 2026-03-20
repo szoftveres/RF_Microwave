@@ -6,6 +6,8 @@ function plot1port(ts, mkr)
     f = zeros(length(ts.points),1);
     Z = 50;
 
+    lim = [ts.points(1).f ts.points(length(ts.points)).f -60, 5];
+
     for a = 1:length(ts.points)
         f(a) = ts.points(a).f;
         S11(a) = abcd2s(ts.points(a).ABCD, Z)(1,1);
@@ -22,9 +24,9 @@ function plot1port(ts, mkr)
 
     subplot(1, 2, 2);
     if nargin > 1
-        dbplot(S11, f, mkr);
+        dbplot(S11, f, lim, mkr);
     else
-        dbplot(S11, f);
+        dbplot(S11, f, lim);
     end
     ylabel("S1,1 (dB)");
 

@@ -1,14 +1,15 @@
 % dbplot
 
 
-function dbplot(S, f, mkr)
+function dbplot(S, f, lim, mkr)
     cp = zeros(length(S),1);
     for lp = 1:length(S)
         cp(lp) = gamma2db(S(lp));
     end
     plot(f, cp, "r-", "LineWidth", 2);
+    axis(lim);
     grid on;
-    if nargin > 2
+    if nargin > 3
         hold on;
         plot(f(mkr), cp(mkr), "bx", "LineWidth", 2);
         hold off;

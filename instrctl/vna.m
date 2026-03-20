@@ -10,15 +10,15 @@ addpath("../RFlib");
 sp = serialport("/dev/ttyUSB0", 38400);
 set(sp, 'timeout', 1);
 
-startkhz = 885000;
-stopkhz =  945000;
-step_khz = 1000;
+startkhz = 800000;
+stopkhz =  1000000;
+step_khz = 2500;
 
-attenuator = 10;
+level = -2;
 
 
-function rc = measure_freq(sp, khz, attenuator)
-    instrcmd_u32sync(sp, ["vna " num2str(khz) " " num2str(attenuator)], 0xB43355AA);
+function rc = measure_freq(sp, khz)
+    instrcmd_u32sync(sp, ["vna " num2str(khz)], 0xB43355AA);
     ref_i = read(sp, 1, "int32");
     ref_q = read(sp, 1, "int32");
     meas_i = read(sp, 1, "int32");
@@ -29,6 +29,8 @@ function rc = measure_freq(sp, khz, attenuator)
 end
 
 
+instrcmd_cmd(sp, ["level = " num2str(level)]);
+
 
 sweep = startkhz:step_khz:stopkhz;
 
@@ -36,7 +38,7 @@ EXP = input("Connect OPEN");
 ts_open = sweep2ts(sweep * 1000); % converting to Hz
 for i = 1:length(sweep)
     S = zeros(2);
-    S(1,1) = measure_freq(sp, sweep(i), 10);
+    S(1,1) = measure_freq(sp, sweep(i));
     S(2,1) = 1.01e-6;
     S(1,2) = 1.02e-6;
     S(2,2) = 1.03e-6;
@@ -48,7 +50,7 @@ EXP = input("Connect SHORT");
 ts_short = sweep2ts(sweep * 1000); % converting to Hz
 for i = 1:length(sweep)
     S = zeros(2);
-    S(1,1) = measure_freq(sp, sweep(i), 10);
+    S(1,1) = measure_freq(sp, sweep(i));
     S(2,1) = 1.04e-6;
     S(1,2) = 1.05e-6;
     S(2,2) = 1.06e-6;
@@ -59,7 +61,7 @@ EXP = input("Connect MATCH");
 ts_match = sweep2ts(sweep * 1000); % converting to Hz
 for i = 1:length(sweep)
     S = zeros(2);
-    S(1,1) = measure_freq(sp, sweep(i), 10);
+    S(1,1) = measure_freq(sp, sweep(i));
     S(2,1) = 1.04e-6;
     S(1,2) = 1.05e-6;
     S(2,2) = 1.06e-6;
@@ -75,7 +77,7 @@ while true
 
     for i = 1:length(sweep)
         S = zeros(2);
-        S(1,1) = measure_freq(sp, sweep(i), 10);
+        S(1,1) = measure_freq(sp, sweep(i));
         S(2,1) = 1e-6;
         S(1,2) = 1e-6;
         S(2,2) = 1e-6;

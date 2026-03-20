@@ -1,7 +1,10 @@
 % script plot2ports
 
 function plot2ports(ts, mkr)
-    
+   
+    lim_refl = [ts.points(1).f ts.points(length(ts.points)).f -60, 5];
+    lim_thru = [ts.points(1).f ts.points(length(ts.points)).f -30, 30];
+ 
     S11 = zeros(length(ts.points),1);
     S21 = zeros(length(ts.points),1);
     S12 = zeros(length(ts.points),1);
@@ -28,33 +31,33 @@ function plot2ports(ts, mkr)
 
     subplot(2, 3, 2)
     if nargin > 1
-        dbplot(S11, f, mkr);
+        dbplot(S11, f, lim_refl, mkr);
     else
-        dbplot(S11, f);
+        dbplot(S11, f, lim_refl);
     end
     ylabel("S1,1 (dB)");
 
     subplot(2, 3, 3)
     if nargin > 1
-        dbplot(S21, f, mkr);
+        dbplot(S21, f, lim_thru, mkr);
     else
-        dbplot(S21, f);
+        dbplot(S21, f, lim_thru);
     end
     ylabel("S2,1 (dB)");
 
     subplot(2, 3, 4);
     if nargin > 1
-        dbplot(S12, f, mkr);
+        dbplot(S12, f, lim_thru, mkr);
     else
-        dbplot(S12, f);
+        dbplot(S12, f, lim_thru);
     end
     ylabel("S1,2 (dB)");
 
     subplot(2, 3, 5);
     if nargin > 1
-        dbplot(S22, f, mkr);
+        dbplot(S22, f, lim_refl, mkr);
     else
-        dbplot(S22, f);
+        dbplot(S22, f, lim_refl);
     end
     ylabel("S2,2 (dB)");
 
