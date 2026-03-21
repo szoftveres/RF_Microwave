@@ -10,9 +10,11 @@ function smithzplot(cp, mkr)
 
     hold on;
     % constant circles
-    constcircles(1/3, "k:");
+    constcircles(1/5, "k:");
+    constcircles(1/2, "k:");
     constcircles(1, "k:");
-    constcircles(3, "k:");
+    constcircles(2, "k:");
+    constcircles(5, "k:");
 
     % horizontal line
     t = linspace(-1, 1, 15);
