@@ -6,7 +6,7 @@ function plot1port(ts, mkr)
     f = zeros(length(ts.points),1);
     Z = 50;
 
-    lim = [ts.points(1).f ts.points(length(ts.points)).f -60, 5];
+    lim = [ts.points(1).f ts.points(length(ts.points)).f -80, 5];
 
     for a = 1:length(ts.points)
         f(a) = ts.points(a).f;
