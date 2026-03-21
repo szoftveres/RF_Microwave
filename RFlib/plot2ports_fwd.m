@@ -1,8 +1,8 @@
-% script plot2ports
+% script plot2ports_fwd
 
-function plot2ports(ts, mkr)
+function plot2ports_fwd(ts, mkr)
    
-    lim_refl = [ts.points(1).f ts.points(length(ts.points)).f -80, 5];
+    lim_refl = [ts.points(1).f ts.points(length(ts.points)).f -50, 5];
     lim_thru = [ts.points(1).f ts.points(length(ts.points)).f -40, 30];
  
     S11 = zeros(length(ts.points),1);
@@ -20,7 +20,7 @@ function plot2ports(ts, mkr)
         S22(a) = abcd2s(ts.points(a).ABCD, Z)(2,2);
     end
 
-    subplot(2, 3, 1);
+    subplot(2, 2, 1);
     if nargin > 1
         smithgplot(S11, mkr);
         smithtitle(S11(mkr), f(mkr), Z);
@@ -29,7 +29,7 @@ function plot2ports(ts, mkr)
     end
     ylabel("S1,1");
 
-    subplot(2, 3, 2)
+    subplot(2, 2, 2)
     if nargin > 1
         dbplot(S11, f, lim_refl, mkr);
     else
@@ -37,38 +37,13 @@ function plot2ports(ts, mkr)
     end
     ylabel("S1,1 (dB)");
 
-    subplot(2, 3, 3)
+    subplot(2, 2, 3)
     if nargin > 1
         dbplot(S21, f, lim_thru, mkr);
     else
         dbplot(S21, f, lim_thru);
     end
     ylabel("S2,1 (dB)");
-
-    subplot(2, 3, 4);
-    if nargin > 1
-        dbplot(S12, f, lim_thru, mkr);
-    else
-        dbplot(S12, f, lim_thru);
-    end
-    ylabel("S1,2 (dB)");
-
-    subplot(2, 3, 5);
-    if nargin > 1
-        dbplot(S22, f, lim_refl, mkr);
-    else
-        dbplot(S22, f, lim_refl);
-    end
-    ylabel("S2,2 (dB)");
-
-    subplot(2, 3, 6);
-    if nargin > 1
-        smithgplot(S22, mkr);
-        smithtitle(S22(mkr), f(mkr), Z);
-    else
-        smithgplot(S22);
-    end
-    ylabel("S2,2");
 
 end
 

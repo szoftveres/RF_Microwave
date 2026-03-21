@@ -1,4 +1,5 @@
 function instrcmd_u32sync (device, cmd, syncword)
+    flush(device, "input");
     fprintf(device, cmd);
     flush(device, "output");
     preamble = uint32(0);

@@ -10,9 +10,9 @@ function S = p1cal(S, So, Ss, Sl, Go, Gs, Gl, Z0)
     V = [So(1,1); Ss(1,1); Sl(1,1)];
 
     E = inv(C' * C) * C' * V;
-    e00 = E(2);
-    e11 = E(3);
-    e10e01 = E(1) + (E(2) * E(3));
+    e00 = E(2); % Directivity error
+    e11 = E(3); % Source match error
+    e10e01 = E(1) + (E(2) * E(3)); % Reflection tracking error
 
     % Error network S-parameters
     Se = zeros(2);
