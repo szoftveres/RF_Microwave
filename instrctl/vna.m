@@ -4,7 +4,6 @@ pkg load instrument-control
 
 Z0 = 50 + 0j;
 
-
 function rc = measure_freq(sp, khz)
     instrcmd_u32sync(sp, ["vna " num2str(khz)], 0xB43355AA);
     ref_i = read(sp, 1, "int32");
@@ -42,6 +41,18 @@ function mkr = markerchange(sweep)
     end
 end
 
+function ts = measurement (sp, sweep, Z0)
+    ts = sweep2ts(sweep * 1000); % converting to Hz
+    for i = 1:length(sweep)
+        S = zeros(2);
+        S(1,1) = measure_freq(sp, sweep(i));
+        S(2,1) = 1e-9;
+        S(1,2) = 1e-9;
+        S(2,2) = 1e-9;
+        ts.points(i).ABCD = s2abcd(S, Z0);
+    end
+end
+
 
 % common functions
 addpath("../RFlib");
@@ -49,70 +60,39 @@ addpath("../RFlib");
 sp = serialport("/dev/ttyUSB0", 38400);
 set(sp, 'timeout', 1);
 
-startkhz = 25000;
-stopkhz =  200000;
-step_khz = 5000;
-
-marker_khz = 100000;
-
-if ((marker_khz < startkhz) || (marker_khz > stopkhz))
-    disp( 'Marker out of range' );
-    return
-end
+startkhz = 350000;
+stopkhz =  550000;
+step_khz = 2500;
 
 sweep = startkhz:step_khz:stopkhz;
 
-mkr = markerchange(sweep);
+mkr = floor(length(sweep)/2);
 
 level = powerlevelchange(sp);
 
-EXP = input("Connect OPEN ");
-ts_open = sweep2ts(sweep * 1000); % converting to Hz
-for i = 1:length(sweep)
-    S = zeros(2);
-    S(1,1) = measure_freq(sp, sweep(i));
-    S(2,1) = 1e-9;
-    S(1,2) = 1e-9;
-    S(2,2) = 1e-9;
-    ts_open.points(i).ABCD = s2abcd(S, Z0);
-end
 
+EXP = input("Connect OPEN ");
+ts_open = measurement (sp, sweep, Z0);
 
 EXP = input("Connect SHORT ");
-ts_short = sweep2ts(sweep * 1000); % converting to Hz
-for i = 1:length(sweep)
-    S = zeros(2);
-    S(1,1) = measure_freq(sp, sweep(i));
-    S(2,1) = 1e-9;
-    S(1,2) = 1e-9;
-    S(2,2) = 1e-9;
-    ts_short.points(i).ABCD = s2abcd(S, Z0);
-end
+ts_short = measurement (sp, sweep, Z0);
 
 EXP = input("Connect LOAD ");
-ts_match = sweep2ts(sweep * 1000); % converting to Hz
-for i = 1:length(sweep)
-    S = zeros(2);
-    S(1,1) = measure_freq(sp, sweep(i));
-    S(2,1) = 1e-9;
-    S(1,2) = 1e-9;
-    S(2,2) = 1e-9;
-    ts_match.points(i).ABCD = s2abcd(S, Z0);
-end
-
+ts_load = measurement (sp, sweep, Z0);
 
 
 printf("\n");
-printf("Power change: (p)\n");
-printf("Marker change: (m)\n");
+printf(" [p]: Power change\n");
+printf(" [m]: Marker change\n");
+printf(" [o]: Calibrate OPEN\n");
+printf(" [s]: Calibrate SHORT\n");
+printf(" [l]: Calibrate LOAD\n");
 
 pause on;
 
 while true
 
-    sweep = startkhz:step_khz:stopkhz;
     ts = sweep2ts(sweep * 1000); % converting to Hz
-
     for i = 1:length(sweep)
         S = zeros(2);
         S(1,1) = measure_freq(sp, sweep(i));
@@ -122,8 +102,8 @@ while true
 
         So = abcd2s(ts_open.points(i).ABCD, Z0);
         Ss = abcd2s(ts_short.points(i).ABCD, Z0);
-        Sm = abcd2s(ts_match.points(i).ABCD, Z0);
-        S11 = p1cal(S, So, Ss, Sm, 1 - 1e-9, -(1 - 1e-9), 1e-9, Z0);
+        Sl = abcd2s(ts_load.points(i).ABCD, Z0);
+        S11 = p1cal(S, So, Ss, Sl, 1 - 1e-9, -(1 - 1e-9), 1e-9, Z0);
         ts.points(i).ABCD = s2abcd(S11, Z0);
     end
     plot1port(ts, mkr);
@@ -134,6 +114,15 @@ while true
         level = powerlevelchange(sp);
     elseif (c == 'm')
         mkr = markerchange(sweep); 
+    elseif (c == 'o')
+        EXP = input("Connect OPEN ");
+        ts_open = measurement (sp, sweep, Z0);
+    elseif (c == 's')
+        EXP = input("Connect SHORT ");
+        ts_short = measurement (sp, sweep, Z0);
+    elseif (c == 'l')
+        EXP = input("Connect LOAD ");
+        ts_load = measurement (sp, sweep, Z0);
     end
 
 end
