@@ -4,6 +4,25 @@
 % and Sl (load). Z0 is the system port impedance
 
 function S = p1cal(S, So, Ss, Sl, Go, Gs, Gl, Z0)
+    % Error coefficients
+    C = [Go 1 (Go * So);
+         Gs 1 (Gs * Ss);
+         Gl 1 (Gl * Sl)];
+
+    V = [So;
+         Ss;
+         Sl];
+
+    E = inv(C' * C) * C' * V;
+    e00 = E(2); % Directivity error
+    e11 = E(3); % Source match error
+    e10e01 = E(1) + (E(2) * E(3)); % Reflection tracking error
+    detm = (e00 * e11) - e10e01;
+
+    S = (S - e00) / ((S * e11) - detm);
+end
+
+function S = p1cal_original(S, So, Ss, Sl, Go, Gs, Gl, Z0)
 
     % Error coefficients
     C = [Go 1 (Go * So(1,1)); Gs 1 (Gs * Ss(1,1)); Gl 1 (Gl * Sl(1,1))];

@@ -5,7 +5,7 @@ pkg load instrument-control
 Z0 = 50 + 0j;
 
 function rc = measure_vna_freq(sp, khz)
-    instrcmd_u32sync(sp, ["vna " num2str(khz)], 0xB43355AA);
+    instrcmd_u32sync(sp, ["vna " num2str(khz) "\n"], 0xB43355AA);
     ref_i = read(sp, 1, "int32");
     ref_q = read(sp, 1, "int32");
     meas_i = read(sp, 1, "int32");
@@ -24,30 +24,20 @@ function asel(sp, n)
 end
 
 
-function ts = sweep_freq_meas_refl (sp, sweep, Z0)
+function S = sweep_freq_meas_refl (sp, sweep)
     asel(sp, 1); % refl
-    ts = sweep2ts(sweep * 1000); % converting to Hz
+    S = [];
     for i = 1:length(sweep)
-        S = zeros(2);
-        S(1,1) = measure_vna_freq(sp, sweep(i));
-        S(2,1) = complex(1e-9, 1e-9);
-        S(1,2) = complex(1e-9, 1e-9);
-        S(2,2) = complex(1e-9, 1e-9);
-        ts.points(i).ABCD = s2abcd(S, Z0);
+        S = [S measure_vna_freq(sp, sweep(i))];
     end
 end
 
 
-function ts = sweep_freq_meas_thru (sp, sweep, Z0)
+function S = sweep_freq_meas_thru (sp, sweep)
     asel(sp, 0); % thru
-    ts = sweep2ts(sweep * 1000); % converting to Hz
+    S = [];
     for i = 1:length(sweep)
-        S = zeros(2);
-        S(1,1) = complex(1e-9, 1e-9);
-        S(2,1) = measure_vna_freq(sp, sweep(i));
-        S(1,2) = complex(1e-9, 1e-9);
-        S(2,2) = complex(1e-9, 1e-9);
-        ts.points(i).ABCD = s2abcd(S, Z0);
+        S = [S measure_vna_freq(sp, sweep(i))];
     end
 end
 
@@ -100,16 +90,16 @@ powerlevelchange(sp, config.level);
 
 
 EXP = input("Connect OPEN ");
-config.ts_open = sweep_freq_meas_refl (sp, sweep, Z0);
+config.s_open = sweep_freq_meas_refl (sp, sweep);
 
 EXP = input("Connect SHORT ");
-config.ts_short = sweep_freq_meas_refl (sp, sweep, Z0);
+config.s_short = sweep_freq_meas_refl (sp, sweep);
 
 EXP = input("Connect LOAD ");
-config.ts_load = sweep_freq_meas_refl (sp, sweep, Z0);
+config.s_load = sweep_freq_meas_refl (sp, sweep);
 
 EXP = input("Connect THRU ");
-config.ts_thru = sweep_freq_meas_thru (sp, sweep, Z0);
+config.s_thru = sweep_freq_meas_thru (sp, sweep);
 
 
 printf("\n");
@@ -126,22 +116,24 @@ pause on;
 
 while true
 
-    ts_11 = sweep_freq_meas_refl (sp, sweep, Z0);
-    ts_21 = sweep_freq_meas_thru (sp, sweep, Z0);
+    s_11 = sweep_freq_meas_refl (sp, sweep);
+    s_21 = sweep_freq_meas_thru (sp, sweep);
     ts      = sweep2ts(sweep * 1000); % converting to Hz 
 
     for i = 1:length(sweep)
-        S11 = abcd2s(ts_11.points(i).ABCD, Z0);
+        S11 = s_11(i);
 
-        So = abcd2s(config.ts_open.points(i).ABCD, Z0);
-        Ss = abcd2s(config.ts_short.points(i).ABCD, Z0);
-        Sl = abcd2s(config.ts_load.points(i).ABCD, Z0);
-        Scorr = p1cal(S11, So, Ss, Sl, 1 - 1e-9, -(1 - 1e-9), complex(1e-9, 1e-9), Z0);
+        So = config.s_open(i);
+        Ss = config.s_short(i);
+        Sl = config.s_load(i);
+        Scorr = zeros(2);
+        Scorr(1,2) = 0.5;
+        Scorr(1,1) = p1cal(S11, So, Ss, Sl, 1, -1, 0, Z0);
 
-        S21 = abcd2s(ts_21.points(i).ABCD, Z0);
+        S21 = s_21(i);
 
-        St = abcd2s(config.ts_thru.points(i).ABCD, Z0);
-        Scorr(2,1) = S21(2,1) / St(2,1);
+        St = config.s_thru(i);
+        Scorr(2,1) = S21 / St;
 
         ts.points(i).ABCD = s2abcd(Scorr, Z0);
     end 
@@ -157,16 +149,16 @@ while true
         config.mkr = markerchange(sweep); 
     elseif (c == 'o')
         EXP = input("Connect OPEN ");
-        config.ts_open = sweep_freq_meas_refl (sp, sweep, Z0);
+        config.s_open = sweep_freq_meas_refl (sp, sweep);
     elseif (c == 's')
         EXP = input("Connect SHORT ");
-        config.ts_short = sweep_freq_meas_refl (sp, sweep, Z0);
+        config.s_short = sweep_freq_meas_refl (sp, sweep);
     elseif (c == 'l')
         EXP = input("Connect LOAD ");
-        config.ts_load = sweep_freq_meas_refl (sp, sweep, Z0);
+        config.s_load = sweep_freq_meas_refl (sp, sweep);
     elseif (c == 't')
         EXP = input("Connect THRU ");
-        config.ts_thru = sweep_freq_meas_thru (sp, sweep, Z0);
+        config.s_thru = sweep_freq_meas_thru (sp, sweep);
     elseif (c == 'C')
         save "config.cfg" config
     elseif (c == 'c')
