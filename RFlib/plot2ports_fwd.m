@@ -45,6 +45,13 @@ function plot2ports_fwd(ts, mkr)
     end
     ylabel("S2,1 (dB)");
 
+    subplot(2, 2, 4)
+    if nargin > 1
+        angleplot(S21, f, mkr);
+    else
+        angleplot(S21, f);
+    end
+    ylabel("S2,1 (degrees)");
 end
 
 
