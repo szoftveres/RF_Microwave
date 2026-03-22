@@ -3,7 +3,7 @@
 function plot2ports_fwd(ts, mkr)
    
     lim_refl = [ts.points(1).f ts.points(length(ts.points)).f -50, 5];
-    lim_thru = [ts.points(1).f ts.points(length(ts.points)).f -40, 30];
+    lim_thru = [ts.points(1).f ts.points(length(ts.points)).f -70, 25];
  
     S11 = zeros(length(ts.points),1);
     S21 = zeros(length(ts.points),1);

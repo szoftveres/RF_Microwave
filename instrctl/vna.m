@@ -42,8 +42,6 @@ function S = sweep_freq_meas_thru (sp, sweep)
 end
 
 
-
-
 function powerlevelchange(sp, level)
     pause on;
     instrcmd_cmd(sp, ["level = " num2str(level)]);
@@ -76,9 +74,9 @@ addpath("../RFlib");
 sp = serialport("/dev/ttyUSB0", 38400);
 set(sp, 'timeout', 1);
 
-config.startkhz = 350000;
-config.stopkhz =  550000;
-config.step_khz = 2500;
+config.startkhz = 500000;
+config.stopkhz =  5500000;
+config.step_khz = 200000;
 
 sweep = config.startkhz:config.step_khz:config.stopkhz;
 
@@ -101,6 +99,8 @@ config.s_load = sweep_freq_meas_refl (sp, sweep);
 EXP = input("Connect THRU ");
 config.s_thru = sweep_freq_meas_thru (sp, sweep);
 
+EXP = input("Connect ISOLATION ");
+config.s_iso = sweep_freq_meas_thru (sp, sweep);
 
 printf("\n");
 printf(" [p]: Power change\n");
@@ -109,6 +109,7 @@ printf(" [o]: Calibrate OPEN\n");
 printf(" [s]: Calibrate SHORT\n");
 printf(" [l]: Calibrate LOAD\n");
 printf(" [t]: Calibrate THRU\n");
+printf(" [i]: Calibrate ISOLATION\n");
 printf(" [C]: Save CFG\n");
 printf(" [c]: Load CFG\n");
 
@@ -121,20 +122,23 @@ while true
     ts      = sweep2ts(sweep * 1000); % converting to Hz 
 
     for i = 1:length(sweep)
-        S11 = s_11(i);
 
+        % S1,1 error correction
+        S11 = s_11(i);
         So = config.s_open(i);
         Ss = config.s_short(i);
         Sl = config.s_load(i);
         Scorr = zeros(2);
-        Scorr(1,2) = 0.5;
-        Scorr(1,1) = p1cal(S11, So, Ss, Sl, 1, -1, 0, Z0);
+        Scorr(1,1) = p1cal(S11, So, Ss, Sl, 1, -1, 0);
 
+        % S2,1 error correction
         S21 = s_21(i);
-
         St = config.s_thru(i);
-        Scorr(2,1) = S21 / St;
+        Si = config.s_iso(i);
+        Scorr(2,1) = conj((S21 - Si) / (St - Si));
 
+        Scorr(1,2) = 1; % This makes s2abcd and abcd2s functions happy
+        Scorr(2,2) = 0;
         ts.points(i).ABCD = s2abcd(Scorr, Z0);
     end 
 
@@ -159,6 +163,9 @@ while true
     elseif (c == 't')
         EXP = input("Connect THRU ");
         config.s_thru = sweep_freq_meas_thru (sp, sweep);
+    elseif (c == 'i')
+        EXP = input("Connect ISOLATION ");
+        config.s_iso = sweep_freq_meas_thru (sp, sweep);
     elseif (c == 'C')
         save "config.cfg" config
     elseif (c == 'c')
