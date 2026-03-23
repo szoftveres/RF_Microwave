@@ -74,9 +74,9 @@ addpath("../RFlib");
 sp = serialport("/dev/ttyUSB0", 38400);
 set(sp, 'timeout', 1);
 
-config.startkhz = 500000;
-config.stopkhz =  5500000;
-config.step_khz = 200000;
+config.startkhz = 100000;
+config.stopkhz =  5900000;
+config.step_khz = 100000;
 
 sweep = config.startkhz:config.step_khz:config.stopkhz;
 
@@ -96,11 +96,11 @@ config.s_short = sweep_freq_meas_refl (sp, sweep);
 EXP = input("Connect LOAD ");
 config.s_load = sweep_freq_meas_refl (sp, sweep);
 
-EXP = input("Connect THRU ");
-config.s_thru = sweep_freq_meas_thru (sp, sweep);
-
 EXP = input("Connect ISOLATION ");
 config.s_iso = sweep_freq_meas_thru (sp, sweep);
+
+EXP = input("Connect THRU ");
+config.s_thru = sweep_freq_meas_thru (sp, sweep);
 
 printf("\n");
 printf(" [p]: Power change\n");
@@ -108,8 +108,8 @@ printf(" [m]: Marker change\n");
 printf(" [o]: Calibrate OPEN\n");
 printf(" [s]: Calibrate SHORT\n");
 printf(" [l]: Calibrate LOAD\n");
-printf(" [t]: Calibrate THRU\n");
 printf(" [i]: Calibrate ISOLATION\n");
+printf(" [t]: Calibrate THRU\n");
 printf(" [C]: Save CFG\n");
 printf(" [c]: Load CFG\n");
 
@@ -160,12 +160,12 @@ while true
     elseif (c == 'l')
         EXP = input("Connect LOAD ");
         config.s_load = sweep_freq_meas_refl (sp, sweep);
-    elseif (c == 't')
-        EXP = input("Connect THRU ");
-        config.s_thru = sweep_freq_meas_thru (sp, sweep);
     elseif (c == 'i')
         EXP = input("Connect ISOLATION ");
         config.s_iso = sweep_freq_meas_thru (sp, sweep);
+    elseif (c == 't')
+        EXP = input("Connect THRU ");
+        config.s_thru = sweep_freq_meas_thru (sp, sweep);
     elseif (c == 'C')
         save "config.cfg" config
     elseif (c == 'c')
