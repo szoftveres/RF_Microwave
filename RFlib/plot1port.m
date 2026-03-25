@@ -10,7 +10,7 @@ function plot1port(ts, mkr)
 
     for a = 1:length(ts.points)
         f(a) = ts.points(a).f;
-        S11(a) = abcd2s(ts.points(a).ABCD, Z)(1,1);
+        S11(a) = ts.points(a).S(1,1);
     end
 
     subplot(1, 2, 1);

@@ -17,7 +17,7 @@ for fp = 1:length(sweeppoints)
 
     M = SeriesImpedanceMatrix(CapacitorImpedance(3.3e-12, f));
 
-    ts.points(fp).ABCD = M;
+    ts.points(fp).S = abcd2s(M, Z0);
 end
 
 plot2ports(ts, 51);

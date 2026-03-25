@@ -3,7 +3,7 @@
 %
 % ts.points[P]
 %   P.f             frequency
-%   P.ABCD(2,2)     ABCD matrix
+%   P.S(2,2)        S matrix
 
 
 function touchstonewrite(filename, ts)
@@ -21,10 +21,10 @@ function touchstonewrite(filename, ts)
         % write the frequency
         fprintf(fd, "%.1f\t", ts.points(i).f);
 
-        writecomplxri(fd, abcd2s(ts.points(i).ABCD, Z0)(1,1));
-        writecomplxri(fd, abcd2s(ts.points(i).ABCD, Z0)(2,1));
-        writecomplxri(fd, abcd2s(ts.points(i).ABCD, Z0)(1,2));
-        writecomplxri(fd, abcd2s(ts.points(i).ABCD, Z0)(2,2));
+        writecomplxri(fd, ts.points(i).S(1,1));
+        writecomplxri(fd, ts.points(i).S(2,1));
+        writecomplxri(fd, ts.points(i).S(1,2));
+        writecomplxri(fd, ts.points(i).S(2,2));
 
         fprintf(fd, "\n");
     end

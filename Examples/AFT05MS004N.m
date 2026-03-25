@@ -29,30 +29,30 @@ for fp = 1:length(ts.points)
     M = M * ShuntImpedanceMatrix(220.0);
 
     % The transistor S-parameter block
-    M = M * transistor.points(fp).ABCD;
+    M = M * s2abcd(transistor.points(fp).S, Z0);
 
     % load inductor (Vdd supply)
-    M = M * ShuntImpedanceMatrix(InductorImpedance(47.0e-9, f));
+    M = M * ShuntImpedanceMatrix(InductorImpedance(10e-9, f));
 
     % DC block (also blocks lower frequencies)
-    M = M * SeriesImpedanceMatrix(CapacitorImpedance(47e-12, f));
+%    M = M * SeriesImpedanceMatrix(CapacitorImpedance(0.6e-12, f));
 
     % This resonates out the output impedance to real value (~2.2ohm)
-    M = M * SeriesImpedanceMatrix(InductorImpedance(10.883e-9, f));
+%    M = M * SeriesImpedanceMatrix(InductorImpedance(10.883e-9, f));
 
     % Dual, broadband low-pass L-match
-    M = M * SeriesImpedanceMatrix(InductorImpedance(0.72e-9, f));
-    M = M * ShuntImpedanceMatrix(CapacitorImpedance(32.75e-12, f));
+%    M = M * SeriesImpedanceMatrix(InductorImpedance(0.72e-9, f));
+%    M = M * ShuntImpedanceMatrix(CapacitorImpedance(32.75e-12, f));
 
-    M = M * SeriesImpedanceMatrix(InductorImpedance(3.48e-9, f));
-    M = M * ShuntImpedanceMatrix(CapacitorImpedance(6.96e-12, f));
+%    M = M * SeriesImpedanceMatrix(InductorImpedance(3.48e-9, f));
+%    M = M * ShuntImpedanceMatrix(CapacitorImpedance(6.96e-12, f));
 
     S = abcd2s(M, Z0);
     f
     K = rollet(S)
     gamma = conjmatch(S(1,1), S(2,2), S)
 
-    ts.points(fp).ABCD = M;
+    ts.points(fp).S = abcd2s(M, Z0);
 end
 
 

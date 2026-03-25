@@ -1,18 +1,20 @@
 pkg load instrument-control
 
-%serialportlist("available")
-
 Z0 = 50 + 0j;
 
-function rc = measure_vna_freq(sp, khz)
+% common functions
+addpath("../RFlib");
+
+function [meas, refampl] = measure_vna_freq(sp, khz)
     instrcmd_u32sync(sp, ["vna " num2str(khz) "\n"], 0xB43355AA);
     ref_i = read(sp, 1, "int32");
     ref_q = read(sp, 1, "int32");
+    refampl = read(sp, 1, "int32");
     meas_i = read(sp, 1, "int32");
     meas_q = read(sp, 1, "int32");
     ref = complex(ref_i, ref_q);
-    meas = complex(meas_i, meas_q);
-    rc = meas/ref;
+    rec = complex(meas_i, meas_q);
+    meas = rec/ref;
 end
 
 
@@ -24,21 +26,35 @@ function asel(sp, n)
 end
 
 
+function [S, pwr_avg, ampl] = sweep_freq_meas (sp, sweep)
+    S = [];
+    pwr_avg = 0;
+    avg_n = 0;
+    ampl = 0;
+    for i = 1:length(sweep)
+        [meas, refampl] = measure_vna_freq(sp, sweep(i));
+        S = [S meas];
+        pwr_avg += abs(meas);
+        avg_n += 1;
+        if (refampl > ampl)
+            ampl = refampl;
+        end
+    end
+    pwr_avg /= avg_n;
+end
+
+
 function S = sweep_freq_meas_refl (sp, sweep)
     asel(sp, 1); % refl
-    S = [];
-    for i = 1:length(sweep)
-        S = [S measure_vna_freq(sp, sweep(i))];
-    end
+    [S, pwr_avg, ampl] = sweep_freq_meas (sp, sweep);
+    % printf("rfl ampl: %i, %.2f dB\n", ampl, 10 * log10(pwr_avg));
 end
 
 
 function S = sweep_freq_meas_thru (sp, sweep)
     asel(sp, 0); % thru
-    S = [];
-    for i = 1:length(sweep)
-        S = [S measure_vna_freq(sp, sweep(i))];
-    end
+    [S, pwr_avg, ampl] = sweep_freq_meas (sp, sweep);
+    % printf("thru ampl: %i, %.2f dB\n", ampl, 10 * log10(pwr_avg));
 end
 
 
@@ -68,8 +84,9 @@ function mkr = markerchange(sweep)
 end
 
 
-% common functions
-addpath("../RFlib");
+% =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =
+
+%serialportlist("available")
 
 sp = serialport("/dev/ttyUSB0", 38400);
 set(sp, 'timeout', 1);
@@ -139,7 +156,7 @@ while true
 
         Scorr(1,2) = 1; % This makes s2abcd and abcd2s functions happy
         Scorr(2,2) = 0;
-        ts.points(i).ABCD = s2abcd(Scorr, Z0);
+        ts.points(i).S = Scorr;
     end 
 
     plot2ports_fwd(ts, config.mkr);

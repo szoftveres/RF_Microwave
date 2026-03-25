@@ -32,7 +32,7 @@ for fp = 1:length(sweeppoints)
 
     M = M * ImpedanceTransformerMatrix(Z2, Z0);
 
-    ts.points(fp).ABCD = M;
+    ts.points(fp).S = abcd2s(M, Z0);
 end
 
 plot2ports(ts, 51);

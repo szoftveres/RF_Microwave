@@ -10,19 +10,20 @@ function dbplot(S, f, lim, mkr)
     axis(lim);
     grid on;
     if nargin > 3
+        str = dbtitle(S(mkr), f(mkr));
         hold on;
         plot(f(mkr), cp(mkr), "bx", "LineWidth", 2);
+        % text (f(mkr), cp(mkr), str);
         hold off;
-        dbtitle(S(mkr), f(mkr));
+        title(str);
     end
     xlabel("f(Hz)");
 end
 
 
-function dbtitle(S, f)
+function str = dbtitle(S, f)
     db = gamma2db(S);
     fs = freq2str(f);
     str = sprintf("%s, %.2f dB", fs, db);
-    title(str);
 end 
 

@@ -39,7 +39,7 @@ for fp = 1:length(sweeppoints)
     % termination
     M = M * ImpedanceTransformerMatrix(ZL, Z0);
 
-    ts.points(fp).ABCD = M;
+    ts.points(fp).S = abcd2s(M, Z0);
 
 end
 

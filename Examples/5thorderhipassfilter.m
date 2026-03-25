@@ -28,7 +28,7 @@ for fp = 1:length(sweeppoints)
     M = M * SeriesImpedanceMatrix(CapacitorImpedance(C, f) + 0.2);
     M = M * ShuntImpedanceMatrix(InductorImpedance(L1, f) + 0.2);
 
-    ts.points(fp).ABCD = M;
+    ts.points(fp).S = abcd2s(M, Z0);
 
 end
 

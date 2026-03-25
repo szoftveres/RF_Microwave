@@ -14,10 +14,10 @@ function plot2ports_fwd(ts, mkr)
 
     for a = 1:length(ts.points)
         f(a) = ts.points(a).f;
-        S11(a) = abcd2s(ts.points(a).ABCD, Z)(1,1);
-        S21(a) = abcd2s(ts.points(a).ABCD, Z)(2,1);
-        S12(a) = abcd2s(ts.points(a).ABCD, Z)(1,2);
-        S22(a) = abcd2s(ts.points(a).ABCD, Z)(2,2);
+        S11(a) = ts.points(a).S(1,1);
+        S21(a) = ts.points(a).S(2,1);
+        S12(a) = ts.points(a).S(1,2);
+        S22(a) = ts.points(a).S(2,2);
     end
 
     subplot(2, 2, 1);

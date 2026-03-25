@@ -42,7 +42,7 @@ for fp = 1:length(sweeppoints)
     M = M * OrthogonalNetworkMatrix(Mo2);
     M = M * TLineMatrix(Z0, f2rad(f, 1e+9));
 
-    ts.points(fp).ABCD = M;
+    ts.points(fp).S = abcd2s(M, Z0);
 end
 
 plot2ports(ts, 88);

@@ -3,7 +3,7 @@
 %
 % ts.points[P]
 %   P.f             frequency
-%   P.ABCD(2,2)     ABCD matrix
+%   P.S(2,2)        S matrix
 
 
 function ts = touchstoneread(filename)
@@ -63,7 +63,7 @@ function ts = touchstoneread(filename)
             [datapoint(1,2), line] = readcomplx(line, format_str);
             [datapoint(2,2), line] = readcomplx(line, format_str);
         end
-        P.ABCD = convertdata(datapoint, type_str, impedance_str);
+        P.S = convertdata(datapoint, type_str, impedance_str);
         ts.points = [ts.points ; P];
     end
     fclose(fd);
@@ -104,14 +104,14 @@ function [c, line] = readcomplx(line, format_str)
 end
 
 
-% convert data to ABCD matrix
-function ABCD = convertdata(M, type_str, impedance_str)
+% convert data to S matrix
+function S = convertdata(M, type_str, impedance_str)
     if strcmp(type_str,'s')
-        ABCD = s2abcd(M, str2double(impedance_str));
+        S = M;
     elseif strcmp(type_str,'z')
-        ABCD = z2abcd(M);
+        S = z2s(M);
     elseif strcmp(type_str,'y')
-        ABCD = y2abcd(M);
+        S = y2s(M);
     else
         error(type_str);
     end

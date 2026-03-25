@@ -21,18 +21,18 @@ ts = tsm;
 
 for fp = 1:length(ts.points)
     f = ts.points(fp).f;
-    Sm = abcd2s(tsm.points(fp).ABCD, Z0)(1,1);
+    Sm = tsm.points(fp).S(1,1);
 
-    So = abcd2s(tso.points(fp).ABCD, Z0)(1,1);
-    Ss = abcd2s(tss.points(fp).ABCD, Z0)(1,1);
-    Sl = abcd2s(tsl.points(fp).ABCD, Z0)(1,1);
+    So = tso.points(fp).S(1,1);
+    Ss = tss.points(fp).S(1,1);
+    Sl = tsl.points(fp).S(1,1);
     S = zeros(2);
     S(1,1) = p1cal(Sm, So, Ss, Sl, 1, -1, 0);
     S(2,1) = 1;
     S(1,2) = 1;
     S(2,2) = 0;
 
-    ts.points(fp).ABCD = s2abcd(S, Z0);
+    ts.points(fp).S = S;
 
 end
 
@@ -45,7 +45,7 @@ pause();
 
 for fp = 1:length(ts.points)
     f = ts.points(fp).f;
-    Sm = abcd2s(tsm.points(fp).ABCD, Z0)(1,1);
+    Sm = tsm.points(fp).S(1,1);
 
     % Building an offset short model
     Mosmodel = TLineMatrix(Z0, f2rad(f, 161.2e+6) / 4);
@@ -54,9 +54,9 @@ for fp = 1:length(ts.points)
     Sosmodel = abcd2s(Mosmodel, Z0);
     Gosmodel = Sosmodel(1,1);
 
-    Sos = abcd2s(tsos.points(fp).ABCD, Z0)(1,1);
-    Ss = abcd2s(tss.points(fp).ABCD, Z0)(1,1);
-    Sl = abcd2s(tsl.points(fp).ABCD, Z0)(1,1);
+    Sos = tsos.points(fp).S(1,1);
+    Ss = tss.points(fp).S(1,1);
+    Sl = tsl.points(fp).S(1,1);
 
     S = zeros(2);
     S(1,1) = p1cal(Sm, Sos, Ss, Sl, Gosmodel, -1, 0);
@@ -64,7 +64,7 @@ for fp = 1:length(ts.points)
     S(1,2) = 1;
     S(2,2) = 0;
 
-    ts.points(fp).ABCD = s2abcd(S, Z0);
+    ts.points(fp).S = S;
 
 end
 
