@@ -91,33 +91,52 @@ end
 sp = serialport("/dev/ttyUSB0", 38400);
 set(sp, 'timeout', 1);
 
-config.startkhz = 100000;
-config.stopkhz =  5900000;
-config.step_khz = 100000;
 
-sweep = config.startkhz:config.step_khz:config.stopkhz;
+printf("\n");
+printf(" [c]: Load config\n");
+printf(" <any key>: Setup\n");
 
-config.mkr = floor(length(sweep)/2);
+pause(0.2);
+c = kbhit();
 
-config.level = input ("Enter power level (-30 dBm - 0 dBm): " );
+if (c == 'c')
+    load("config.cfg");
+    sweep = config.startkhz:config.step_khz:config.stopkhz;
+    powerlevelchange(sp, config.level);
 
-powerlevelchange(sp, config.level);
+else
 
+    config.startkhz = input ("START (kHz): " );
+    config.stopkhz =  input ("STOP (kHz): " );
+    config.step_khz = input ("STEP (kHz): " );
 
-EXP = input("Connect OPEN ");
-config.s_open = sweep_freq_meas_refl (sp, sweep);
+    sweep = config.startkhz:config.step_khz:config.stopkhz;
 
-EXP = input("Connect SHORT ");
-config.s_short = sweep_freq_meas_refl (sp, sweep);
+    config.mkr = floor(length(sweep)/2);
 
-EXP = input("Connect LOAD ");
-config.s_load = sweep_freq_meas_refl (sp, sweep);
+    config.level = input ("Enter power level (-30 dBm - 0 dBm): " );
 
-EXP = input("Connect ISOLATION ");
-config.s_iso = sweep_freq_meas_thru (sp, sweep);
+    powerlevelchange(sp, config.level);
 
-EXP = input("Connect THRU ");
-config.s_thru = sweep_freq_meas_thru (sp, sweep);
+    EXP = input("Connect OPEN ");
+    config.s_open = sweep_freq_meas_refl (sp, sweep);
+
+    EXP = input("Connect SHORT ");
+    config.s_short = sweep_freq_meas_refl (sp, sweep);
+
+    EXP = input("Connect LOAD ");
+    config.s_load = sweep_freq_meas_refl (sp, sweep);
+
+    EXP = input("Connect ISOLATION ");
+    config.s_iso = sweep_freq_meas_thru (sp, sweep);
+
+    EXP = input("Connect THRU ");
+    config.s_thru = sweep_freq_meas_thru (sp, sweep);
+
+end
+
+printf("%i kHz - %i kHz, %i points, %i dB\n", config.startkhz, config.stopkhz, length(sweep), config.level);
+
 
 printf("\n");
 printf(" [p]: Power change\n");
@@ -189,7 +208,7 @@ while true
         load("config.cfg");
         sweep = config.startkhz:config.step_khz:config.stopkhz;
         powerlevelchange(sp, config.level);
-        config.level
+        printf("%i kHz - %i kHz, %i points, %i dB\n", config.startkhz, config.stopkhz, length(sweep), config.level);
     end
 
 end
