@@ -22,6 +22,18 @@ end
 function asel(sp, n)
     pause on;
     instrcmd_cmd(sp, ["asel = " num2str(n)]);
+end
+
+
+function rfon(sp)
+    pause on;
+    instrcmd_cmd(sp, "rfon");
+    pause(0.2);
+end
+
+function rfoff(sp)
+    pause on;
+    instrcmd_cmd(sp, "rfoff");
     pause(0.2);
 end
 
@@ -31,6 +43,7 @@ function [S, pwr_avg, ampl] = sweep_freq_meas (sp, sweep)
     pwr_avg = 0;
     avg_n = 0;
     ampl = 0;
+    rfon(sp);
     for i = 1:length(sweep)
         [meas, refampl] = measure_vna_freq(sp, sweep(i));
         S = [S meas];
@@ -40,6 +53,7 @@ function [S, pwr_avg, ampl] = sweep_freq_meas (sp, sweep)
             ampl = refampl;
         end
     end
+    rfoff(sp);
     pwr_avg /= avg_n;
 end
 
@@ -100,7 +114,7 @@ pause(0.2);
 c = kbhit();
 
 if (c == 'c')
-    load("config.cfg");
+    load(input("File name: ", "s"));
     sweep = config.startkhz:config.step_khz:config.stopkhz;
     powerlevelchange(sp, config.level);
 
