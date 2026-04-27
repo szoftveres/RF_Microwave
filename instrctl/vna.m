@@ -28,17 +28,17 @@ end
 function rfon(sp)
     pause on;
     instrcmd_cmd(sp, "rfon");
-    pause(0.2);
+    pause(0.1);
 end
 
 function rfoff(sp)
     pause on;
     instrcmd_cmd(sp, "rfoff");
-    pause(0.2);
+    pause(0.1);
 end
 
 
-function [S, pwr_avg, ampl] = sweep_freq_meas (sp, sweep)
+function S = sweep_freq_meas (sp, sweep)
     S = [];
     pwr_avg = 0;
     avg_n = 0;
@@ -55,20 +55,24 @@ function [S, pwr_avg, ampl] = sweep_freq_meas (sp, sweep)
     end
     rfoff(sp);
     pwr_avg /= avg_n;
+    if (ampl > 57344)
+        printf("ref overload: %i\n", ampl);
+    end
+    if (pwr_avg > 1)
+        printf("rx > ref: %.2f dB\n", 10 * log10(pwr_avg));
+    end
 end
 
 
 function S = sweep_freq_meas_refl (sp, sweep)
     asel(sp, 1); % refl
-    [S, pwr_avg, ampl] = sweep_freq_meas (sp, sweep);
-    % printf("rfl ampl: %i, %.2f dB\n", ampl, 10 * log10(pwr_avg));
+    S = sweep_freq_meas (sp, sweep);
 end
 
 
 function S = sweep_freq_meas_thru (sp, sweep)
     asel(sp, 0); % thru
-    [S, pwr_avg, ampl] = sweep_freq_meas (sp, sweep);
-    % printf("thru ampl: %i, %.2f dB\n", ampl, 10 * log10(pwr_avg));
+    S = sweep_freq_meas (sp, sweep);
 end
 
 
@@ -110,7 +114,7 @@ printf("\n");
 printf(" [c]: Load config\n");
 printf(" <any key>: Setup\n");
 
-pause(0.2);
+pause(0.1);
 c = kbhit();
 
 if (c == 'c')
@@ -166,9 +170,10 @@ printf(" [c]: Load CFG\n");
 pause on;
 
 while true
-
+    %tic()
     s_11 = sweep_freq_meas_refl (sp, sweep);
     s_21 = sweep_freq_meas_thru (sp, sweep);
+    %toc()
     ts      = sweep2ts(sweep * 1000); % converting to Hz 
 
     for i = 1:length(sweep)
@@ -193,7 +198,7 @@ while true
     end 
 
     plot2ports_fwd(ts, config.mkr);
-    pause(0.2);
+    pause(0.1);
     c = kbhit(1);
 
     if (c == 'p')
