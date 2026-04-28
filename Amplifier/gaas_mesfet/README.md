@@ -35,4 +35,4 @@ Power sweep at 440 MHz:
 
 ![pwrsweep](pwrsweep.png)
 
-OP1dB = +3 dBm, OP3dB = +6.45 dBm, DC current is 15 mA (supply voltage range: 7V - 35V).
+OP1dB = +3 dBm, DC current is 15 mA (supply voltage range: 7V - 35V).
