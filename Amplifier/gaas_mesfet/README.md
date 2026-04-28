@@ -22,7 +22,7 @@ FETs are voltage controlled devices with infinite input impedance at low fequenc
 
 The datasheet calls for an optimum source impedance of 115.9 + j207.9 Ω at 450 MHz. This source impedance is quite high, so an L-match (C5, and an imaginary inductance that's absorbed into the L1 C4 tank) transforms the antenna impedance up to the desired optimum. The combination of C4 and C5 allows a wide range of input impedance to be set, including a perfect match.
 
-Since I don't have a noise meter, nor can deduce any information about the exact impedance at the transistor gate (the exact capacitance of the trimmers are unknown at any particular setting, hence the impedance transformation ratio is also unknown), I chose an intuitive approach: I trim the variable capacitors for the highest gain and lowest antenna port impedance (=highest transformation ratio) while maintaining a somewhat acceptable reflection coefficient. This strategy ensures the highest impedance at the gate (highest voltage -> good noise figure), and also has the benefit of resulting in a somewhat broader bandwidth, due to overcoupling of the LC tank.
+Since I don't have a noise meter, nor can determine the exact impedance transformation ratio (the exact capacitances of the trimmers are unknown at any particular setting), I chose an intuitive approach: I trim the input for relatively low input impedance while maintaining a somewhat acceptable return loss (matching to the antenna), and peak gain. Low measured impedance at the input means high impedance transformation ratio, which means that the transistor gate is driven by a high-impedance source, resulting in low noise figure.
 
 S-parameters after tuning for 440 MHz:
 
