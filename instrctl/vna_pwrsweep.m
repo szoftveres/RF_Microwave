@@ -21,7 +21,7 @@ end
 %       0 - through,       1 - reflected
 function asel(sp, n)
     pause on;
-    instrcmd_cmd(sp, ["asel = " num2str(n)]);
+    instrcmd_cmd(sp, ["asel " num2str(n)]);
 end
 
 
@@ -39,7 +39,7 @@ end
 
 function powerlevelchange(sp, level)
     pause on;
-    instrcmd_cmd(sp, ["level = " num2str(level)]);
+    instrcmd_cmd(sp, ["level " num2str(level)]);
     pause(0.1);
 end
 
