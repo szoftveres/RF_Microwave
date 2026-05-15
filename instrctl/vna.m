@@ -124,15 +124,15 @@ if (c == 'c')
 
 else
 
-    config.startkhz = input ("START (kHz): " );
-    config.stopkhz =  input ("STOP (kHz): " );
-    config.step_khz = input ("STEP (kHz): " );
+    config.startkhz = input("START (kHz): " );
+    config.stopkhz =  input("STOP (kHz): " );
+    config.step_khz = input("STEP (kHz): " );
 
     sweep = config.startkhz:config.step_khz:config.stopkhz;
 
     config.mkr = floor(length(sweep)/2);
 
-    config.level = input ("Enter power level (-30 dBm - 0 dBm): " );
+    config.level = input("Enter power level (-30 dBm - 0 dBm): " );
 
     powerlevelchange(sp, config.level);
 
@@ -153,10 +153,22 @@ else
 
 end
 
+
+g_open = [];
+g_short = [];
+g_load = [];
+for i = 1:length(sweep)
+    g_open = [g_open 1];
+    g_short = [g_short -1];
+    g_load = [g_load 0];
+end
+
+
 printf("%i kHz - %i kHz, %i points, %i dB\n", config.startkhz, config.stopkhz, length(sweep), config.level);
 
 
 printf("\n");
+printf(" [f]: Save Touchstone file\n");
 printf(" [p]: Power change\n");
 printf(" [m]: Marker change\n");
 printf(" [o]: Calibrate OPEN\n");
@@ -174,17 +186,19 @@ while true
     s_11 = sweep_freq_meas_refl (sp, sweep);
     s_21 = sweep_freq_meas_thru (sp, sweep);
     %toc()
-    ts      = sweep2ts(sweep * 1000); % converting to Hz 
+    ts = sweep2ts(sweep * 1000); % converting to Hz 
 
     for i = 1:length(sweep)
 
         % S1,1 error correction
         S11 = s_11(i);
-        So = config.s_open(i);
-        Ss = config.s_short(i);
-        Sl = config.s_load(i);
         Scorr = zeros(2);
-        Scorr(1,1) = p1cal(S11, So, Ss, Sl, 1, -1, 0);
+        Scorr(1,1) = p1cal(S11, config.s_open(i),
+                                config.s_short(i),
+                                config.s_load(i),
+                                g_open(i),
+                                g_short(i),
+                                g_load(i));
 
         % S2,1 error correction
         S21 = s_21(i);
@@ -192,8 +206,8 @@ while true
         Si = config.s_iso(i);
         Scorr(2,1) = conj((S21 - Si) / (St - Si));
 
-        Scorr(1,2) = 1; % This makes s2abcd and abcd2s functions happy
-        Scorr(2,2) = 0;
+        Scorr(1,2) = Scorr(2,1); % This makes s2abcd and abcd2s functions happy
+        Scorr(2,2) = Scorr(1,1);
         ts.points(i).S = Scorr;
     end 
 
@@ -201,8 +215,11 @@ while true
     pause(0.1);
     c = kbhit(1);
 
-    if (c == 'p')
-        config.level = input ("Enter power level (-30 dBm - 0 dBm): " );
+    if (c == 'f')
+        filename = input("File name: (.s1p or .s2p) ", "s");
+        touchstonewrite(filename, ts);
+    elseif (c == 'p')
+        config.level = input("Enter power level (-30 dBm - 0 dBm): " );
         powerlevelchange(sp, config.level);
     elseif (c == 'm')
         config.mkr = markerchange(sweep); 
@@ -231,4 +248,34 @@ while true
     end
 
 end
+
+
+
+for i = 1:length(sweep)
+    g_open = [g_open keysight_cal_open(Z0,
+                                       (sweep(i)*1000),
+                                       35.73e-12,
+                                       2.87e9,
+                                       50,
+                                       -4.87e-15,
+                                       -1140.3e-27,
+                                       2176.5e-36,
+                                       -213.5e-45)];
+    g_short = [g_short keysight_cal_short(Z0,
+                                       (sweep(i)*1000),
+                                       31.6e-12,
+                                       3.4e9,
+                                       51.9,
+                                       1e-42,
+                                       0,              
+                                       0,
+                                       0)];
+    g_load = [g_load keysight_cal_load(Z0,
+                                       (sweep(i)*1000),
+                                       76.6e-12,
+                                       0,
+                                       50,
+                                       50.95)];
+end
+
 
