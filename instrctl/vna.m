@@ -1,5 +1,7 @@
 pkg load instrument-control
 
+graphics_toolkit qt
+
 Z0 = 50 + 0j;
 
 % common functions
@@ -102,6 +104,7 @@ function mkr = markerchange(sweep)
 end
 
 
+
 % =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =
 
 %serialportlist("available")
@@ -118,7 +121,8 @@ pause(0.1);
 c = kbhit();
 
 if (c == 'c')
-    load(input("File name: ", "s"));
+    %load(input("File name: ", "s"));
+    load(uigetfile("*.cfg"));
     sweep = config.startkhz:config.step_khz:config.stopkhz;
     powerlevelchange(sp, config.level);
 
@@ -181,6 +185,8 @@ printf(" [c]: Load CFG\n");
 
 pause on;
 
+figure(1,"position",get(0,"screensize"));
+
 while true
     %tic()
     s_11 = sweep_freq_meas_refl (sp, sweep);
@@ -212,12 +218,15 @@ while true
     end 
 
     plot2ports_fwd(ts, config.mkr);
+
     pause(0.1);
     c = kbhit(1);
 
     if (c == 'f')
-        filename = input("File name: (.s1p or .s2p) ", "s");
+        %filename = input("File name: (.s1p or .s2p) ", "s");
+        filename = uiputfile("*.s?p");
         touchstonewrite(filename, ts);
+        printf("\n%s saved\n", filename);
     elseif (c == 'p')
         config.level = input("Enter power level (-30 dBm - 0 dBm): " );
         powerlevelchange(sp, config.level);
@@ -239,9 +248,11 @@ while true
         EXP = input("Connect THRU ");
         config.s_thru = sweep_freq_meas_thru (sp, sweep);
     elseif (c == 'C')
-        save "config.cfg" config
+        filename = uiputfile("*.cfg");
+        save filename config
+        printf("\n%s saved\n", filename);
     elseif (c == 'c')
-        load("config.cfg");
+        load(uigetfile("*.cfg"));
         sweep = config.startkhz:config.step_khz:config.stopkhz;
         powerlevelchange(sp, config.level);
         printf("%i kHz - %i kHz, %i points, %i dB\n", config.startkhz, config.stopkhz, length(sweep), config.level);

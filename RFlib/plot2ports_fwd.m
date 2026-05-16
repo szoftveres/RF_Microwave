@@ -20,7 +20,7 @@ function plot2ports_fwd(ts, mkr)
         S22(a) = ts.points(a).S(2,2);
     end
 
-    subplot(2, 2, 1);
+    subplot(2, 3, 1);
     if nargin > 1
         smithgplot(S11, mkr);
         smithtitle(S11(mkr), f(mkr), Z);
@@ -29,7 +29,7 @@ function plot2ports_fwd(ts, mkr)
     end
     ylabel("S1,1");
 
-    subplot(2, 2, 2)
+    subplot(2, 3, 2)
     if nargin > 1
         dbplot(S11, f, lim_refl, mkr);
     else
@@ -37,7 +37,7 @@ function plot2ports_fwd(ts, mkr)
     end
     ylabel("S1,1 (dB)");
 
-    subplot(2, 2, 3)
+    subplot(2, 3, 4)
     if nargin > 1
         dbplot(S21, f, lim_thru, mkr);
     else
@@ -45,7 +45,7 @@ function plot2ports_fwd(ts, mkr)
     end
     ylabel("S2,1 (dB)");
 
-    subplot(2, 2, 4)
+    subplot(2, 3, 5)
     if nargin > 1
         angleplot(S21, f, mkr);
     else
