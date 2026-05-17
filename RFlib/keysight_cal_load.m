@@ -12,6 +12,6 @@ function G = keysight_cal_load(Z0, f, offset_delay, offset_loss, offset_z0, R)
 end
 
 
-% Offset Loss
-% The nominal attenuation at 1 GHz per unit time, given in GΩ/s (gigaohms per second). Scale this value by sqrt(f / (1 GHz)) for other frequencies. The unit GΩ/s is unconventional, but for a reason. To express a transmission line segment’s length, both a distance (in meters) or a time delay (in seconds) can be used. Defining the line with respect to time allows calculating R = Aloss * Tdelay in ohms, without needing to explicitly define the medium permittivity.
+% https://www.qsl.net/in3otd/electronics/VNA_calkit/SMA_female.html
+% https://scikit-rf.readthedocs.io/en/latest/examples/metrology/SOLT%20Calibration%20Standards%20Creation.html
 

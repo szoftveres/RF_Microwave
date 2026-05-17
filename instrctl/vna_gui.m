@@ -162,6 +162,14 @@ function config = ideal_calkit (config)
 end
 
 
+function s = infotext_set (config, sweep) 
+        s = sprintf("Start: %i kHz\nStop: %i kHz\nStep: %i kHz\nPoints :%i\nLevel: %i dBm\nCal: %s\n",
+                config.startkhz, config.stopkhz, config.step_khz, length(sweep),
+                config.level, config.calstate);
+end
+
+
+
 % =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =
 
 %serialportlist("available")
@@ -262,6 +270,35 @@ function cb_markerchange (obj, init = false)
     set(fig, "userdata", action);
 end
 
+
+function cb_open_std (obj, init = false)
+    fig = ancestor(obj,"figure","toplevel");
+    action = get(fig, "userdata");
+    action.openstd = 2;
+    set(fig, "userdata", action);
+end
+
+function cb_short_std (obj, init = false)
+    fig = ancestor(obj,"figure","toplevel");
+    action = get(fig, "userdata");
+    action.shortstd = 2;
+    set(fig, "userdata", action);
+end
+
+function cb_load_std (obj, init = false)
+    fig = ancestor(obj,"figure","toplevel");
+    action = get(fig, "userdata");
+    action.loadstd = 2;
+    set(fig, "userdata", action);
+end
+
+function cb_thru_std (obj, init = false)
+    fig = ancestor(obj,"figure","toplevel");
+    action = get(fig, "userdata");
+    action.thrustd = 2;
+    set(fig, "userdata", action);
+end
+
 fig = figure(1,"position",get(0,"screensize"));
 set (gcf, "color", get(0, "defaultuicontrolbackgroundcolor"));
 
@@ -269,7 +306,7 @@ posh = 0.85;
 posv = 0.95;
 uicontrol ("style", "text",
            "units", "normalized",
-           "string", "Calibrate",
+           "string", "Calibration",
            "horizontalalignment", "left",
            "position", [posh posv 0.12 0.04]); posv -= 0.05;
 
@@ -297,36 +334,37 @@ uicontrol ("style", "pushbutton",
            "units", "normalized",
            "callback", @cb_thru_cal,
            "string", "THRU",
-           "position", [0.85 posv 0.07 0.04]); posv -= 0.05;
+           "position", [posh posv 0.07 0.04]); posv -= 0.05;
+
+posh = 0.93;
+posv = 0.9;
+uicontrol ("style", "pushbutton",
+           "units", "normalized",
+           "callback", @cb_open_std,
+           "string", "std",
+           "position", [posh posv 0.04 0.04]); posv -= 0.05;
+uicontrol ("style", "pushbutton",
+           "units", "normalized",
+           "callback", @cb_short_std,
+           "string", "std",
+           "position", [posh posv 0.04 0.04]); posv -= 0.05;
+uicontrol ("style", "pushbutton",
+           "units", "normalized",
+           "callback", @cb_load_std,
+           "string", "std",
+           "position", [posh posv 0.04 0.04]); posv -= 0.05;
 posv -= 0.05;
 uicontrol ("style", "pushbutton",
            "units", "normalized",
-           "callback", @cb_save_touchstone,
-           "string", "Export .s2p",
-           "position", [posh posv 0.12 0.04]); posv -= 0.05;
+           "callback", @cb_thru_std,
+           "string", "std",
+           "position", [posh posv 0.04 0.04]); posv -= 0.05;
+
+
+%% ================================================================
 
 posh = 0.7;
 posv = 0.95;
-uicontrol ("style", "text",
-           "units", "normalized",
-           "string", "Set",
-           "horizontalalignment", "left",
-           "position", [posh posv 0.12 0.04]); posv -= 0.05;
-uicontrol ("style", "pushbutton",
-           "units", "normalized",
-           "callback", @cb_freqchange,
-           "string", "Freqency",
-           "position", [posh posv 0.12 0.04]); posv -= 0.05;
-uicontrol ("style", "pushbutton",
-           "units", "normalized",
-           "callback", @cb_powerchange,
-           "string", "RF Level",
-           "position", [posh posv 0.12 0.04]); posv -= 0.05;
-uicontrol ("style", "pushbutton",
-           "units", "normalized",
-           "callback", @cb_markerchange,
-           "string", "Marker",
-           "position", [posh posv 0.12 0.04]); posv -= 0.05;
 
 uicontrol ("style", "text",
            "units", "normalized",
@@ -345,10 +383,40 @@ uicontrol ("style", "pushbutton",
            "string", "Save",
            "position", [posh posv 0.12 0.04]); posv -= 0.05;
 
+uicontrol ("style", "text",
+           "units", "normalized",
+           "string", "RF Settings",
+           "horizontalalignment", "left",
+           "position", [posh posv 0.12 0.04]); posv -= 0.05;
+uicontrol ("style", "pushbutton",
+           "units", "normalized",
+           "callback", @cb_freqchange,
+           "string", "Freqency",
+           "position", [posh posv 0.12 0.04]); posv -= 0.05;
+uicontrol ("style", "pushbutton",
+           "units", "normalized",
+           "callback", @cb_powerchange,
+           "string", "RF Level",
+           "position", [posh posv 0.12 0.04]); posv -= 0.05;
+
+uicontrol ("style", "text",
+           "units", "normalized",
+           "string", "Trace",
+           "horizontalalignment", "left",
+           "position", [posh posv 0.12 0.04]); posv -= 0.05;
+uicontrol ("style", "pushbutton",
+           "units", "normalized",
+           "callback", @cb_markerchange,
+           "string", "Marker",
+           "position", [posh posv 0.12 0.04]); posv -= 0.05;
+uicontrol ("style", "pushbutton",
+           "units", "normalized",
+           "callback", @cb_save_touchstone,
+           "string", "Export .s2p",
+           "position", [posh posv 0.12 0.04]); posv -= 0.05;
 
 
-
-posv = 0.4;
+posv = 0.20;
 conftext = uicontrol ("style", "text",
                       "units", "normalized",
                       "string", "Config:",
@@ -388,12 +456,14 @@ while true
     action.powerchange = 0;
     action.freqchange = 0;
     action.markerchange = 0;
+    action.openstd = 0;
+    action.shortstd = 0;
+    action.loadstd = 0;
+    action.thrustd = 0;
 
     set(fig, "userdata", action);
     set(msgbox, "string", action.msg);
-    set(conftext, "string", sprintf("Start: %i kHz\nStop: %i kHz\nStep: %i kHz\nPoints :%i\nLevel: %i dBm\nMarker: %i kHz\nCal: %s\n",
-                                    config.startkhz, config.stopkhz, config.step_khz, length(sweep),
-                                    config.level, sweep(config.mkr), config.calstate));
+    set(conftext, "string", infotext_set (config, sweep));
 
     %tic()
     s_11 = sweep_freq_meas_refl (sp, sweep);
@@ -437,7 +507,9 @@ while true
             action.msg = [filename " saved"];
         end
     elseif (action.freqchange > 0)
-        ans = inputdlg({'Start (kHz)', 'Stop (kHz)', 'Step (kHz)'}, 'Frequency', 1, {config.startkhz, config.stopkhz, config.step_khz});
+        ans = inputdlg({'Start (kHz)', 'Stop (kHz)', 'Step (kHz)'},
+                       'Frequency', 1,
+                       {config.startkhz, config.stopkhz, config.step_khz});
         if (!isempty(ans))
             startkhz = str2num(ans{1});
             config.startkhz = startkhz;
@@ -451,7 +523,8 @@ while true
             action.msg = sprintf("Cal reset");
         end
     elseif (action.powerchange > 0)
-        ans = inputdlg({"Enter RF level (-30 dBm - 0 dBm)"}, "RF level", 1, {config.level});
+        ans = inputdlg({"Enter RF level (-30 dBm - 0 dBm)"},
+                       "RF level", 1, {config.level});
         if (!isempty(ans))
             lev = str2num(ans{1});
             config.level = lev;
@@ -459,7 +532,8 @@ while true
             action.msg = sprintf("Level: %i dBm", config.level);
         end
     elseif (action.markerchange > 0)
-        ans = inputdlg({"Enter new marker (kHz)"} , "Marker", 1, {sweep(config.mkr)});
+        ans = inputdlg({"Enter new marker (kHz)"} , "Marker", 1,
+                       {sweep(config.mkr)});
         if (!isempty(ans))
             khz = str2num(ans{1});
             if ((khz < sweep(1)) || (khz > sweep(length(sweep))))
@@ -503,37 +577,40 @@ while true
             powerlevelchange(sp, config.level);
             action.msg = "config recalled";
         end
+    elseif (action.openstd > 0)
+        ans = inputdlg({'Offset delay (s)', 'Offset loss (Ω/s)', 'Offset Z0 (Ω)', 'C0 (F)', 'C1 (F)', 'C2 (F)', 'C3 (F)'},
+                       'Open', 1,
+                       {config.calkit.open(1), config.calkit.open(2), config.calkit.open(3), config.calkit.open(4), config.calkit.open(5), config.calkit.open(6), config.calkit.open(7)});
+        if (!isempty(ans))
+            config.calkit.open = [str2num(ans{1}), str2num(ans{2}), str2num(ans{3}), str2num(ans{4}), str2num(ans{5}), str2num(ans{6}), str2num(ans{7})];
+            [sweep, correction] = recalc_vna (config, Z0);
+        end
+    elseif (action.shortstd > 0)
+        ans = inputdlg({'Offset delay (s)', 'Offset loss (Ω/s)', 'Offset Z0 (Ω)', 'L0 (H)', 'L1 (H)', 'L2 (H)', 'L3 (H)'},
+                       'Short', 1,
+                       {config.calkit.short(1), config.calkit.short(2), config.calkit.short(3), config.calkit.short(4), config.calkit.short(5), config.calkit.short(6), config.calkit.short(7)});
+        if (!isempty(ans))
+            config.calkit.short = [str2num(ans{1}), str2num(ans{2}), str2num(ans{3}), str2num(ans{4}), str2num(ans{5}), str2num(ans{6}), str2num(ans{7})];
+            [sweep, correction] = recalc_vna (config, Z0);
+        end
+    elseif (action.loadstd > 0)
+        ans = inputdlg({'Offset delay (s)', 'Offset loss (Ω/s)', 'Offset Z0 (Ω)', 'R (Ω)'},
+                       'Load', 1,
+                       {config.calkit.load(1), config.calkit.load(2), config.calkit.load(3), config.calkit.load(4)});
+        if (!isempty(ans))
+            config.calkit.load = [str2num(ans{1}), str2num(ans{2}), str2num(ans{3}), str2num(ans{4})];
+            [sweep, correction] = recalc_vna (config, Z0);
+        end
+    elseif (action.thrustd > 0)
+        ans = inputdlg({'Offset delay (s)', 'Offset loss (Ω/s)', 'Offset Z0 (Ω)'},
+                       'Thru', 1,
+                       {config.calkit.thru(1), config.calkit.thru(2), config.calkit.thru(3)});
+        if (!isempty(ans))
+            config.calkit.thru = [str2num(ans{1}), str2num(ans{2}), str2num(ans{3})];
+            [sweep, correction] = recalc_vna (config, Z0);
+        end
     end
 
-end
-
-
-
-for i = 1:length(sweep)
-    g_open = [g_open keysight_cal_open(Z0,
-                                       (sweep(i)*1000),
-                                       35.73e-12,
-                                       2.87e9,
-                                       50,
-                                       -4.87e-15,
-                                       -1140.3e-27,
-                                       2176.5e-36,
-                                       -213.5e-45)];
-    g_short = [g_short keysight_cal_short(Z0,
-                                       (sweep(i)*1000),
-                                       31.6e-12,
-                                       3.4e9,
-                                       51.9,
-                                       1e-42,
-                                       0,              
-                                       0,
-                                       0)];
-    g_load = [g_load keysight_cal_load(Z0,
-                                       (sweep(i)*1000),
-                                       76.6e-12,
-                                       0,
-                                       50,
-                                       50.95)];
 end
 
 
