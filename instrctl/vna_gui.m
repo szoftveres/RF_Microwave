@@ -172,7 +172,7 @@ end
 
 % =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =
 
-%serialportlist("available")
+serialports = serialportlist("available");
 
 sp = serialport("/dev/ttyUSB0", 38400);
 set(sp, 'timeout', 1);
@@ -299,6 +299,13 @@ function cb_thru_std (obj, init = false)
     set(fig, "userdata", action);
 end
 
+function cb_runstop (obj, init = false)
+    fig = ancestor(obj,"figure","toplevel");
+    action = get(fig, "userdata");
+    action.runstop = 2;
+    set(fig, "userdata", action);
+end
+
 fig = figure(1,"position",get(0,"screensize"));
 set (gcf, "color", get(0, "defaultuicontrolbackgroundcolor"));
 
@@ -335,6 +342,18 @@ uicontrol ("style", "pushbutton",
            "callback", @cb_thru_cal,
            "string", "THRU",
            "position", [posh posv 0.07 0.04]); posv -= 0.05;
+
+posv -= 0.05;
+runstopbutton = uicontrol ("style", "pushbutton",
+                           "units", "normalized",
+                           "callback", @cb_runstop,
+                           "string", "Start",
+                           "position", [posh posv 0.12 0.04]); posv -= 0.05;
+portselector = uicontrol ("style", "popupmenu",
+                          "units", "normalized",
+                          "string", serialports,
+                          "position", [posh posv 0.12 0.04]); posv -= 0.05;
+
 
 posh = 0.93;
 posv = 0.9;
@@ -396,7 +415,7 @@ uicontrol ("style", "pushbutton",
 uicontrol ("style", "pushbutton",
            "units", "normalized",
            "callback", @cb_powerchange,
-           "string", "RF Level",
+           "string", "Level",
            "position", [posh posv 0.12 0.04]); posv -= 0.05;
 
 uicontrol ("style", "text",
@@ -442,6 +461,7 @@ msgbox = uicontrol ("style", "text",
 
 set(fig, "userdata", config);
 action.msg = "";
+action.running = 0;
 
 while true
 
@@ -460,6 +480,7 @@ while true
     action.shortstd = 0;
     action.loadstd = 0;
     action.thrustd = 0;
+    action.runstop = 0;
 
     set(fig, "userdata", action);
     set(msgbox, "string", action.msg);
@@ -608,6 +629,14 @@ while true
         if (!isempty(ans))
             config.calkit.thru = [str2num(ans{1}), str2num(ans{2}), str2num(ans{3})];
             [sweep, correction] = recalc_vna (config, Z0);
+        end
+    elseif (action.runstop > 0)
+        if running
+            running = 0;
+            runstopbutton.string = "Start";
+        else
+            running = 1;
+            runstopbutton.string = "Stop";
         end
     end
 
