@@ -1,10 +1,10 @@
-# Two-port frequency-domain RF network solver toolkit
+# Two-port RF network frequency-domain solver toolkit
 
 ## Example
 
-Simple resonant LC tank simulation
+#### Simple resonant LC tank 
 
-Simulated network schematic diagram:
+Schematic diagram:
 
 ![tank](tank.png)
 
