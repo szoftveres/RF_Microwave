@@ -12,11 +12,7 @@ Simulated network:
 
 ![tdrschem](tdrschem.jpg)
 
-Time-domain reflection plot:
+Simulated time-domain reflection plots:
 
-![tdrplot1](refl.png)
-
-Time-domain impedance plot:
-
-![tdrplot3](imp.png)
+![sim](sim.png)
 

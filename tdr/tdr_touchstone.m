@@ -18,16 +18,22 @@ for fp = 1:points
     S11complexplot = [S11complexplot; S11];
 end
 for fp = 1:points
-    S11complexplot = [S11complexplot; 0];
+    negf = S11complexplot(points+1-fp+1);
+    S11complexplot = [S11complexplot; conj(negf)];
 end
+
+timestep = 1 / (sweeppoints(points) * 2);
+maxtime = points * timestep;
+timepoints = 0:timestep:maxtime;
+timepoints = timepoints(1:points/plot_factor);
 
 ifftplot = ifft(S11complexplot);
 
 figure;
 subplot (2,1,1);
-plot(sweeppoints(1:(points/plot_factor)), ifftplot(1:(points/plot_factor)), "LineWidth", 2);
-xlabel("time");
-ylabel("reflection");
+plot(timepoints, ifftplot(1:(points/plot_factor)), "LineWidth", 2);
+xlabel("time (s)");
+ylabel("Reflection");
 
 ifftplot2 = [];
 for fp = 1:(points/plot_factor)
@@ -41,11 +47,11 @@ for fp = 2:(points/plot_factor)
 end
 
 subplot (2,1,2);
-plot(sweeppoints(1:(points/plot_factor)), stepplot2(1:(points/plot_factor)), "LineWidth", 2);
-xlabel("Time");
+plot(timepoints, stepplot2(1:(points/plot_factor)), "LineWidth", 2);
+xlabel("time (s)");
 ylabel("Impedance (Ω)");
 
-axis([1 sweeppoints(floor(points/plot_factor)) 30 55]);
+axis([0 timepoints(length(timepoints)) 25 55]);
 pause();
 
 

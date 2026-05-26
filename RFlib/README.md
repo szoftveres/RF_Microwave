@@ -3,6 +3,12 @@
 
 #### Simple resonant parallel RC tank simulation example
 
+Simulated network schematic diagram:
+
+![tank](tank.png)
+
+Simulation code:
+
 ```
 % Path to the framework functions
 addpath("../RFlib")
@@ -35,7 +41,8 @@ end
 % Plotting the result
 plot2ports(ts, 51);
 ```
-The result:
+
+Result:
 
 ![example](example.png)
 
