@@ -1,10 +1,10 @@
-## Retro-style LNA for 440 MHz
+## Retro germanium transistor UHF antenna amplifier
 
 ![pic1](pic1.jpg)
 
 The ГТ346A germanium PNP RF mesa transistor (Soviet equivalent of the Siemens AF239) was specificly developed for use in UHF TV tuners.
 
-LNA of this style would be used as the first stage in 1960's European-style solid-state UHF TV tuners, and with its ~10 dB of gain it can decimate the noise contribution of a successive mixer stage (NF of early discrete mixers could be as high as 14 dB), while of course adding its own noise. According to the datasheet, at 800 MHz (which is the top of the UHF band) the NF of this transistor is 7 dB at most, gradually improving towards the lower end of the band to as low as 4 dB at around 400 MHz.
+LNA of this style would be used as the first stage in 1960's European solid-state UHF TV tuners, and with its ~10 dB of gain it can decimate the noise contribution of a successive mixer stage (NF of early discrete mixers could be as high as 14 dB), while of course adding its own noise. According to the datasheet, at 800 MHz (which is the top of the UHF band) the NF of this transistor is 7 dB at most, gradually improving towards the lower end of the band to as low as 4 dB at around 400 MHz.
 
 Germanium has an inherent speed advantage over silicon due to its higher charge carrier mobility, which made germanium the preferred choice for building RF transistors until more advanced silicon processes and devices (e.g. dual-gate MOSFET) eventually arrived.
 

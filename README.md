@@ -1,9 +1,9 @@
 ## RF Amplifiers
 
-* [Cascode BJT 915 MHz LNA](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/cascode)
-* [Single BJT 915 MHz LNA](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/single_bjt)
-* [GaAs MESFET 440 MHz antenna amplifier](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/gaas_mesfet)
-* [Retro-style germanium transistor LNA](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/gt346)
+* [Cascode BJT 915 MHz LNA and balanced amplifiers](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/cascode)
+* [Experimental 915 MHz BJT LNA with stub match](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/single_bjt)
+* [GaAs MESFET 440 MHz low noise antenna amplifier](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/gaas_mesfet)
+* [Retro germanium transistor UHF antenna amplifier](https://github.com/szoftveres/RF_microwave/tree/main/Amplifier/gt346)
 
 ## EM / Antenna
 
