@@ -26,7 +26,7 @@ Tight-coupling a resonant element (with close or identical resonant frequency) t
 
 Since there are now two independent patch elements, each of them could operate in different modes (e.g. completely in- or out-of-phase), which could potentially intruduce unwanted sidelobes, so the behaviour of the electric fields as well as the radiation pattern needs to be watched closely.
 
-![design](efield_y.gif)
+![design](efield_y.gif)  ![design](efield_x.gif)
 
 ![design](pattern_azim.png) ![design](pattern_elev.png)
 
