@@ -1,4 +1,4 @@
-# 5.8 GHz ISM band aperture-coupled microstrip patch antennas
+# Aperture Coupled Microstrip Patch Antennas for the 5.8 GHz ISM Band
 
 Designed around OSHpark's 4-layer service.
 
