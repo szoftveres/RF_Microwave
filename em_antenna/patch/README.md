@@ -34,9 +34,7 @@ The OpenEMS FEM simulation shows a well behaving antenna so far with no issues.
 
 The actual manufactured antenna is made of two pieces (the active and the passive parts), bolted together using M3 nylon bolts. The radiation pattern was measured in a simple room setup using two identical antennas, one as Tx and one as Rx (the wavelength at 5.8 GHz is short enough so that just a short distance between the two antennas satisfies far-field measurement requirements while being able to keep reflective materials at sufficient distance)
 
-![design](meas_setup_tx.jpg)
-
-![design](meas_setup_rx.jpg)
+![design](meas_setup_tx.jpg)  ![design](meas_setup_rx.jpg)
 
 The transmitter is my [DIY 6 GHz signal generator](https://github.com/szoftveres/RF_instruments/tree/main/siggen), the receiver is a cheap TinySA Ultra. Results were plotted on a chart and reveal great similarity to the simulated results:
 
