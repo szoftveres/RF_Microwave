@@ -18,7 +18,7 @@ An example was built and measured (with my [DIY VNA](https://github.com/szoftver
 
 ![design](simplepatch_s11_meas.png)
 
-The result is narrow-band performance as well as complete uselessness, due to a slight (~1.7%) shift in center frequency, moving the antenna completely out of band. The frequency shift was mostly due to my mistake (forgot to remove a 0.1 mm copper rim around the patches in KiCad). Nevertheless, the design clearly demonstrates its weak point, which is very narrow band and tight tolerances.
+The result is narrow-band performance as well as complete uselessness, due to a slight (~1.7%) shift in center frequency, moving the antenna completely out of band. The frequency shift was mostly due to my mistake (forgot to remove a 0.1 mm copper rim around the patch in KiCad). Nevertheless, the design clearly demonstrates its weak point, which is very narrow band and tight tolerance.
 
 Tight-coupling a resonant element (with close or identical resonant frequency) to a patch antenna can broaden its bandwidth; in this case a PCB with a patch of identical dimensions on it was suspended above the existing antenna. After re-tuning and optimizing the coupling aperture (due to changing impedance conditions), an antenna with more broadband performance emerged:
 
