@@ -28,7 +28,7 @@ Since there are now two independent patch elements, each of them could operate i
 
 ![design](efield_y.gif)
 
-![design](pattern_azim.gif)
+![design](pattern_azim.png) ![design](pattern_elev.png)
 
 The OpenEMS FEM simulation shows a well behaving antenna so far with no issues.
 
