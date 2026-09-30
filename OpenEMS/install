@@ -1,0 +1,13 @@
+
+build-essential cmake git libhdf5-dev libvtk9-dev qtbase5-dev libvtk9-qt-dev qt6-5compat-dev
+octave liboctave-dev
+libtinyxml2-dev libtinyxml-dev
+libcgal-dev
+libopenmpi-dev
+
+
+as $USER:
+============
+git clone --recursive https://github.com/thliebig/openEMS-Project.git
+cd openEMS-Project
+./update_openEMS.sh /home/mk/tmp/RF_Microwave/OpenEMS/openems

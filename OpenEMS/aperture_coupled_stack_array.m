@@ -119,7 +119,7 @@ CSX = AddBox( CSX, 'substrate', 10, start, stop );
 
 % ============== Slot ======================
 
-slot_length = 8;              % X
+slot_length = 9;              % X
 slot_width = 0.55;  % Y
 
 CSX = AddMetal( CSX, 'copper' ); % create a perfect electric conductor (PEC)
@@ -177,7 +177,7 @@ for element = [1 2 3 4]
     % ============== Feedline ======================
 
     feedline_width = 0.381;         % X
-    feedline_stub_length = 7.8;       % Y
+    feedline_stub_length = 6.5;       % Y
 
     start = [-(feedline_width/2 + x_separation) (-feedline_stub_length + y_separation) -substrate.thickness_2+_z_offset_];
     stop = start + [feedline_width feedline_stub_length*2 0];
@@ -234,7 +234,7 @@ slot_mesh = DetectEdges(CSX, [], 'SetProperty','copper');  % copper previously
 %% finalize the mesh
 % generate a smooth mesh with max. cell size: lambda_min / 40
 mesh = DetectEdges(CSX, mesh);
-mesh = SmoothMesh(mesh, c0 / (f0+fc) / unit / 90);
+mesh = SmoothMesh(mesh, c0 / (f0+fc) / unit / 100);
 CSX = DefineRectGrid(CSX, unit, mesh);
 
 %% add a nf2ff calc box; size is 3 cells away from MUR boundary condition
