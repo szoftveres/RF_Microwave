@@ -9,6 +9,7 @@
 
 * [915MHz Dipole with Gamma-match](https://github.com/szoftveres/RF_microwave/tree/main/em_antenna/dipole_915_gamma)
 * [Microstrip to waveguide adapter](https://github.com/szoftveres/RF_microwave/tree/main/em_antenna/wg_adapter)
+* [81-86 GHz pillbox vacuum window, WR12 waveguide](https://github.com/szoftveres/RF_microwave/tree/main/OpenEMS/waveguide)
 
 ## Microstrip
 
