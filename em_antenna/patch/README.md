@@ -1,6 +1,6 @@
-# High Performance Microstrip Patch Antennas for 5.8 GHz
+# High Performance Microstrip Patch Antenna for 5.8 GHz
 
-Designed around OSHpark's 4-layer service.
+Designed around OSHpark's readily available and inexpensive 4-layer service.
 
 ## Basic Patch Antenna
 
@@ -62,11 +62,7 @@ The transmitter is my [DIY 6 GHz signal generator](https://github.com/szoftveres
 
 ## Beamforming Array
 
-A 2x2 beamforming array is technically just four identical antenna elements, placed at a given distance from each other, and fed in phase, to produce a narrow beam, and increase the gain due to the increased effective antenna aperture.
-
-First, a 5.8 GHz microstrip combiner was designed for the 4-layer OSHpark PCB specs and simulated. Since the combiner is feeding identical antenna elements with identical signal, differential-mode termination can be ignored, allowing a simple λ/4 impedance transformer to be used instead of a more complex [Wilkinson-combiner](https://en.wikipedia.org/wiki/Wilkinson_power_divider).
-
-The result of the design is broadband enough, allowing manufacturing tolerances:
+First, a 5.8 GHz microstrip combiner was designed for the 4-layer OSHpark PCB specs and simulated. Since the combiner is feeding identical antenna elements with identical signal, differential-mode termination can be ignored, allowing a simple λ/4 impedance transformer to be used instead of a more complex [Wilkinson-combiner](https://en.wikipedia.org/wiki/Wilkinson_power_divider). The result of the design is broadband enough, allowing plenty of manufacturing tolerances:
 
 [uSimmics](https://qucsstudio.de/) design:
 
@@ -74,19 +70,19 @@ The result of the design is broadband enough, allowing manufacturing tolerances:
 
 [OpenEMS](https://www.openems.de/) simulation:
 
-![combiner_sparam](combiner_sparam.png)
+![combiner_sparam](combiner_sparam.png) ![combiner_sim](combiner_sim.png)
 
-![combiner_sim](combiner_sim.png)
+A 2x2 beamforming array is technically just four identical antenna elements, placed at identical distance (λ/2) from each other, and fed in phase, to produce a narrow beam, and to increase the gain, due to the increased effective antenna aperture.
 
-To get a clean 60° beam without sidelobes, the antenna elements must be placed λ/2 from each other. This close proximity however creates cross-coupling between the elements, meaning that the feedpoint impedance is not the same as of a single element any more (each element is picking up a signal from the adjacent element that is 180° out of phase).
+To get an ideal 60° beam without sidelobes, the antenna elements must be placed λ/2 from each other. This close proximity however creates cross-coupling between the elements, meaning that the feedpoint impedance is not the same as of a single element any more (each element is picking up a 180° out of phase signal from the adjacent element).
 
-The gain can be slightly increased and the beam can be slightly narrowed by increasing the distance between the elements, to about 3/4λ, at the expense of sidelobes appearing at 45°. Once the distance between the elements reaches 1 λ, the sidelobes grow just as big as the main lobe.
+The gain can be slightly increased and the beam can be slightly narrowed by increasing the distance between the elements, to about 3/4λ, at the expense of sidelobes appearing at 45°. Once the distance between the elements reaches 1 λ, the sidelobes grow to just as big in size as the main lobe.
 
-In this design, the elements are placed approximately 3/4λ (34mm) from each other.
+In this design, the elements are placed approximately 3/4λ (34mm) from each other, mainly to minimize the cross-coupling between elements.
 
 ![array_csxcad](array_csxcad.png)
 
-Since the coupling aperture size allows adjustability of the feedpoint impedance of the individual elements, the strategy to deal with the inter-coupling between elements (and consequent impedance shift) was to adjust the aperture size until the array feedpoint impedance became 50Ω.
+Several methods (EBG/FSS, shielding, etc..) can be utilized to reduce the effects of cross-coupling. However, in this design, the antennas are always fed in-phase, therefore only the change in feedpoint impedance was considered. The strategy to deal with this impedance shift was to adjust the aperture size until the array feedpoint impedance became 50Ω.
 
 ![array_s11](array_s11.png)
 
