@@ -88,6 +88,10 @@ Several methods (EBG/FSS, shielding, etc..) can be utilized to reduce the effect
 
 ![array_xz](array_xz.png)  ![array_yz](array_yz.png)
 
+Built example, with corporate-feed:
+
+![array_front](array_front.jpg)  ![array_back](array_back.jpg)
+
 [VNA](https://github.com/szoftveres/RF_instruments/tree/main/vna) measurement:
 
 ![array_s11](array_s11.png)
