@@ -22,8 +22,6 @@ The result is narrow-band performance as well as complete uselessness, due to a 
 
 Tight-coupling a resonant element (with close or identical resonant frequency) to a patch antenna can broaden its bandwidth; in this case a PCB with a patch of identical dimensions on it was suspended above the existing antenna. After re-tuning and optimizing the coupling aperture (due to changing impedance conditions), an antenna with more broadband performance emerged:
 
-![stack_side](stack_side.jpg)
-
 ![design](stackedpatch_s11_sim.png)
 
 Since there are now two independent patch elements, each of them could operate in different modes (e.g. completely in- or out-of-phase), which could potentially introduce unwanted sidelobes, so the behaviour of the electric fields as well as the radiation pattern needs to be watched closely. The [OpenEMS](https://www.openems.de/) FEM simulation showed a well behaving antenna:
@@ -32,7 +30,19 @@ Since there are now two independent patch elements, each of them could operate i
 
 ![design](pattern_azim.png)  ![design](pattern_elev.png)
 
-The actual manufactured antenna is made of two pieces (the active and the passive parts), bolted together using M3 nylon bolts and spacers. The radiation pattern was measured in a simple room setup using two identical antennas, one as Tx and one as Rx (the wavelength at 5.8 GHz is short enough so that just a short distance between the two antennas satisfies far-field measurement conditions while being able to keep reflective materials at sufficient distance)
+The actual manufactured antenna is made of two pieces (the active and the passive parts), bolted together using M3 nylon bolts and spacers.
+
+![stack_side](stack_side.jpg)
+
+VNA measurement of the antenna confirms the expected greater bandwidth:
+
+![design](stackedpatch_s11_meas.png)
+
+With slight modifications to the aperture size in the simulation I was able to get pretty much the exact same S11 reults as measured above with the VNA; This helps with aligning the simulation better with the actual manufactured PCB performance:
+
+![design](stackedpatch_s11_sim2.png)
+
+The radiation pattern was measured in a simple room setup using two identical antennas, one as Tx and one as Rx (the wavelength at 5.8 GHz is short enough so that just a short distance between the two antennas satisfies far-field measurement conditions while being able to keep reflective materials at sufficient distance)
 
 ![design](meas_setup_tx.jpg)  ![design](meas_setup_rx.jpg)
 
@@ -40,13 +50,7 @@ The transmitter is my [DIY 6 GHz signal generator](https://github.com/szoftveres
 
 ![design](measured_pattern.png)
 
-VNA measurement of the antenna also confirms the expected greater bandwidth:
 
-![design](stackedpatch_s11_meas.png)
-
-With slight modifications to the aperture size in the simulation I was able to get pretty much the exact same S11 reults as measured above with the VNA; This helps with aligning the simulation better with the actual manufactured PCB performance:
-
-![design](stackedpatch_s11_sim2.png)
 
 ## Array
 
