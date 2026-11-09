@@ -1,6 +1,6 @@
 # High Performance Microstrip Patch Antenna for 5.8 GHz
 
-Designed around OSHpark's readily available and inexpensive 4-layer service.
+Designed to be easily manufacturable around OSHpark's readily available and inexpensive 4-layer service, and to cover the 5.8 GHz ISM band.
 
 ## Basic Patch Antenna
 
@@ -60,7 +60,7 @@ The transmitter is my [DIY 6 GHz signal generator](https://github.com/szoftveres
 
 ![design](measured_pattern.png)
 
-## Beamforming Array
+## 2x2 Beamforming Array
 
 First, a 5.8 GHz microstrip combiner was designed for the 4-layer OSHpark PCB specs and simulated. Since the combiner is feeding identical antenna elements with identical signal, differential-mode termination can be ignored, allowing a simple λ/4 impedance transformer to be used instead of a more complex [Wilkinson-combiner](https://en.wikipedia.org/wiki/Wilkinson_power_divider). The result of the design is broadband enough, allowing plenty of manufacturing tolerances:
 
@@ -82,7 +82,7 @@ In this design, the elements are placed approximately 3/4λ (34mm) from each oth
 
 ![array_csxcad](array_csxcad.png)
 
-Several methods (EBG/FSS, shielding, etc..) can be utilized to reduce the effects of cross-coupling. However, in this design, the antennas are always fed in-phase, therefore only the change in feedpoint impedance was considered. The strategy to deal with this impedance shift was to adjust the aperture size until the array feedpoint impedance became 50Ω.
+Several methods (EBG/FSS, shielding, etc..) can be utilized to reduce the effects of cross-coupling. However, in this design, the antennas are always fed in-phase, therefore only the change in feedpoint impedance was considered. The strategy to deal with this impedance shift was to adjust the coupling aperture size until the array feedpoint impedance became 50Ω.
 
 ![array_s11](array_s11.png)
 
