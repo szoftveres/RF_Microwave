@@ -16,11 +16,13 @@ The result (as expected from a regular, simple patch antenna) is very narrow-ban
 
 An example was built and measured (with my [DIY VNA](https://github.com/szoftveres/RF_instruments/tree/main/vna)):
 
-![design](simplepatch_s11_meas.png)
+![design](simplepatch_s11_meas.png)  ![single](singleantenna.jpg)
 
 The result is narrow-band performance as well as complete uselessness, due to a slight (~1.7%) shift in center frequency, moving the antenna completely out of band. The frequency shift was mostly due to my mistake (forgot to remove a 0.1 mm copper rim around the patch in KiCad). Nevertheless, the design clearly demonstrates its weak point, which is very narrow band and tight tolerance.
 
 Tight-coupling a resonant element (with close or identical resonant frequency) to a patch antenna can broaden its bandwidth; in this case a PCB with a patch of identical dimensions on it was suspended above the existing antenna. After re-tuning and optimizing the coupling aperture (due to changing impedance conditions), an antenna with more broadband performance emerged:
+
+![stack_side](stack_side.jpg)
 
 ![design](stackedpatch_s11_sim.png)
 
@@ -45,5 +47,10 @@ VNA measurement of the antenna also confirms the expected greater bandwidth:
 With slight modifications to the aperture size in the simulation I was able to get pretty much the exact same S11 reults as measured above with the VNA; This helps with aligning the simulation better with the actual manufactured PCB performance:
 
 ![design](stackedpatch_s11_sim2.png)
+
+## Array
+
+![array_s11](array_s11.png)
+
 
 
