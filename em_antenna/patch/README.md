@@ -22,7 +22,7 @@ The microstrip feed line crosses the aperture in the middle, and ends in a λ/4 
 
 The result (as expected from a regular, simple patch antenna) is very narrow-band performance, barely sufficient to cover the ~ 200 MHz bandwidth of the 5.8 GHz ISM band.
 
-An example was built and measured (with my [DIY VNA](https://github.com/szoftveres/RF_instruments/tree/main/vna)):
+An example was built and measured (with my DIY [VNA](https://github.com/szoftveres/RF_instruments/tree/main/vna)):
 
 ![design](simplepatch_s11_meas.png)  ![single](singleantenna.jpg)
 
@@ -34,7 +34,7 @@ Tight-coupling a resonant element (with close or identical resonant frequency) t
 
 ![design](stackedpatch_s11_sim.png)
 
-Since there are now two independent patch elements, each of them could operate in different modes (e.g. completely in- or out-of-phase), which could potentially introduce unwanted sidelobes, so the behaviour of the electric fields as well as the radiation pattern needs to be watched closely. The [OpenEMS](https://www.openems.de/) FEM simulation showed a well behaving antenna:
+Since there are now two independent patch elements, each of them could theoretically operate in different modes (e.g. completely in- or out-of-phase), which could potentially introduce unwanted sidelobes, so the behaviour of the electric fields as well as the radiation pattern need to be checked. The [OpenEMS](https://www.openems.de/) FEM simulation showed a well behaving antenna:
 
 ![design](efield_x.gif)  ![design](efield_y.gif)
 
@@ -44,7 +44,7 @@ The actual manufactured antenna is made of two pieces (the active and the passiv
 
 ![stack_side](stack_side.jpg)
 
-VNA measurement of the antenna confirms the expected broader bandwidth:
+[VNA](https://github.com/szoftveres/RF_instruments/tree/main/vna) measurement of the antenna confirms the expected broader bandwidth:
 
 ![design](stackedpatch_s11_meas.png)
 
@@ -82,7 +82,15 @@ In this design, the elements are placed approximately 3/4λ (34mm) from each oth
 
 ![array_csxcad](array_csxcad.png)
 
-Several methods (EBG/FSS, shielding, etc..) can be utilized to reduce the effects of cross-coupling. However, in this design, the antennas are always fed in-phase, therefore only the change in feedpoint impedance was considered. The strategy to deal with this impedance shift was to adjust the coupling aperture size until the array feedpoint impedance became 50Ω.
+Several methods (EBG/FSS, shielding, etc..) can be utilized to reduce the effects of cross-coupling. However, in this design, the antennas are always fed in-phase, therefore only the change in feedpoint impedance was considered. The strategy to deal with this impedance shift was to adjust the coupling aperture size of the elements until the array feedpoint impedance became 50Ω.
+
+[OpenEMS](https://www.openems.de/) simulation of the radiation pattern, showing quite narrow beam:
+
+![array_xz](array_xz.png)
+
+![array_yz](array_yz.png)
+
+[VNA](https://github.com/szoftveres/RF_instruments/tree/main/vna) measurement:
 
 ![array_s11](array_s11.png)
 
