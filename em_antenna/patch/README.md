@@ -30,11 +30,11 @@ The result is narrow-band performance as well as complete uselessness, due to a 
 
 ## Stacking
 
-Tight-coupling a resonant element (with close or identical resonant frequency) to a patch antenna can broaden its bandwidth; in this case a PCB with a patch of identical dimensions on it was suspended above the existing antenna. After re-tuning and optimizing the coupling aperture (due to changing impedance conditions), an antenna with more broadband performance emerged:
+Tight-coupling a resonant element (with close or identical resonant frequency) to a patch antenna can broaden its bandwidth; in this case a PCB with a patch of identical to the active element on it was suspended above the existing antenna. After re-tuning and optimizing the coupling aperture (due to changing impedance conditions), an antenna with more broadband performance emerged:
 
 ![design](stackedpatch_s11_sim.png)
 
-Since there are now two independent patch elements, each of them could theoretically operate in different modes (e.g. completely in- or out-of-phase), which could potentially introduce unwanted sidelobes, so the behaviour of the electric fields as well as the radiation pattern need to be checked. The [OpenEMS](https://www.openems.de/) FEM simulation showed a well behaving antenna:
+Since there are now two independent patch elements, each of them could theoretically operate in different modes (e.g. completely in- or out-of-phase), which could potentially introduce unwanted sidelobes, so the behaviour of the electric fields as well as the radiation pattern need to be checked. The [OpenEMS](https://www.openems.de/) FEM simulation shows a well behaving antenna:
 
 ![design](efield_x.gif)  ![design](efield_y.gif)
 
@@ -48,7 +48,7 @@ The actual manufactured antenna is made of two pieces (the active and the passiv
 
 ![design](stackedpatch_s11_meas.png)
 
-With slight modifications to the aperture size in the simulation I was able to get pretty much the exact same S11 reults as measured above with the VNA; This helps with aligning the simulation better with the actual manufactured PCB performance:
+With slight modifications to the aperture size in the simulation I was able to get pretty much identical S11 results to the VNA measurement; This helps with aligning the simulation better with the actual manufactured PCB performance:
 
 ![design](stackedpatch_s11_sim2.png)
 
@@ -62,7 +62,7 @@ The transmitter is my [DIY 6 GHz signal generator](https://github.com/szoftveres
 
 ## 2x2 Beamforming Array
 
-First, a 5.8 GHz microstrip combiner was designed for the 4-layer OSHpark PCB specs and simulated. Since the combiner is feeding identical antenna elements with identical signal, differential-mode termination can be ignored, allowing a simple λ/4 impedance transformer to be used instead of a more complex [Wilkinson-combiner](https://en.wikipedia.org/wiki/Wilkinson_power_divider). The result of the design is broadband enough, allowing plenty of manufacturing tolerances:
+First, a 5.8 GHz microstrip combiner needs to be designed for the 4-layer OSHpark PCB specs, and simulated. Since the combiner is feeding identical antenna elements with identical signal, differential-mode termination can be ignored, allowing a simple λ/4 impedance transformer to be used instead of a more complex [Wilkinson-combiner](https://en.wikipedia.org/wiki/Wilkinson_power_divider). The result of the design is broadband enough, allowing plenty of manufacturing tolerances:
 
 [uSimmics](https://qucsstudio.de/) design:
 
@@ -72,23 +72,21 @@ First, a 5.8 GHz microstrip combiner was designed for the 4-layer OSHpark PCB sp
 
 ![combiner_sparam](combiner_sparam.png) ![combiner_sim](combiner_sim.png)
 
-A 2x2 beamforming array is technically just four identical antenna elements, placed at identical distance (λ/2) from each other, and fed in phase, to produce a narrow beam, and to increase the gain, due to the increased effective antenna aperture.
+A 2x2 beamforming array is technically just four identical antenna elements, placed at identical distance (ideally λ/2) from each other, and fed in phase. An array like this (and made of omnidirectional radiators) produces a 60° beam, and consequently has higher gain than just a single element. The gain can be further increased slightly (and the beam narrowed) by increasing the distance between the elements, to about 3/4λ, at the expense of sidelobes appearing. Once the distance between the elements reaches 1 λ, the sidelobes grow to just as big in size as the main lobe.
 
-To get an ideal 60° beam without sidelobes, the antenna elements must be placed λ/2 from each other. This close proximity however creates cross-coupling between the elements, meaning that the feedpoint impedance is not the same as of a single element any more (each element is picking up a 180° out of phase signal from the adjacent element).
+An adverse effect of close proximity between the individual elements is cross-coupling, which (among other things) results in a feedpoint impedance change (each element is picking up a 180° out of phase signal from the adjacent element).
 
-The gain can be slightly increased and the beam can be slightly narrowed by increasing the distance between the elements, to about 3/4λ, at the expense of sidelobes appearing at 45°. Once the distance between the elements reaches 1 λ, the sidelobes grow to just as big in size as the main lobe.
-
-In this design, the elements are placed approximately 3/4λ (34mm) from each other, mainly to minimize the cross-coupling between elements.
+In this design, the elements are placed approximately 3/4λ (34mm) from each other, mainly to minimize the cross-coupling between elements. Since the individual elements are already sufficiently directional, slidelobes (as opposed to an array with omnidirectional elements) are sufficiently suppressed.
 
 ![array_csxcad](array_csxcad.png)
 
-Several methods (EBG/FSS, shielding, etc..) can be utilized to reduce the effects of cross-coupling. However, in this design, the antennas are always fed in-phase, therefore only the change in feedpoint impedance was considered. The strategy to deal with this impedance shift was to adjust the coupling aperture size of the elements until the array feedpoint impedance became 50Ω.
+Several methods (EBG/FSS, shielding, etc..) can be utilized to reduce the effects of cross-coupling. However, in this design, the antennas are always fed in-phase, therefore only the change in feedpoint impedance is considered. The strategy to deal with this impedance shift is adjusting the coupling aperture size of the elements until the array feedpoint impedance becomes 50Ω.
 
-[OpenEMS](https://www.openems.de/) simulation of the radiation pattern, showing a much narrower beam compared to a single element, as well as the small sidelobes:
+[OpenEMS](https://www.openems.de/) simulation of the radiation pattern, showing a much narrower beam compared to a single element, as well as small sidelobes:
 
 ![array_xz](array_xz.png)  ![array_yz](array_yz.png)
 
-Built example, with corporate-feed:
+Built example, with combiners and corporate-feed network on the back side:
 
 ![array_front](array_front.jpg)  ![array_back](array_back.jpg)
 
