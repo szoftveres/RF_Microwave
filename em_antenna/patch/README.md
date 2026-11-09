@@ -8,7 +8,9 @@ Coupling is done to the antenna from the feed line microstrip via an aperture on
 
 The microstrip feed line crosses the aperture in the middle, and ends in a λ/4 open stub, with its low-impedance point being right over the aperture (any extra unwanted reactances can be tuned out by slightly changing the length of the stub in either way, as necessary).
 
-S11 of the simulated design (using [OpenEMS](https://www.openems.de/) FDTD FEM electromagnetic solver):
+[OpenEMS](https://www.openems.de/) simulation:
+
+![patch_csxcad](patch_csxcad.png)
 
 ![design](simplepatch_s11_sim.png)
 
