@@ -84,11 +84,9 @@ In this design, the elements are placed approximately 3/4λ (34mm) from each oth
 
 Several methods (EBG/FSS, shielding, etc..) can be utilized to reduce the effects of cross-coupling. However, in this design, the antennas are always fed in-phase, therefore only the change in feedpoint impedance was considered. The strategy to deal with this impedance shift was to adjust the coupling aperture size of the elements until the array feedpoint impedance became 50Ω.
 
-[OpenEMS](https://www.openems.de/) simulation of the radiation pattern, showing quite narrow beam:
+[OpenEMS](https://www.openems.de/) simulation of the radiation pattern, showing a much narrower beam compared to a single element, as well as the small sidelobes:
 
-![array_xz](array_xz.png)
-
-![array_yz](array_yz.png)
+![array_xz](array_xz.png)  ![array_yz](array_yz.png)
 
 [VNA](https://github.com/szoftveres/RF_instruments/tree/main/vna) measurement:
 
