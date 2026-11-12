@@ -76,7 +76,7 @@ A 2x2 beamforming array is technically just four identical antenna elements, pla
 
 An adverse effect of close proximity between the individual elements is cross-coupling, which (among other things) results in a feedpoint impedance change (each element is picking up a 180° out of phase signal from the adjacent element).
 
-In this design, the elements are placed approximately 3/4λ (34mm) from each other, mainly to minimize the cross-coupling between elements. Since the individual elements are already sufficiently directional, slidelobes (as opposed to an array with omnidirectional elements) are sufficiently suppressed.
+In this design, the elements are placed approximately 3/4λ (34mm) from each other, mainly to minimize the cross-coupling between elements. Since the individual elements are already sufficiently directional, slidelobes (as opposed to an array made of omnidirectional elements) are sufficiently suppressed.
 
 ![array_csxcad](array_csxcad.png)
 
@@ -94,5 +94,14 @@ Built example, with combiners and corporate-feed network on the back side:
 
 ![array_s11](array_s11.png)
 
+## Measuring The Gain
 
+In case of an omnidirectional, unity gain radiator, spherical expansion describes the free space RF radiation, as described [here](https://en.wikipedia.org/wiki/Free-space_path_loss). By increasing the gain (directivity, effective aperture, etc..) of either the transmitting- or the receiving antenna, the RF port power on the receiving antenna increases proportionally. If the distance between the antennas (sufficiently far enough to satisfy far-field conditions), the available Tx power and the gain of the transmitting (calibrated reference) antenna are known, the gain of the receiving antenna is equal to the difference of the received power vs. the available Tx power decreased by the free space path loss, calculated for a 0 dBi receiving antenna.
 
+![gain_setup](gain_setup.png)
+
+However, a calibrated reference antenna is not always available. In that case, accurate gain measurement still can be made, by using a pair of *identical* antennas. Since both the receiving- and the transmitting antennas increase the received power proportionally and equally, the gain of one antenna is simply half of the total gain of the pair, which can be easily deduced by using the above described measurement method and calculating the total gain for 0 dBi transmitter- and receiver antennas. The assumption is that the involved antennas are *practically identical* - this can be ensured by choosing a construction method that results in very tight tolerances. Also, comparative measurements (S11, pattern) between the two antennas can help verifying that they in fact behave identically. Using this method, even new reference antennas can be made and characterized.
+
+![gain_formula](gain_formula.png)  ![gain_pair](gain_pair.jpg)
+
+Measured gain of the 2x2 array, using two built examples and the above method, at 5.8 GHz, is +11 dBi.
