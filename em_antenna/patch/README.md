@@ -96,12 +96,16 @@ Built example, with combiners and corporate-feed network on the back side:
 
 ## Measuring The Gain
 
-In case of an omnidirectional, unity gain radiator, spherical expansion describes the free space RF radiation, as described [here](https://en.wikipedia.org/wiki/Free-space_path_loss). By increasing the gain (directivity, effective aperture, etc..) of either the transmitting- or the receiving antenna, the RF port power on the receiving antenna increases proportionally. If the distance between the antennas (sufficiently far enough to satisfy far-field conditions), the available Tx power and the gain of the transmitting (calibrated reference) antenna are known, the gain of the receiving antenna is equal to the difference of the received power vs. the available Tx power decreased by the free space path loss, calculated for a 0 dBi receiving antenna.
+In case of an omnidirectional, unity gain radiator, spherical expansion describes the free space RF radiation, as described [here](https://en.wikipedia.org/wiki/Free-space_path_loss). By increasing the gain (directivity, effective aperture, etc..) of either the transmitting- or the receiving antenna, the RF power on the receiving antenna port increases proportionally. Knowing the distance between the antennas (sufficiently far enough to satisfy far-field conditions), the available Tx power and the gain of the transmitting (calibrated reference) antenna, the gain of the receiving antenna can be determined by calculating the difference of the received power vs. the available Tx power decreased by the free space path loss, calculated for a 0 dBi receiving antenna.
 
 ![gain_setup](gain_setup.png)
 
 However, a calibrated reference antenna is not always available. In that case, accurate gain measurement still can be made, by using a pair of *identical* antennas. Since gain of both the receiving- and the transmitting antennas increase the received power proportionally and equally, the gain of one antenna is simply half of the total gain of the pair, which can be easily deduced by using the above described measurement method and calculating the total gain for 0 dBi transmitter- and receiver antennas. The assumption is that the involved antennas are *practically identical* - this can be ensured by choosing a construction method that results in very tight tolerances. Also, comparative measurements (S11, pattern) between the two antennas can help verifying that they in fact behave identically. Using this method, even new reference antennas can be made and characterized.
 
-![gain_formula](gain_formula.png)  ![gain_pair](gain_pair.jpg)
+![gain_formula](gain_formula.png)
 
-Measured gain of the 2x2 array, using two built examples and the above method, at 5.8 GHz, is +11 dBi.
+It should be noted that neither the RF source nor the power measurement tool (e.g. spectrum analyzer) need to be *level calibrated*, i.e. we can determine the antenna gain as long as we can measure the *difference* in power (expressed in dB) between the RF source output and the receiving antenna output port. This further relaxes instrumentation requirements.
+
+![gain_pair](gain_pair.jpg)
+
+Measured gain of the 2x2 array at 5.8 GHz, using two built examples and the above method, is **+10.6 dBi**.
