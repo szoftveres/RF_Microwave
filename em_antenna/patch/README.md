@@ -86,6 +86,8 @@ Several methods (EBG/FSS, shielding, etc..) can be utilized to reduce the effect
 
 ![array_xz](array_xz.png)  ![array_yz](array_yz.png)
 
+Simulated directivity is 14 dBi (gain is expected to be less due to dielectric losses).
+
 Built example, with combiners and corporate-feed network on the back side:
 
 ![array_front](array_front.jpg)  ![array_back](array_back.jpg)
@@ -94,17 +96,17 @@ Built example, with combiners and corporate-feed network on the back side:
 
 ![array_s11](array_s11.png)
 
-## Measuring The Gain
+## Measuring the Gain
 
-In case of an omnidirectional, unity gain radiator, spherical expansion describes the free space RF radiation, as described [here](https://en.wikipedia.org/wiki/Free-space_path_loss). By increasing the gain (directivity, effective aperture, etc..) of either the transmitting- or the receiving antenna, the RF power on the receiving antenna port increases proportionally. Knowing the distance between the antennas (sufficiently far enough to satisfy far-field conditions), the available Tx power and the gain of the transmitting (calibrated reference) antenna, the gain of the receiving antenna can be determined by calculating the difference of the received power vs. the available Tx power decreased by the free space path loss, calculated for a 0 dBi receiving antenna.
+In case of an isotropic, unity gain radiator, spherical expansion describes the free space RF radiation, as described [here](https://en.wikipedia.org/wiki/Free-space_path_loss). By increasing the gain of either the transmitting- or the receiving antenna (directivity, effective aperture, etc..), the RF power on the receiving antenna port increases proportionally. Knowing the distance between the antennas, the available Tx power and the gain of the transmitting (calibrated reference) antenna, the gain of the receiving antenna can be determined by calculating the difference of the received power vs. the available Tx power decreased by the free space path loss (satisfying far-field distance requirements), calculated for a 0 dBi receiving antenna.
 
 ![gain_setup](gain_setup.png)
 
-However, a calibrated reference antenna is not always available. In that case, accurate gain measurement still can be made, by using a pair of *identical* antennas. Since gain of both the receiving- and the transmitting antennas increase the received power proportionally and equally, the gain of one antenna is simply half of the total gain of the pair, which can be easily deduced by using the above described measurement method and calculating the total gain for 0 dBi transmitter- and receiver antennas. The assumption is that the involved antennas are *practically identical* - this can be ensured by choosing a construction method that results in very tight tolerances. Also, comparative measurements (S11, pattern) between the two antennas can help verifying that they in fact behave identically. Using this method, even new reference antennas can be made and characterized.
+However, a calibrated reference antenna isn't always available. In that case, accurate gain measurement still can be made, by using a pair of *identical* antennas. Since gain of both the receiving- and the transmitting antennas increase the received power equally, the gain of one antenna is simply half of the total gain that the pair achieved; the total gain can be easily deduced by using the above described measurement method and calculating the total gain for 0 dBi transmitter- and receiver antennas. The assumption is that both antennas are *practically identical* - this can be ensured by choosing a well controlled construction method. Also, comparative measurements (S11, pattern, etc..) between the two antennas can help verifying that they in fact behave identically. Using this method, even new reference antennas can be produced.
 
 ![gain_formula](gain_formula.png)
 
-It should be noted that neither the RF source nor the power measurement tool (e.g. spectrum analyzer) need to be *level calibrated*, i.e. we can determine the antenna gain as long as we can measure the *difference* in power (expressed in dB) between the RF source output and the receiving antenna output port. This further relaxes instrumentation requirements.
+It should be noted that neither the RF source, nor the power measurement tool (e.g. spectrum analyzer) need to be calibrated for *absolute level*, i.e. the antenna gain can be determined as long as the *difference* in power (expressed in dB) between the RF source output and the receiving antenna output port can be measured. This further relaxes the instrumentation requirements.
 
 ![gain_pair](gain_pair.jpg)
 
