@@ -78,11 +78,11 @@ A 5.8 GHz microstrip splitter/combiner also needs to be designed for the 4-layer
 
 ![combiner_usimmics](combiner_usimmics.png)
 
-[OpenEMS](https://www.openems.de/) simulation:
+[OpenEMS](https://www.openems.de/) simulation of the splitter/combiner:
 
 ![combiner_sparam](combiner_sparam.png) ![combiner_sim](combiner_sim.png)
 
-[OpenEMS](https://www.openems.de/) simulation of the radiation pattern, showing a much narrower beam compared to a single element, as well as small sidelobes:
+[OpenEMS](https://www.openems.de/) simulation of the 2x2 array radiation pattern, showing a much narrower beam compared to a single element, as well as small sidelobes:
 
 ![array_xz](array_xz.png)  ![array_yz](array_yz.png)
 
