@@ -1,6 +1,6 @@
 # High Performance Microstrip Patch Antenna for 5.8 GHz
 
-Designed to be easily manufacturable around OSHpark's readily available and inexpensive 4-layer service, and to cover the 5.8 GHz ISM band.
+Designed around OSHpark's 4-layer stackup, for the 5.8 GHz ISM band.
 
 ## Basic Patch Antenna
 
