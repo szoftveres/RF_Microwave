@@ -1,4 +1,4 @@
-# Time Domain Reflection (TDR) simulation from S-parameters
+# Time Domain Reflection (TDR) from S11
 
 It's known that time-domain fuctions can be transformed into frequency-domain *spectrum*, by applying Fourier-transform. Similarly, frequency-domain spectrum can be transformed back into a time-domain function, by inverse Fourier-transform.
 
