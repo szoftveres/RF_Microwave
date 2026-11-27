@@ -30,3 +30,8 @@
 * [Transfer (ABCD) matrix simulation of loosely coupled resonant tank band-pass filters](https://github.com/szoftveres/RF_Microwave/tree/main/MultiElementBandpassFilter)
 * [QAM with channel (white) noise and phase noise](https://github.com/szoftveres/RF_Microwave/tree/main/signal/qam)
 
+## Digital Signal Processing
+* [Convolutional encoder - Viterbi decoder](https://github.com/szoftveres/RF_Microwave/blob/main/signal/convolution_viterbi/codec.c)
+* [Integer DFT and IFT](https://github.com/szoftveres/RF_Microwave/blob/main/signal/dft/integer_dft.c)
+* [Barker-like code generator](https://github.com/szoftveres/RF_Microwave/tree/main/signal/barker_code)
+* [Huffman encoder](https://github.com/szoftveres/RF_Microwave/blob/main/signal/huffman_code/huffman_code.c)
