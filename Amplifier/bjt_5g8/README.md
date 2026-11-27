@@ -6,7 +6,7 @@
 
 ![schem](schem.png)
 
-The design was created around the BFP640ESD SiGe BJT transistor; this device has an ft of ~46 GHz, and consequently low noise figure at the intended 5.8 GHz ISM band. The 4-layer service from OSHpark was chosen as the target stackup. The small-signal S-parameters of the transistor are published by the manufacturer (up to 10 GHz), which enables optimizing the circuit within simulation environment, before building:
+The design was created around the BFP640ESD SiGe BJT transistor; this device has an ft of ~46 GHz, and consequently low noise figure at the intended 5.8 GHz ISM band. The 4-layer service from OSHpark was chosen as the target stackup. The small-signal S-parameters of the transistor are published by the manufacturer (up to 10 GHz), which enables optimizing the circuit within [simulation environment](https://qucsstudio.de/), before building:
 
 ![sim](sim.png)
 

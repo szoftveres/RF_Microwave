@@ -8,7 +8,7 @@ Cascode arrangement is quite forgiving to source- and load impedance changes (du
 
 The real part of the input impedance of BJTs is dependent on (and therefore can be predicted / varied by) the bias current, whereas (for comparison) the input impedance of FETs is largely reactive and (mostly) independent of the bias, which makes input matching more complicated.
 
-The initial design was simulated with QucsStudio - the output L-match is formed by L3 and L4 indutors, Ccb (output) capacitance of T6 transistor and MS31-MS32 electically short (capacitive) stub. R22 resistor degenerates the L-match, which is necessary for stabilizing the amplifier. Tuning of the output match is done by adjusting the length of the stub. Tuned for best NF:
+The initial design was simulated with [QucsStudio](https://qucsstudio.de/) - the output L-match is formed by L3 and L4 indutors, Ccb (output) capacitance of T6 transistor and MS31-MS32 electically short (capacitive) stub. R22 resistor degenerates the L-match, which is necessary for stabilizing the amplifier. Tuning of the output match is done by adjusting the length of the stub. Tuned for best NF:
 
 ![cascode_schem](cascode_schem.png)
 

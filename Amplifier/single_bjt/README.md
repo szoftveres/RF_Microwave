@@ -1,6 +1,6 @@
 ## Single BJT LNA for 915MHz with simultaneous conjugate stub matching
 
-This is a bilateral case, meaning that any change in the matching conditions on one port affects the other one, due to the transistor internal (Miller) capacitance. Therefore matching has to be carried out simultaneously on both ports. (Cascode circuits largely overcome this problem by superior isolation between the ports)
+This is a bilateral case, meaning that any change in the matching conditions on one port affects the other one, due to the transistor internal (Miller) capacitance. Therefore matching has to be carried out simultaneously on both ports (Cascode circuits largely overcome this problem by superior isolation between the ports).
 
 The transistor is biased to ~4.5mA (minimum noise figure, according to the datasheet) and the ports are matched with single parallel open stubs. Gain is on the order of ~10dB with good (but narrow-band) input match at 915MHz (ISM mid-band).
 
@@ -37,7 +37,7 @@ Measured:
 
 ![vna](vna.jpg)
 
-Simulated:
+[Simulated](https://qucsstudio.de/):
 
 ![expected](expected.png)
 
